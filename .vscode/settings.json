@@ -1,0 +1,3 @@
+{
+    "dotnet.defaultSolution": "services/CollegeApi.sln"
+}
