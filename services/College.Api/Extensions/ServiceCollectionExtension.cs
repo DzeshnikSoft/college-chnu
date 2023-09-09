@@ -20,6 +20,7 @@ public static class ServiceCollectionExtension
         // ****************************
         // MediatR
         // ****************************
-        services.AddMediatR(typeof(Program), typeof(GetPagesByCategoriesQuery));
+        services.AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssemblyContaining<GetPagesByCategoriesQuery>());
     }
 }

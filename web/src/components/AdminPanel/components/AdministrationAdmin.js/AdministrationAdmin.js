@@ -23,28 +23,33 @@ const AdministrationAdmin = () => {
         })
     }
   return (
-    <div className ="administration-admin">
-        <div className="controls-buttons">
-            <Button variant = 'contained' sx = {{margin : "0 auto"}}>Додати нову персону</Button>
-        </div>
-        <div className="container">
-            <div className="elements">
-            {arrays?.map((item)=>
-            <div className = "item">
-                <Divider/>
-                    <h1>{item.pib}</h1>
-                    <div className="buttons">
-                        <Button variant = "contained" color = "error" onClick = {()=>deletePerson(item.id)}>Видалити</Button>
-                        <Button variant = "contained" onClick = {()=>window.location = `/admin/editPerson/${item.id}`}>Редагувати</Button>
-                    </div>
-                <Divider/>
-            </div>    
-        )
-        }
-            </div>
-        </div>  
-    </div>
-  )
+      <div className='administration-admin'>
+          <div className='controls-buttons'>
+              <Button variant='contained' sx={{ margin: '0 auto' }}>
+                  Додати нову персону
+              </Button>
+          </div>
+          <div className='container'>
+              <div className='elements'>
+                  {arrays?.map((item) => (
+                      <div className='item'>
+                          <Divider />
+                          <h1>{item.pib}</h1>
+                          <div className='buttons'>
+                              <Button variant='contained' color='error' onClick={() => deletePerson(item.id)}>
+                                  Видалити
+                              </Button>
+                              <Button variant='contained' onClick={() => (window.location = `/admin/editPerson/${item.id}`)}>
+                                  Редагувати
+                              </Button>
+                          </div>
+                          <Divider />
+                      </div>
+                  ))}
+              </div>
+          </div>
+      </div>
+  );
 }
 
 export default AdministrationAdmin

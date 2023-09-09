@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College.API", "CollegeApi\College.API.csproj", "{7B22C720-5935-4590-86C2-06807FC68A70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College.API", "College.Api\College.API.csproj", "{7B22C720-5935-4590-86C2-06807FC68A70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College.Data", "College.Data\College.Data.csproj", "{60A5E513-BA66-4F95-86A4-B5C054BB5703}"
 EndProject
