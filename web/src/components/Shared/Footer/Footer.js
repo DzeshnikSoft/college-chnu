@@ -1,5 +1,4 @@
 import React from 'react'
-import LinksOther from '../LinksOther/LinksOther';
 import './Footer.css';
 
 const Footer = () => {
@@ -9,7 +8,7 @@ const Footer = () => {
   return (
       <>
       
-    <div className="footer" id = "footer">
+    <footer className="footer" id = "footer">
         <div className="container">
             <div class='footer-info'>
                 <img src="https://i.ibb.co/HPGjHnN/main-1-removebg-preview.png" alt="" />
@@ -46,7 +45,7 @@ const Footer = () => {
                 </form>
             </div>
         </div>
-    </div>
+    </footer>
     </>
   )
 }
