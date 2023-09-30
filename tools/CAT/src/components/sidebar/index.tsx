@@ -34,7 +34,7 @@ const Sidebar = () => {
 			</Box>
 			<Box className='w-full flex justify-center mb-3'>
 				<IconButton
-					colorScheme='blue'
+					colorScheme='teal'
 					size={'md'}
 					onClick={toggle}
 					aria-label='Expand menu'
