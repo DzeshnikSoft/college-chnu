@@ -1,0 +1,31 @@
+.administration-admin{
+ display: flex;
+ flex-direction: column;
+ height: 100%;
+}
+
+.administration-admin .container{
+    width: 90%;
+    overflow: scroll;
+}
+.administration-admin .controls-buttons{
+    margin: 10px 0;
+    text-align: center;
+}
+.administration-admin .elements{
+    height: inherit;
+    overflow: scroll;
+}
+.administration-admin .container .item{
+    margin: 20px 0;
+}
+
+.container .item .buttons{
+    display: flex;
+    margin: 10px 0;
+    justify-content: end;
+}
+
+.buttons button{
+    margin-right: 20px;
+}

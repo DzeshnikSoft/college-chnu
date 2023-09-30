@@ -1,0 +1,85 @@
+.aboutInfo{
+    width: 100%;
+    background-image: url("https://i.ibb.co/KjJWnq4/004-1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+
+    height: fit-content;
+
+    background-attachment: fixed;
+    padding: 50px 0;
+}
+
+.aboutInfo .container{
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    grid-gap: 30px;
+    padding: 0 20px;
+
+}
+
+
+.aboutInfo .container .preview{
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutInfo .preview h1{
+    color: #51be78;
+    font-size : 40px;
+    font-weight: 700;
+    
+}
+.aboutInfo .preview img{
+    width: 70%;
+}
+
+.aboutInfo .container .info .AboutInfoP{
+    font-weight: 300;
+    color: white;
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-indent: 20px;
+    text-align: justify;
+}
+
+.aboutInfo .container .info .AboutInfoP2{
+    font-weight: 300;
+    color: white;
+    font-size: 20px;
+    line-height: 1.5;
+    
+    text-indent: 20px;
+    text-align: justify;
+}
+
+.AboutInfoP2 {
+     margin-top: 20px;
+     
+}
+.AboutInfoP2 span{
+    font-style: italic;
+}
+
+@media (max-width:426px){
+    .aboutInfo .container{
+        grid-template-columns: 1fr;  
+    }
+    .aboutInfo .preview h1{
+        color: #51be78;
+        text-align: center;
+        font-size : 30px;
+        font-weight: 700;
+        
+    }
+    .aboutInfo .container .info p{
+        font-weight: 300;
+        color: white;
+        font-size: 18px;
+        line-height: 1.5;
+        
+    }
+}

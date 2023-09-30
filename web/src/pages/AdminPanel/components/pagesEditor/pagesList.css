@@ -1,0 +1,31 @@
+.pagesList{
+    width: 60%;
+    margin: auto;
+    height: 90%;
+}
+
+.pagesList .button_new{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagesList .button_new button{
+    margin: 20px 0;
+}
+
+.pagesList .list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pagesList .list h1{
+    color : #1A3853;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.pagesList .list .item{
+    margin: 10px 0;
+}

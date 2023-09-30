@@ -1,0 +1,12 @@
+.pageEditor .mainbutton button{
+    margin: 30px auto;
+    display: flex;
+}
+
+.pageEditor .container .title{
+    display: grid;
+    grid-template-columns: 65% 1fr;
+    grid-gap: 20px;
+    margin: 20px auto;
+    width: 100%;
+}

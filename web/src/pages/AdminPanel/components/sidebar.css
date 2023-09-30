@@ -1,0 +1,54 @@
+.sidebar{
+    width: 100%;
+    min-height: 94vh;
+    max-height: 94vh;
+    background-color: #accfc2;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    overflow: hidden;
+}
+
+.sidebar .title{
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title hr{
+    width: 85%;
+    margin: 10px auto;
+    background:#1A3853;
+    border:0;
+    height: 2px;
+    border-radius: 30px;
+}
+
+.sidebar .title h1{
+    color: #1A3853;
+}
+.sidebar .menu_list{
+    margin: 20px 0;
+    height: 90%;
+    
+}
+
+.sidebar .menu_list li{
+    font-size: 30px;
+    transition: 0.5s color;
+    color :rgb(41, 32, 32);
+    margin: 20px 0;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+.menu_list hr{
+    border-top: 2px solid brown;
+    border-radius: 20px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.menu_list li:hover{
+    color: white;
+}
+

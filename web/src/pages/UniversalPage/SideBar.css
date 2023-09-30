@@ -1,0 +1,8 @@
+.sidebar-render{
+    height: 60vh;
+    width: 20%;
+    position: fixed;
+    border:3px solid black;
+    border-radius: 30px;
+
+}

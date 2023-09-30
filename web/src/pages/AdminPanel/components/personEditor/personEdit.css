@@ -1,0 +1,49 @@
+.personEdit{
+
+}
+
+.personEdit .title{
+    text-align: center;
+    margin: 20px 0 ;
+}
+
+.personEdit .container{
+    width: 70%;
+}
+
+.personEdit .container .editInfo{
+    margin: 20px 0;
+}
+
+.editInfo .image-upload{
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: 60% 1fr;
+    grid-gap: 20px;
+    place-items: center;
+
+    border: 1px dashed black;
+    padding: 20px;
+    
+}
+
+.editInfo .image-upload img{
+    max-height: 400px;
+    min-height: 300px;
+}
+
+.image-upload .buttons{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.image-upload .buttons button{
+    margin-bottom: 30px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.editInfo h2{
+    margin-top: 30px;
+}

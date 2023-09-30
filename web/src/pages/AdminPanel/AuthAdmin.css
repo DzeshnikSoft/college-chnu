@@ -1,0 +1,10 @@
+.authAdmin{
+    height: 100vh;
+    display: flex;
+}
+
+.authAdmin .auth{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}

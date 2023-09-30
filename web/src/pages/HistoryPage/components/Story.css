@@ -1,0 +1,182 @@
+.history .container {
+    padding: 50px 0;
+}
+
+.history-block {
+    display: grid;
+    grid-template-columns: 2.6fr 1.4fr;
+}
+
+.history-block .history-begining {
+    width: 90%;
+}
+
+.history-block .history-begining p {
+    margin-top: 20px;
+}
+
+.history-block .history-begining .history-text::first-letter {
+    color: rgba(39, 177, 85);
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.history-block .history-begining img {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.history-block .history-director {
+    background-color: rgba(26, 56, 83);
+    color: white;
+    max-height: 50%;
+    margin: 50px 0;
+    padding: 50px 25px;
+    font-weight: 400;
+    line-height: 20px;
+    border-radius: 5%;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.history-block  p {
+    text-align: justify;
+    text-indent: 20px;
+}
+
+.history .history-faculty {
+    background-color: rgba(26, 56, 83);
+    justify-content: space-around;
+    margin-top: 30px;
+    color: white;
+}
+
+.history .history-faculty-title hr {
+    width: 50%;
+}
+
+.history-faculty .history-faculty-container {
+    margin:0 auto;
+    padding-top: 30px;
+    width: 80%;
+}
+
+.history-faculty-container .history-faculty-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.history-faculty .history-faculty-department {
+    display: flex;  
+    justify-content: space-around; 
+    padding: 40px 0;
+}
+
+.history-faculty .history-faculty-department img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+}
+
+.history-faculty-department .department {
+    display: flex;
+    flex-direction: column;
+}
+
+.history-faculty-department .fa-scale-balanced {
+    font-size: 50px;
+    color:white
+}
+
+.history-faculty-department .department .button {
+    margin-top: 15px;
+    height: 30px;
+    width: 30px;
+    color: rgb(101, 180, 101);
+    transition: color .7s ease-out;
+}
+
+.history-faculty-department .department .button:hover {
+    transform: scale(1.1);
+    color:rgb(170, 204, 185);
+}
+
+.history-specialty h2 {
+    font-weight: 400;
+    color: rgba(39, 177, 85);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.history-specialty .specialty {
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-specialty .specialty li {
+    display: flex;
+    line-height: 35px;
+    align-items: center;
+}
+
+.history-specialty .specialty .fa-dot-circle{
+    color: rgb(101, 180, 101);
+    margin-right: 10px; 
+}
+
+.history-specialty .specialty p {
+    margin-right: 10px;
+    font-size: 20px;
+    color:rgb(148, 148, 148);
+}
+
+.history-specialty .specialty img {
+    width: 50%;
+    height: 30%;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 5px;
+}
+
+@media (max-width: 426px){ 
+    .history-block {
+        display: block;
+    }
+
+    .history-block .history-begining {
+        width: 100%;
+    }
+
+    .history-faculty-container .history-faculty-title {
+        display: block;
+    }
+
+    .history-faculty-container .history-faculty-title hr {
+        display: none;
+    }
+
+    .history-faculty .history-faculty-department {
+        display: block;
+        
+    }
+
+    .history-faculty .history-faculty-department .department {
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .history-faculty .history-faculty-department .department p {
+        width: 100%;
+        margin: 5px auto;
+    }
+
+    .history-specialty .specialty {
+        display: block;
+    }
+
+    .history-specialty .specialty img {
+        width: 100%;
+        margin-top: 15px;
+    }
+}

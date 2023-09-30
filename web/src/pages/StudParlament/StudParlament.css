@@ -1,0 +1,78 @@
+
+.stud-parlament .container {
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 40px;
+}
+
+.stud-card {
+    position: relative;
+    height: fit-content;
+    overflow: hidden;
+}
+
+.stud-card:hover {
+    transition: filter .2s ease-in-out;
+    -webkit-filter: grayscale(0%);  
+    filter: grayscale(0%); 
+}
+
+.stud-parlament .stud-card  img {
+    object-fit: cover;
+    width: 100%;    
+    height: 80%;
+    border-bottom: 8px solid rgb(101, 180, 101);
+}
+
+.stud-parlament .stud-card:hover  img {
+    -webkit-filter: grayscale(99%);  
+    filter: grayscale(99%);
+}
+
+.stud-parlament .stud-card .stud-info {
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    height: 0;
+    transition: all .7s linear;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stud-parlament .stud-card:hover .stud-info {
+    width: 100%;
+    height: 150px;
+    color: black;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 1;
+    position: absolute;
+    z-index: 2;
+    transform: translate3d(0, -3%, 0);
+    background-color: rgba(101, 180, 101, 0.781);
+    transition: all .7s linear;
+}
+
+.stud-parlament .stud-card .stud-info .stud-name {
+    color: rgb(255, 255, 255);
+    margin-bottom: 10px;
+}
+
+@media (max-width: 426px){  
+    .stud-parlament .container {
+        display: block;
+    }
+
+    .stud-parlament .stud-card  {
+        margin-bottom: 25px;
+    }
+}

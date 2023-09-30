@@ -1,0 +1,45 @@
+.createStudParlament{
+    margin: 20px auto;
+    width: 60%;
+}
+
+.createStudParlament h1{
+    text-align: center;
+}
+
+.createStudParlament .createdInfo{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+.createdInfo .image-upload{
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: 60% 1fr;
+    grid-gap: 20px;
+    place-items: center;
+
+    border: 1px dashed black;
+    padding: 20px;
+}
+.createdInfo .image-upload img{
+    max-height: 400px;
+    min-height: 300px;
+}
+.image-upload .buttons{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.image-upload .buttons button{
+    margin-bottom: 30px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.createdInfo h2{
+    margin-top: 30px;
+}
