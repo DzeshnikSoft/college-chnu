@@ -1,19 +1,21 @@
 import React from 'react'
-import AboutInfo from './aboutInfo'
-import './mainPage.css'
-import Carousel from './components/Slider'
-import Durector from './components/Durector'
 
-import NewsAndOther from './newsAndOther'
+import './mainPage.css'
+
+import Carousel from './components/Carousel'
+import Director from './components/Director'
+import AboutInfo from './components/aboutInfo'
 import Courses from './components/Courses'
-import Location from './components/Location'
+import NewsAndOther from './components/newsAndOther' 
 import VideoPreview from './components/VideoPreview'
+import Location from './components/Location'
+
 
 const MainPage = () => {
   return (
     <div className= "h-fit">
       <Carousel/>
-      <Durector/>
+      <Director/>
       <AboutInfo/>
       <Courses />
       <VideoPreview/>
