@@ -11,9 +11,10 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				backgroundHeaderColor: '#1A3853',
+				backgroundHeaderColor: '#ffffff',
 				accentTextColor: '#25b37c',
-				textColor: '#ffffff'
+				colorTextColor: '#1A3853',
+				mainTextColor: '#ffffff'
 			},
 			boxShadow:{
 				bottomShadow: "0 3px 10px rgb(0 0 0 / 0.8)",
