@@ -1,4 +1,4 @@
-namespace College.Application.DTOs;
+namespace College.Domain.DTOs;
 
 public class PageDto
 {

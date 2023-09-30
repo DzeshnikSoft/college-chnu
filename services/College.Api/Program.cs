@@ -1,18 +1,21 @@
+using College.API.ExceptionsFilters;
 using College.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddControllers(config =>
+{
+    config.Filters.Add<ApiExceptionFilter>();
+});
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc()
     .AddControllersAsServices();
-builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+
+builder.Services.AddCors(o => o.AddPolicy("CollegeApiPolicy", policyBuilder =>
 {
-    builder.AllowAnyOrigin()
+    policyBuilder.AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader();
 }));
@@ -32,10 +35,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// *************************
+// Configure Middleware
+// *************************
+app.UseMiddleware<ApiExceptionFilter>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseCors("MyPolicy");
+app.UseCors("CollegeApiPolicy");
 app.MapControllers();
 
 app.Run();

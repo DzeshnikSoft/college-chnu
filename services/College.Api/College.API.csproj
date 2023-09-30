@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>d71d791c-ae3e-491a-9028-e3704ed7643a</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,6 +19,10 @@
     <ItemGroup>
       <ProjectReference Include="..\College.Application\College.Application.csproj" />
       <ProjectReference Include="..\College.Data\College.Data.csproj" />
+      <ProjectReference Include="..\College.Shared\College.Shared.csproj" />
     </ItemGroup>
+
+
+
 
 </Project>
