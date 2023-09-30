@@ -1,6 +1,6 @@
-﻿namespace College.Domain.Models;
+namespace College.Domain.DTOs;
 
-public class News
+public class NewsDto
 {
     public Guid Id { get; set; }
 

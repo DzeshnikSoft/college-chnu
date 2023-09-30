@@ -1,4 +1,4 @@
-using College.Application.DTOs;
+using College.Domain.DTOs;
 using MediatR;
 
 namespace College.Application.Queries.Pages;

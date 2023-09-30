@@ -14,7 +14,7 @@ public static class ServiceCollectionExtension
         // ****************************
         services.AddDbContext<CollegeDbContext>(cfg =>
         {
-            cfg.UseSqlServer(configuration.GetConnectionString("collegeDb"));
+            cfg.UseSqlServer(configuration.GetConnectionString("CollegeDb"));
         });
 
         // ****************************
