@@ -2,7 +2,7 @@ import React from 'react'
 
 import './mainPage.css'
 
-import Carousel from './components/Carousel'
+import CarouselWelcome from './components/CarouselWelcome'
 import Director from './components/Director'
 import AboutInfo from './components/aboutInfo'
 import Courses from './components/Courses'
@@ -14,10 +14,10 @@ import Location from './components/Location'
 const MainPage = () => {
   return (
     <div className= "h-fit">
-      <Carousel/>
+      <CarouselWelcome/>
       <Director/>
       <AboutInfo/>
-      <Courses />
+      <Courses/>
       <VideoPreview/>
       <NewsAndOther/>
       <Location/>
