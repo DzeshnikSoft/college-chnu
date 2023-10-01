@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import NotFoundPage from "./NotFoundPage";
-import MainPage from "./MainPage/mainPage";
+import MainPage from "./MainPage";
 
 export const routes = [
 	{
