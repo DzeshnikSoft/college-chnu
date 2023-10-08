@@ -3,10 +3,10 @@ import React from 'react'
 import './mainPage.css'
 
 import CarouselWelcome from './components/CarouselWelcome'
+import NewsMainPage from './components/NewsMainPage'
 import Director from './components/Director'
-import AboutInfo from './components/aboutInfo'
-import Courses from './components/Courses'
-import NewsAndOther from './components/newsAndOther' 
+// import AboutInfo from './components/aboutInfo'
+// import Courses from './components/Courses'
 import VideoPreview from './components/VideoPreview'
 import Location from './components/Location'
 
@@ -16,10 +16,10 @@ const MainPage = () => {
     <div className= "h-fit">
       <CarouselWelcome/>
       <Director/>
-      <AboutInfo/>
-      <Courses/>
+      <NewsMainPage/>
+      {/* <AboutInfo/> */}
+      {/* <Courses/> */}
       <VideoPreview/>
-      <NewsAndOther/>
       <Location/>
     </div>
   )

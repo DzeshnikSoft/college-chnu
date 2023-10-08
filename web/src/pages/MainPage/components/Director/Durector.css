@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: column;
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-	height: 90%;
 	border-radius: 10px;
 	overflow: hidden;
 }
@@ -35,14 +34,14 @@
 .info-durector .images-durector img {
 	width: 100%;
 	object-fit: cover;
-	height: 143%;
+	height: 100%;
 }
 .info-durector .images-durector .img-durector {
-	width: 50%;
+	width: 35%;
 	height: 100%;
 }
 .info-durector .images-durector .img-durector-info {
-	width: 50%;
+	width: 65%;
 	height: 100%;
 	background-image: url("https://i.ibb.co/1mmrSb6/WP-20191109-15-54-00-Pro-1.png");
 	background-size: cover;
@@ -52,7 +51,6 @@
 .img-durector-info .text {
 	text-align: justify;
 	margin: 60px;
-
 	color: white;
 	text-indent: 20px;
 }
@@ -62,8 +60,7 @@
 	font-weight: 300;
 }
 .img-durector-info .text .cutata {
-	margin: 10% 0 0;
-	font-size: 20px;
+	font-size: 10px;
 	font-style: italic;
 	text-align: right;
 	font-weight: 300;

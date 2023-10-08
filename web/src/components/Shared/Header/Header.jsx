@@ -23,14 +23,14 @@ function Header() {
 					<ul className='topmenu flex h-full items-center text-xl'>
 						{MENU_ITEMS.map((item) => (
 							<li className='mx-5 hover:text-accentTextColor flex cursor-pointer h-full font-medium'>
+								{item.subMenu.length !== 0 && (
+									<SubMenu subMenu={item?.subMenu} />
+								)}
 								<NavLink
 									to={item.path}
 									className='h-full flex items-center'>
 									{item.name}
 								</NavLink>
-								{item.subMenu.length !== 0 && (
-									<SubMenu subMenu={item?.subMenu} />
-								)}
 							</li>
 						))}
 					</ul>
