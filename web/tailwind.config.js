@@ -16,6 +16,7 @@ module.exports = {
 				colorTextColor: "#1A3853",
 				mainTextColor: "#ffffff",
 				opacityBackgroundText: "rgba(4, 4, 39, 0.7)",
+				backgroundBorder: "#e6e6e6",
 			},
 			fontFamily: {
 				subTitleTextCarousel: "'MedievalSharp', cursive",

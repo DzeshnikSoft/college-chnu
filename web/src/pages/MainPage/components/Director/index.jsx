@@ -1,72 +1,35 @@
 import React from 'react'
-import './Durector.css'
 
 const Director = () => {
   return (
-    <div className= "durector w-full h-[90vh] flex items-center justify-center -mt-[6vh] relative z-20 shadow-md">
-        <div className="mx-auto h-full w-4/5">
-            <div className="info-durector"> 
-                <div className="header-durector bg-backgroundHeaderColor">
-                        <div className="element">
-                            <div className="icon">
-                                <img src="https://max-themes.net/demos/kingster/kingster/upload/icon-1.png" alt="" />
-                            </div>
-                            <div className="text">
-                                <p>Життя коледжу</p>
-                            </div>
-                        </div>
-                        <div className="element">
-                            <div className="icon">
-                                <img src="https://max-themes.net/demos/kingster/kingster/upload/icon-2.png" alt="" />
-                            </div>
-                            <div className="text">
-                                <p>Спеціальності</p>
-                            </div>
-
-                        </div>
-                        <div className="element">
-                            <div className="icon">
-                                <img src="https://max-themes.net/demos/kingster/kingster/upload/icon-3.png" alt="" />
-                            </div>
-                            <div className="text">
-                                <p>Спорт</p>
-                            </div>
-
-                        </div>
-                        <div className="element">
-                            <div className="icon">
-                                <img src="https://max-themes.net/demos/kingster/kingster/upload/icon-4.png" alt="" />
-                            </div>
-                            <div className="text">
-                                <p>Студентський парламент</p>
-                            </div>
-
-                        </div>  
-                </div>
-                <div className="images-durector">
-                    <div className="img-durector">
-                        <img src="/Durector2.jpg" alt="" />
-                    </div>
-                    <div className="img-durector-info">
-                        <div className="text">
-                            <div className="res-text"><p>Відокремлений структурний підрозділ «Фаховий коледж Чернівецького національного університету 
-                                імені Юрія Федьковича» є структурним підрозділом університету без статусу юридичної особи і 
-                                надає освітні послуги, пов'язані з одержанням фахової передвищої освіти з одночасним наданням повної 
-                                загальної середньої освіти.</p>
-                                <p>Наш заклад освіти посідає одне з провідних місць серед закладів 
-                                фахової передвищої освіти Чернівецької області.</p>
-                            </div> 
-                                <p className="cutata">Директор, ОЛЕКСАНДР СОБЧУК</p>
-                        </div>
-                       
-                    </div>
-
-                </div>
-            </div>
+    <div className= "w-full h-[400px] flex items-center justify-center -mt-20 relative z-20">
+        <div className="mx-auto flex h-full w-4/5 shadow-md overflow-hidden rounded-lg">
+			<div className="h-full w-4/12 object-cover">
+				<img 
+					src="/Durector2.jpg" 
+					alt="" 
+					className='h-full w-full object-cover'
+				/>
+			</div>
+			<div className="h-full flex w-8/12 relative">
+				<img 
+					src="https://i.ibb.co/1mmrSb6/WP-20191109-15-54-00-Pro-1.png" 
+					alt="" 
+					className='h-full w-full object-cover'
+				/>
+					<div className="absolute h-full top-0 flex flex-col right-0 p-5 text-mainTextColor text-justify">
+						<p className='text-2xl indent-8 tracking-widest font-extralight'>Відокремлений структурний підрозділ «Фаховий коледж Чернівецького національного університету 
+						імені Юрія Федьковича» є структурним підрозділом університету без статусу юридичної особи і 
+						надає освітні послуги, пов'язані з одержанням фахової передвищої освіти з одночасним наданням повної 
+						загальної середньої освіти.</p>
+						<p className='text-2xl tracking-widest indent-8 font-extralight'>Наш заклад освіти посідає одне з провідних місць серед закладів 
+						фахової передвищої освіти Чернівецької області.</p>
+						<p className="mb-0 mt-auto text-right text-xl italic">Директор, Олександр Собчук</p>
+					</div> 
+						
+				</div>
+			</div>
         </div>
-        
-    </div>
-
   )
 }
 
