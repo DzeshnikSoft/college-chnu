@@ -1,5 +1,3 @@
-/** @format */
-
 export const MENU_ITEMS = [
 	{
 		path: "/",

@@ -6,7 +6,7 @@ const Director = () => {
         <div className="mx-auto flex h-full w-4/5 shadow-md overflow-hidden rounded-lg">
 			<div className="h-full w-4/12 object-cover">
 				<img 
-					src="/Durector2.jpg" 
+					src="../Durector2.jpg" 
 					alt="" 
 					className='h-full w-full object-cover'
 				/>

@@ -1,52 +1,51 @@
-
 .footer {
-    background-color: #181818;
-    color: white;
-    font-size: 17px;
-    width: 100%;
-    line-height: 35px;
-    height:700px;
-    margin-bottom: 0;
+	background-color: #181818;
+	color: white;
+	font-size: 17px;
+	width: 100%;
+	line-height: 35px;
+	height: 500px;
+	margin-bottom: 0;
 }
 
 .footer li {
-    list-style: none;
-    color: #8f979b;
-    cursor: pointer;
-    transition: color .5s ease-out;
+	list-style: none;
+	color: #8f979b;
+	cursor: pointer;
+	transition: color 0.5s ease-out;
 }
 
 .footer li:hover {
-    color: white;
+	color: white;
 }
 
 .footer .container {
-    display: grid;
-    grid-template-columns: 25% 40% 35%;
-    grid-template-rows: auto;
-    padding: 50px 0;
+	display: grid;
+	grid-template-columns: 25% 40% 35%;
+	grid-template-rows: auto;
+	padding: 50px 0;
 }
 
 .footer-info {
-    display: block;
+	display: block;
 }
 
 .footer .container img {
-    width: 100%;
-    margin-bottom: 20px;
+	width: 100%;
+	margin-bottom: 20px;
 }
 
 .footer-text {
-    color: #8f979b;
-    margin-bottom: 20px;
-    line-height: 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+	color: #8f979b;
+	margin-bottom: 20px;
+	line-height: 28px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .footer hr {
-    margin: 20px 0;
+	margin: 20px 0;
 	padding: 0;
 	height: 0;
 	border: none;
@@ -54,76 +53,76 @@
 }
 
 .footer .container .list {
-    margin-left: 70px;
+	margin-left: 70px;
 }
 
 .footer .container .list .footer-title {
-    font-size: 20px;
-    font-weight: 800;
+	font-size: 20px;
+	font-weight: 800;
 }
 
-.footer .container .list form { 
-    max-width:420px;
-     margin:20px auto; 
+.footer .container .list form {
+	max-width: 420px;
+	margin: 20px auto;
 }
-.footer .form-feedback .submit{
-    margin-top: 20px;
+.footer .form-feedback .submit {
+	margin-top: 20px;
 }
 .footer .container .list .feedback-input {
-  color:white;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight:500;
-  font-size: 15px;
-  border-radius: 5px;
-  line-height: 22px;
-  background-color: transparent;
-  border:2px solid rgb(101, 180, 101);
-  transition: all 0.3s;
-  padding: 10px;
-  margin-bottom: 15px;
-  width:100%;
-  box-sizing: border-box;
-  outline:0;
+	color: white;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: 500;
+	font-size: 15px;
+	border-radius: 5px;
+	line-height: 22px;
+	background-color: transparent;
+	border: 2px solid rgb(101, 180, 101);
+	transition: all 0.3s;
+	padding: 10px;
+	margin-bottom: 15px;
+	width: 100%;
+	box-sizing: border-box;
+	outline: 0;
 }
-#texrarea-feedback{
-    display:  block !important;
-    resize: none;
-    max-width: 100%;
-    max-height: fit-content;
-    min-height: fit-content;
-    min-width: 100%;
+#texrarea-feedback {
+	display: block !important;
+	resize: none;
+	max-width: 100%;
+	max-height: fit-content;
+	min-height: fit-content;
+	min-width: 100%;
 }
 .footer .fr-box {
-    display: none;
+	display: none;
 }
-.footer .container .list .feedback-input:focus { border:2px solid rgb(38, 65, 38) }
-
-
+.footer .container .list .feedback-input:focus {
+	border: 2px solid rgb(38, 65, 38);
+}
 
 .footer .container .list .submit {
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-  width: 100%;
-  background:rgb(101, 180, 101);
-  border-radius:5px;
-  border:0;
-  cursor:pointer;
-  color:white;
-  font-size:18px;
-  padding-top:10px;
-  padding-bottom:10px;
-  transition: all 0.3s;
-  margin-top:5px;
-  font-weight:700;
+	font-family: "Montserrat", Arial, Helvetica, sans-serif;
+	width: 100%;
+	background: rgb(101, 180, 101);
+	border-radius: 5px;
+	border: 0;
+	cursor: pointer;
+	color: white;
+	font-size: 18px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	transition: all 0.3s;
+	margin-top: 5px;
+	font-weight: 700;
 }
-.footer .container .list .submit:hover 
-    { background:rgb(101, 180, 101) 
+.footer .container .list .submit:hover {
+	background: rgb(101, 180, 101);
 }
 
-@media(max-width:426px){
-    .footer .container {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        padding: 50px 0;
-    }
+@media (max-width: 426px) {
+	.footer .container {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		padding: 50px 0;
+	}
 }

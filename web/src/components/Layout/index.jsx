@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
 	return (
 		<div className="flex flex-col justify-between w-full">
 			<Header />
-			<div className="min-h-[calc(100%-10vh-700px)] max-h-fit">
+			<div className="min-h-[calc(100vh-9vh-500px)] h-fit">
 				{children}
 			</div>
 			<Footer />
