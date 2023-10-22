@@ -6,4 +6,9 @@ namespace College.API.Controllers;
 [Route("api/[controller]")]
 public class AdministrationController : ControllerBase
 {
+     [HttpGet]
+     public IActionResult Get()
+     {
+          return Ok("Hello");
+     }
 }

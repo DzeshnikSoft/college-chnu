@@ -19,8 +19,8 @@ const MainPage = () => {
       <NewsMainPage/>
       {/* <AboutInfo/> */}
       {/* <Courses/> */}
-      <VideoPreview/>
-      <Location/>
+      {/* <VideoPreview/>
+      <Location/> */}
     </div>
   )
 }

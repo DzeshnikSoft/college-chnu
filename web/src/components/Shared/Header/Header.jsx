@@ -8,8 +8,7 @@ import "./Header.css";
 function Header() {
 	return (
 		<header
-			className='header h-[9vh] z-50 w-full flex sticky top-0 bg-backgroundHeaderColor text-colorTextColor shadow-bottomShadow'
-			id='header'>
+			className='header z-50 w-full flex sticky top-0 bg-backgroundHeaderColor text-colorTextColor shadow-bottomShadow'>
 			<div className='w-4/5 flex items-center mx-auto'>
 				<div className='w-2/5 h-full'>
 					{/* <img 

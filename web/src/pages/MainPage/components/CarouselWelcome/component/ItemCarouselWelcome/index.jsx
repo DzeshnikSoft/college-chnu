@@ -9,6 +9,7 @@ const ItemCarouselWelcome  = ({img, title, subText, name = 'image'}) =>{
 				src={img} 
 				className='w-full h-full object-cover z-20'
 				alt={name}
+				loading="lazy"
 			/>
 			<div className='text-slider absolute top-[20%] left-[10%]'>
 				<h4 className="text-3xl font-normal w-3/6 font-subTitleTextCarousel text-mainTextColor">{subText}</h4>

@@ -1,0 +1,28 @@
+version: '3'
+services:
+    client-app:
+        build:
+            context: ./web
+        ports:
+            - '3000:80'
+
+    college-api:
+        build:
+            context: ./services
+        ports:
+            - '5005:80'
+
+    # admin-app:
+    #     build:
+    #         context: ./tools/CAT
+    #     ports:
+    #         - '4000:80'
+
+    nginx:
+        build:
+            context: ./tools/nginx
+        ports:
+            - '80:80'
+        depends_on:
+            - client-app
+            - college-api
