@@ -1,7 +1,5 @@
 using System.Net;
-using System.Text.Json;
 using College.API.Exceptions;
-using College.Domain.Exceptions;
 using College.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

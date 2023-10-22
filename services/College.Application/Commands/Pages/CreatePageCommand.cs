@@ -1,10 +1,9 @@
 using MediatR;
 
-namespace College.Application.Commands;
+namespace College.Application.Commands.Pages;
 
 public class CreatePageCommand : IRequest
 {
-
 }
 
 public class CreatePageCommandHandler : IRequestHandler<CreatePageCommand>

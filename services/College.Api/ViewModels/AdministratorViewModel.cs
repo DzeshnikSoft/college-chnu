@@ -1,4 +1,4 @@
-namespace CollegeApi.ViewModels;
+namespace College.API.ViewModels;
 
 public class AdministratorViewModel
 {
@@ -9,5 +9,4 @@ public class AdministratorViewModel
     public string Posada { get; set; }
 
     public string Status { get; set; }
-
 }

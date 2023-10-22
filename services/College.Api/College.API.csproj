@@ -8,8 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
         <PackageReference Include="MediatR" Version="12.1.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
         <PackageReference Include="MongoDB.Bson" Version="2.15.1" />
         <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
@@ -20,6 +25,7 @@
       <ProjectReference Include="..\College.Application\College.Application.csproj" />
       <ProjectReference Include="..\College.Data\College.Data.csproj" />
       <ProjectReference Include="..\College.Shared\College.Shared.csproj" />
+
     </ItemGroup>
 
 

@@ -11,7 +11,5 @@ public class CollegeDbContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
-    public virtual DbSet<News> Type { get; set; }
-
-    public virtual DbSet<StudParlament> StudParlaments { get; set; }
+    public virtual DbSet<News> News { get; set; }
 }

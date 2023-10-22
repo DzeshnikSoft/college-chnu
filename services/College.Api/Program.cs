@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(config =>
 {
-    config.Filters.Add<ApiExceptionFilter>();
+    config.Filters.Add(typeof(ApiExceptionFilter));
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -34,11 +34,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// *************************
-// Configure Middleware
-// *************************
-app.UseMiddleware<ApiExceptionFilter>();
 
 app.UseHttpsRedirection();
 
