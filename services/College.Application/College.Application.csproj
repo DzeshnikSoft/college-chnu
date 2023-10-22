@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Exceptions\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="AutoMapper" Version="12.0.1" />
       <PackageReference Include="MediatR" Version="12.1.1" />
       <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
@@ -21,5 +17,6 @@
       <ProjectReference Include="..\College.Domain\College.Domain.csproj" />
       <ProjectReference Include="..\College.Shared\College.Shared.csproj" />
     </ItemGroup>
+
 
 </Project>

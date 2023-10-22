@@ -37,8 +37,10 @@ public class CreateNewsCommandHandler : IRequestHandler<CreateNewsCommand, Guid>
             var news = _mapper.Map<Domain.Models.News>(request.NewsDto);
 
             var newsEntityEntry = await _db.News.AddAsync(news, cancellationToken);
+            await _db.SaveChangesAsync(cancellationToken);
 
             _logger.LogInformation("Successfully created news with ID = {NewsId}", newsEntityEntry.Entity.Id);
+
             return newsEntityEntry.Entity.Id;
         }
         catch (Exception ex)

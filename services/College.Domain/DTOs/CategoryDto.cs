@@ -8,5 +8,5 @@ public class CategoryDto
 
     public string Title { get; set; }
 
-    public IList<PageDto> Pages { get; set; }
+    public IList<SubCategoryDto> SubCategories { get; set; }
 }

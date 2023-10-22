@@ -1,6 +1,6 @@
-namespace College.Domain.DTOs;
+namespace College.Domain.Models;
 
-public class PageDto
+public class SubCategory
 {
     public Guid Id { get; set; }
 
@@ -8,5 +8,5 @@ public class PageDto
 
     public string Title { get; set; }
 
-    public string Content { get; set; }
+    public ICollection<Page> Pages { get; set; }
 }
