@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import { itemsEditor } from '../../utils/editor_props'
+import { itemsEditor } from '../../utils/editorProps'
 export default function TestEditor() {
   const editorRef = useRef(null);
 
@@ -13,7 +13,7 @@ export default function TestEditor() {
   return (
 	<>
 	  <Editor
-	 	apiKey='y08jul27paqu48e8e2twyp1jkj5egdt657tz4mmrcghgk780'
+	 	apiKey={import.meta.env.VITE_KEY_TINY}
 		onInit={(evt, editor) => editorRef.current = editor}
 		initialValue="<p>This is the initial content of the editor.</p>"
 		init={{
