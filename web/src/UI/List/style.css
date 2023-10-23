@@ -1,0 +1,10 @@
+.list-speciliaty li {
+	list-style-type: none;
+	position: relative;
+}
+.list-speciliaty li::before {
+	content: "▶"; /* Встановлюємо вміст псевдоелемента (тут використовується трикутник як маркер) */
+	margin-right: 5px; /* Відступ між маркером і текстом */
+	color: #25b37c; /* Колір маркера */
+	font-size: 20px;
+}

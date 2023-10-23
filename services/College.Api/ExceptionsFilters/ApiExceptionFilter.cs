@@ -1,7 +1,6 @@
 using System.Net;
-using System.Text.Json;
 using College.API.Exceptions;
-using College.Domain.Exceptions;
+using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -60,6 +59,22 @@ public class ApiExceptionFilter : IExceptionFilter
             {
                 context.Result = result;
             }
+        }
+
+        if (context.Exception is ValidationException validationException)
+        {
+            _logger.LogError(validationException, "ValidationException thrown in request = {Request} for filed = {Field}",
+                validationException.Request,
+                validationException.Field);
+
+            var validationError = new ApiError
+            {
+                ReasonCode = $"college_api_{validationException.Field}_validation_error",
+                RequestId = context.HttpContext.TraceIdentifier,
+                Message = validationException.Message
+            };
+
+            context.Result = new BadRequestObjectResult(validationError);
         }
     }
 }

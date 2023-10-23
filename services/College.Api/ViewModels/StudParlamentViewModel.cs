@@ -1,4 +1,4 @@
-namespace CollegeApi.ViewModels;
+namespace College.API.ViewModels;
 
 public class StudParlamentViewModel
 {

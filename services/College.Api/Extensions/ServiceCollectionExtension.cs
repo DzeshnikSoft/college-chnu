@@ -1,6 +1,6 @@
-﻿using College.Application.Queries.Pages;
+﻿using College.API.Mappers;
+using College.Application.Queries.Pages;
 using College.Data.Context;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace College.API.Extensions;
@@ -22,5 +22,10 @@ public static class ServiceCollectionExtension
         // ****************************
         services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssemblyContaining<GetPagesByCategoriesQuery>());
+
+        // ****************************
+        // Automapper
+        // ****************************
+        services.AddAutoMapper(typeof(NewsMapperProfile));
     }
 }
