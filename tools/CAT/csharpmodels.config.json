@@ -1,0 +1,10 @@
+{
+    "include": ["../../services/College.Domain/DTOs/*.cs"],
+    "exclude": [],
+    "output": "./src/models/api/index.ts",
+    "camelCase": true,
+    "camelCaseEnums": true,
+    "numericEnums": false,
+    "stringLiteralTypesInsteadOfEnums": false,
+    "customTypeTranslations": {}
+}

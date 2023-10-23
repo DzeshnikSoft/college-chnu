@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace College.API.Exceptions;
+namespace College.Shared.Exceptions;
 
 public class ApiException : Exception
 {

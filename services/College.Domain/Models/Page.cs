@@ -1,14 +1,18 @@
-﻿namespace College.Domain.Models;
+﻿#nullable enable
+namespace College.Domain.Models;
 
 public class Page
 {
     public Guid Id { get; set; }
 
-    public string CustomUrl { get; set; }
+    public string Url { get; set; }
 
     public string Title { get; set; }
 
+    /// <summary>
+    /// HTML Page content
+    /// </summary>
     public string Content { get; set; }
 
-    public virtual Category Category { get; set; }
+    public SubCategory? SubCategory { get; set; }
 }
