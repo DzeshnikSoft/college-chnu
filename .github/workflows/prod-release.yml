@@ -21,6 +21,6 @@ jobs:
         password: ${{ secrets.VPS_PASSWORD }}
         port: 22
         script: |
-          cd /projects/college-chnu
+          cd projects/college-chnu
           git pull
           docker-compose up -d
