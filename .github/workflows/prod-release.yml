@@ -13,8 +13,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: SSH and run commands on VPS
-      uses: appleboy/ssh-action@1.0.0
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USERNAME }}
