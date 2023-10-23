@@ -1,0 +1,26 @@
+name: Deploy to PRODUCTION
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: SSH and run commands on VPS
+      uses: appleboy/ssh-action@v0.4.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /projects/college-chnu
+          git pull
+          docker-compose up -d
