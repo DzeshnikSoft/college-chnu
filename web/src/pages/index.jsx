@@ -3,7 +3,8 @@ import Layout from "../components/Layout";
 import NotFoundPage from "./NotFoundPage";
 import MainPage from "./MainPage";
 import SpecialityPage from "./SpecialityPage";
-import History from "./HistoryPage/History";
+import HistoryPage from "./HistoryPage/HistoryPage";
+
 export const routes = [
 	{
 		path: '/',
@@ -11,7 +12,7 @@ export const routes = [
 	},
 	{
 		path: '/history',
-		element: <Layout><History /></Layout>
+		element: <Layout><HistoryPage /></Layout>
 	},
 	{
 		path: '/speciality/:name',
