@@ -25,6 +25,9 @@ module.exports = {
 				bottomShadow: "0 3px 10px rgb(0 0 0 / 0.8)",
 				md: "0 3px 10px rgba(0, 0, 0, 0.5)",
 			},
+			height: {
+				relativelyHeaderFullScreen: "91vh",
+			},
 		},
 	},
 	plugins: [],

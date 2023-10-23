@@ -8,7 +8,7 @@ import "swiper/css/autoplay"
 function CarouselWelcome() {
 
 	return (
-		<div className='flex h-[91vh] w-full z-10'>
+		<div className='flex h-relativelyHeaderFullScreen w-full z-10'>
 			<Swiper 
 				className="w-full h-full"
 				autoplay={{
