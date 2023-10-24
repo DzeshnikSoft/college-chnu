@@ -4,9 +4,9 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				activeItems: "#B4BCC7",
+				activeItems: "#3E9599",
 				red: "#FF1818",
-				hoverActiveItems: "#787D85",
+				hoverActiveItems: "#347A7A",
 			},
 			height: {
 				relativelyHeaderFullScreen: "92vh",

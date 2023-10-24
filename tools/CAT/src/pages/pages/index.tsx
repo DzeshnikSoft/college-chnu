@@ -1,6 +1,6 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { pagesItems } from "@/utils/pagesItems";
-import Page from "../pages/components/Page";
+import Page from "./components/Page";
 
 const Pages = () => {
 	return (
@@ -12,9 +12,13 @@ const Pages = () => {
 					))}
 				</TabList>
 				<TabPanels>
-					{pagesItems.map(({ title, subCategories }) => (
+					{pagesItems.map(({ title, subCategories, id }) => (
 						<TabPanel>
-							<Page title={title} subCategories={subCategories} />
+							<Page
+								title={title}
+								id={id}
+								subCategories={subCategories}
+							/>
 						</TabPanel>
 					))}
 				</TabPanels>

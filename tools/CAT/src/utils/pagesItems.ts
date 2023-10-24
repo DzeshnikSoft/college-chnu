@@ -7,7 +7,7 @@ export const pagesItems: CategoryDto[] = [
 		title: "Category 1",
 		subCategories: [
 			{
-				id: "1",
+				id: "11",
 				url: "https://example.com/category1/subcategory1",
 				title: "Subcategory 11",
 				pages: [
@@ -26,7 +26,7 @@ export const pagesItems: CategoryDto[] = [
 				],
 			},
 			{
-				id: "2",
+				id: "12",
 				url: "https://example.com/category1/subcategory2",
 				title: "Subcategory 21",
 				pages: [
@@ -52,7 +52,7 @@ export const pagesItems: CategoryDto[] = [
 		title: "Category 2",
 		subCategories: [
 			{
-				id: "1",
+				id: "21",
 				url: "https://example.com/category2/subcategory1",
 				title: "Subcategory 21",
 				pages: [
@@ -71,7 +71,7 @@ export const pagesItems: CategoryDto[] = [
 				],
 			},
 			{
-				id: "2",
+				id: "22",
 				url: "https://example.com/category2/subcategory2",
 				title: "Subcategory 22",
 				pages: [
