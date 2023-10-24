@@ -15,14 +15,16 @@ const Sidebar = () => {
 	return (
 		<Box
 			width={"fit-content"}
-			className='border-r h-[calc(100vh-4rem)] flex flex-col justify-between'>
+			className='border-r h-full flex flex-col justify-between'>
 			<Box>
 				{navLinks.map(({ icon, label, path }: MyNavLink) => (
 					<NavLink
 						to={path}
 						className={({ isActive }) =>
 							`h-14 text-2xl flex items-center py-2 px-3 border-b duration-200 ${
-								isActive ? "bg-black/20 " : "hover:bg-black/20"
+								isActive
+									? "bg-activeItems"
+									: "hover:bg-activeItems"
 							}`
 						}>
 						<i className={`${icon} mx-1`}></i>
