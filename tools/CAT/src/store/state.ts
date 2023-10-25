@@ -1,7 +1,7 @@
 import { UserState } from "./features/user.feature";
-import { PageAdminState } from "./features/pagesAdmin.feature";
+import { adminState } from "./features/admin.feature";
 
 export interface AppState {
 	user: UserState;
-	pageAdmin: PageAdminState;
+	admin: adminState;
 }

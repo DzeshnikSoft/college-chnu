@@ -3,22 +3,22 @@ import { pagesItems } from "@/utils/pagesItems";
 import { AppState } from "../state";
 import { CategoryDto } from "@/models/api";
 
-export interface PageAdminState {
+export interface adminState {
 	items: CategoryDto[] | null;
 	loading: boolean;
 }
 
-const initialState: PageAdminState = {
+const initialState: adminState = {
 	items: [...pagesItems],
 	loading: true,
 };
 
 const pagesAdminSlice = createSlice({
-	name: "pagesAdmin",
+	name: "admin",
 	initialState,
 	reducers: {
 		changeTitleCategory(
-			state: PageAdminState,
+			state: adminState,
 			action: PayloadAction<{ id: string; newTitle: string }>
 		) {
 			const { id, newTitle } = action.payload;
@@ -30,7 +30,7 @@ const pagesAdminSlice = createSlice({
 			});
 		},
 		changeTitleItemSubCategories(
-			state: PageAdminState,
+			state: adminState,
 			action: PayloadAction<{ id: string; newTitle: string }>
 		) {
 			const { id, newTitle } = action.payload;
@@ -50,6 +50,6 @@ const pagesAdminSlice = createSlice({
 export const { changeTitleCategory, changeTitleItemSubCategories } =
 	pagesAdminSlice.actions;
 
-export const selectUser = (state: AppState): PageAdminState => state.pageAdmin;
+export const selectUser = (state: AppState): adminState => state.admin;
 
 export default pagesAdminSlice.reducer;

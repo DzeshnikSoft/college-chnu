@@ -7,7 +7,7 @@ import CloseButton from "../../../../components/CloseButton";
 import EditTitle from "@/components/Edit";
 
 import { CategoryDto } from "@/models/api";
-import { changeTitleCategory } from "@/store/features/pagesAdmin.feature";
+import { changeTitleCategory } from "@/store/features/admin.feature";
 
 interface PageState {
 	id: string;
@@ -22,7 +22,7 @@ export default function Page({ title, subCategories, id }: CategoryDto) {
 	const dispatch = useDispatch();
 
 	const handleChange = ({ target }) => {
-		setPage({ id: id, newTitle: target.value });
+		setPage({ id, newTitle: target.value });
 	};
 	const handleClick = () => {
 		dispatch(changeTitleCategory(page));

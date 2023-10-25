@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import List from "../List";
 import Edit from "@/components/Edit";
 
-import { changeTitleItemSubCategories } from "@/store/features/pagesAdmin.feature";
+import { changeTitleItemSubCategories } from "@/store/features/admin.feature";
 import { SubCategoryDto } from "@/models/api";
 interface SubCategories {
 	id: string;
