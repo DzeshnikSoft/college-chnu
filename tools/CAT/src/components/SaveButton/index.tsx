@@ -1,5 +1,6 @@
 import { IconButton } from "@chakra-ui/react";
-export default function SaveButton({ onClick }) {
+import { BasePropsButton } from "@/models/ui";
+export default function SaveButton({ onClick }: BasePropsButton) {
 	return (
 		<IconButton
 			colorScheme='teal'

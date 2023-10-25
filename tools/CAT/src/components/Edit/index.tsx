@@ -2,8 +2,12 @@ import { useState } from "react";
 import SaveButton from "../SaveButton";
 import TextField from "../TextField";
 import Button from "@/components/Button";
-
-export default function Edit({ title, onChange = null, onClick = null }) {
+interface BasePropsEdit {
+	title?: string;
+	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export default function Edit({ title, onChange, onClick }: BasePropsEdit) {
 	const [isHovering, setIsHovering] = useState<boolean>(false);
 	const [isEditMode, setIsEditMode] = useState<boolean>(false);
 	const handleMouseOver = () => {
@@ -22,9 +26,11 @@ export default function Edit({ title, onChange = null, onClick = null }) {
 		setIsEditMode(false);
 	};
 
-	const handleClickSave = () => {
+	const handleClickSave = (event: React.MouseEvent<HTMLElement>) => {
 		handleOffShowMode();
-		onClick();
+		if (onClick) {
+			onClick(event);
+		}
 	};
 
 	return (

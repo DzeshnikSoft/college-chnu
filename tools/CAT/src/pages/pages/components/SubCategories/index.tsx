@@ -5,11 +5,13 @@ import List from "../List";
 import Edit from "@/components/Edit";
 
 import { changeTitleItemSubCategories } from "@/store/features/pagesAdmin.feature";
+import { SubCategoryDto } from "@/models/api";
 interface SubCategories {
 	id: string;
 	newTitle: string;
 }
-export default function SubCategories({ title, pages, id }) {
+
+export default function SubCategories({ title, pages, id }: SubCategoryDto) {
 	const [subCategory, setSubCategory] = useState<SubCategories>({
 		id: id,
 		newTitle: title,

@@ -1,7 +1,12 @@
+import { ReactNode } from "react";
 import { useState } from "react";
 import CloseButton from "@/components/CloseButton";
 
-export default function ListItem({ children }) {
+interface ListItem {
+	children?: ReactNode;
+}
+
+export default function ListItem({ children }: ListItem) {
 	const [isHovering, setIsHovering] = useState<boolean>(false);
 
 	const handleMouseOver = () => {

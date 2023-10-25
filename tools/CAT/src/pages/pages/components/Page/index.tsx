@@ -4,10 +4,9 @@ import { useDispatch } from "react-redux";
 import SubCategories from "../SubCategories";
 import AddButton from "../../../../components/AddButton";
 import CloseButton from "../../../../components/CloseButton";
-import TextField from "@/components/TextField";
-import SaveButton from "@/components/SaveButton";
 import EditTitle from "@/components/Edit";
 
+import { CategoryDto } from "@/models/api";
 import { changeTitleCategory } from "@/store/features/pagesAdmin.feature";
 
 interface PageState {
@@ -15,7 +14,7 @@ interface PageState {
 	newTitle: string;
 }
 
-export default function Page({ title, subCategories, id }) {
+export default function Page({ title, subCategories, id }: CategoryDto) {
 	const [page, setPage] = useState<PageState>({
 		id: id,
 		newTitle: title,
@@ -41,8 +40,13 @@ export default function Page({ title, subCategories, id }) {
 				<CloseButton className='ml-auto mr-20' />
 			</div>
 			<div className='grid grid-cols-3 gap-10 w-10/12 mx-auto place-items-center'>
-				{subCategories.map(({ title, pages, id }) => (
-					<SubCategories pages={pages} title={title} id={id} />
+				{subCategories.map(({ title, pages, id, url }) => (
+					<SubCategories
+						url={url}
+						pages={pages}
+						title={title}
+						id={id}
+					/>
 				))}
 				<AddButton />
 			</div>
