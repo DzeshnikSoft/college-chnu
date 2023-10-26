@@ -1,14 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { pagesItems } from "@/utils/pagesItems";
-import { AppState } from "../state";
-import { CategoryDto } from "@/models/api";
+import { CategoryDto } from '@/models/api';
+import { pagesItems } from '@/utils/pagesItems';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface adminState {
+import { AppState } from '../state';
+
+export interface AdminState {
 	items: CategoryDto[] | null;
 	loading: boolean;
 }
 
-const initialState: adminState = {
+const initialState: AdminState = {
 	items: [...pagesItems],
 	loading: true,
 };
@@ -18,7 +19,7 @@ const pagesAdminSlice = createSlice({
 	initialState,
 	reducers: {
 		changeTitleCategory(
-			state: adminState,
+			state: AdminState,
 			action: PayloadAction<{ id: string; newTitle: string }>
 		) {
 			const { id, newTitle } = action.payload;
@@ -30,7 +31,7 @@ const pagesAdminSlice = createSlice({
 			});
 		},
 		changeTitleItemSubCategories(
-			state: adminState,
+			state: AdminState,
 			action: PayloadAction<{ id: string; newTitle: string }>
 		) {
 			const { id, newTitle } = action.payload;
@@ -50,6 +51,6 @@ const pagesAdminSlice = createSlice({
 export const { changeTitleCategory, changeTitleItemSubCategories } =
 	pagesAdminSlice.actions;
 
-export const selectUser = (state: AppState): adminState => state.admin;
+export const selectUser = (state: AppState): AdminState => state.admin;
 
 export default pagesAdminSlice.reducer;
