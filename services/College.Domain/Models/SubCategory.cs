@@ -8,5 +8,9 @@ public class SubCategory
 
     public string Title { get; set; }
 
+    public Guid CategoryId { get; set; }
+
+    public Category Category { get; set; }
+
     public ICollection<Page> Pages { get; set; }
 }
