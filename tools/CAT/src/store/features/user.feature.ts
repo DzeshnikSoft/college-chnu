@@ -1,7 +1,7 @@
-import { User } from '@/models/user';
-import { createSlice } from '@reduxjs/toolkit';
+import { User } from "@/models/user";
+import { createSlice } from "@reduxjs/toolkit";
 
-import { AppState } from '../state';
+import { AppState } from "../state";
 
 export interface UserState {
 	data: User | null;
@@ -9,12 +9,12 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-	data: { fullName: 'Makson Maryanchuk', avatar: '' },
+	data: { fullName: "Makson Maryanchuk", avatar: "" },
 	loading: true,
 };
 
 const userSlice = createSlice({
-	name: 'user',
+	name: "user",
 	initialState,
 	reducers: {},
 });

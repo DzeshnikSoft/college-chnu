@@ -1,19 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
-import { Box, Flex } from '@chakra-ui/react';
-
-import Header from '../../components/header';
-import Sidebar from '../../components/sidebar';
+import Header from "../../components/header";
+import Sidebar from "../../components/sidebar";
 
 const PageLayout = () => {
 	return (
-		<Box>
+		<div className='flex w-full h-fit flex-col'>
 			<Header />
-			<Flex>
+			<div className='h-relativelyHeaderFullScreen w-full flex'>
 				<Sidebar />
 				<Outlet />
-			</Flex>
-		</Box>
+			</div>
+		</div>
 	);
 };
 
