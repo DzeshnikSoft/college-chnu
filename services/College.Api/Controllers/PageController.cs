@@ -1,4 +1,5 @@
 using College.API.Exceptions;
+using College.API.ViewModels;
 using College.Application.Commands.Pages;
 using College.Application.Queries.Pages;
 using College.Domain.DTOs;
@@ -29,6 +30,15 @@ public class PageController : ControllerBase
         _logger.LogInformation("Received request to Get All pages");
 
         return Ok(await _mediator.Send(new GetPagesQuery()));
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<PageDto>> CreatePageAsync(PageViewModel pageViewModel)
+    {
+        _logger.LogInformation("Received request to Create page");
+
+        return Ok(
+            _mediator.Send(new CreatePageCommand(pageViewModel.Title, pageViewModel.Content, pageViewModel.Url, pageViewModel.SubCategoryId)));
     }
 
     [HttpGet("{id}")]
