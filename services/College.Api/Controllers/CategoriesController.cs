@@ -3,6 +3,8 @@ using College.API.ViewModels;
 using College.Application.Commands.Categories;
 using College.Application.Queries.Categories;
 using College.Domain.DTOs;
+using College.Domain.Exceptions;
+using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -37,10 +39,26 @@ public class CategoriesController : ControllerBase
 
         if (string.IsNullOrEmpty(categoryViewModel.Title))
         {
-            throw new ValidationException(nameof(CreateCategory),nameof(categoryViewModel.Title), $"Invalid Title. Please input valid value!");
+            throw new ValidationException(nameof(CreateCategory), nameof(categoryViewModel.Title), $"Invalid Title. Please input valid value!");
         }
 
         return Ok(await _mediator.Send(
             new CreateCategoryCommand(categoryViewModel.Title, categoryViewModel.Url)));
+    }
+
+    [HttpPut]
+    public async Task<ActionResult<CategoryDto>> UpdateCategory(UpdateCategoryViewModel categoryViewModel)
+    {
+        _logger.LogInformation("Received request to update category = {CategoryId}", categoryViewModel.CategoryId);
+
+        try
+        {
+            return Ok(
+                await _mediator.Send(new UpdateCategoryCommand(categoryViewModel.CategoryId, categoryViewModel.Url, categoryViewModel.Title)));
+        }
+        catch (EntityNotFoundException ex)
+        {
+            throw new ApiException(ex.Message, "college_api_entity_not_found_error_code", System.Net.HttpStatusCode.NotFound);
+        }
     }
 }
