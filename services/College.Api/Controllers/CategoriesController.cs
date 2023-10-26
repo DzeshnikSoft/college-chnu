@@ -58,7 +58,22 @@ public class CategoriesController : ControllerBase
         }
         catch (EntityNotFoundException ex)
         {
-            throw new ApiException(ex.Message, "college_api_entity_not_found_error_code", System.Net.HttpStatusCode.NotFound);
+            throw new ApiException(ex.Message, ApiErrorCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
         }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteCategory(Guid id)
+    {
+        _logger.LogInformation("Received request to delete category = {CategoryId}", id);
+
+        if (id == default)
+        {
+            throw new ValidationException(nameof(DeleteCategory), nameof(id), $"Invalid Id. Please input valid value!");
+        }
+
+        await _mediator.Send(new DeleteCategoryCommand(id));
+
+        return Ok();
     }
 }
