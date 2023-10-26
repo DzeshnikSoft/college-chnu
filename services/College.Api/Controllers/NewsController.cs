@@ -1,6 +1,4 @@
-using System.Net;
 using AutoMapper;
-using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.News;
 using College.Application.Queries.News;

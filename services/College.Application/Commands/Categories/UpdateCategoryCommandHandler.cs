@@ -63,6 +63,7 @@ public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryComman
 
         return new CategoryDto
         {
+            Id = category.Id,
             Url = category.Url,
             Title = request.Title,
         };
