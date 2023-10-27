@@ -20,6 +20,8 @@ public record UpdateSubCategoryViewModel(Guid SubCategoryId, string Title, strin
 
 public record PageViewModel(string Title, string Content, string Url, Guid SubCategoryId);
 
+public record UpdatePageViewModel(Guid Id, string Title, string Content, string Url, Guid SubCategoryId);
+
 #endregion
 
 

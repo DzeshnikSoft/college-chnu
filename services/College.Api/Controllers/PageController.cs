@@ -38,10 +38,29 @@ public class PageController : ControllerBase
         _logger.LogInformation("Received request to Create page");
 
         return Ok(
-            _mediator.Send(new CreatePageCommand(pageViewModel.Title, pageViewModel.Content, pageViewModel.Url, pageViewModel.SubCategoryId)));
+            await _mediator.Send(new CreatePageCommand(pageViewModel.Title, pageViewModel.Content, pageViewModel.Url, pageViewModel.SubCategoryId)));
     }
 
-    [HttpGet("{id}")]
+    [HttpPut]
+    public async Task<ActionResult<PageDto>> UpdatePageAsync(UpdatePageViewModel pageViewModel)
+    {
+        try
+        {
+            return Ok(await _mediator.Send(
+                new UpdatePageCommand(
+                    pageViewModel.Id,
+                    pageViewModel.Title,
+                    pageViewModel.Url,
+                    pageViewModel.Content,
+                    pageViewModel.SubCategoryId)));
+        }
+        catch (EntityNotFoundException ex)
+        {
+            throw new ApiException(ex.Message, ApiErrorCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
+        }
+    }
+
+    [HttpGet("{id:guid}")]
     public async Task<ActionResult<List<PageDto>>> GetPagesAsync(Guid id)
     {
         _logger.LogInformation("Received request to Get page Id = {Id}", id);
