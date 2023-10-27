@@ -23,4 +23,6 @@ jobs:
         script: |
           cd /projects/college-chnu
           git pull
+          docker-compose down
+          docker-compose build
           docker-compose up -d
