@@ -15,4 +15,6 @@ public class Page
     public string Content { get; set; }
 
     public SubCategory? SubCategory { get; set; }
+
+    public Guid SubCategoryId { get; set; }
 }

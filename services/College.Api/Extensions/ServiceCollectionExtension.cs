@@ -21,7 +21,7 @@ public static class ServiceCollectionExtension
         // MediatR
         // ****************************
         services.AddMediatR(cfg =>
-            cfg.RegisterServicesFromAssemblyContaining<GetPagesByCategoriesQuery>());
+            cfg.RegisterServicesFromAssemblyContaining<GetPagesQuery>());
 
         // ****************************
         // Automapper

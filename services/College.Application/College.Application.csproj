@@ -16,7 +16,10 @@
       <ProjectReference Include="..\College.Data\College.Data.csproj" />
       <ProjectReference Include="..\College.Domain\College.Domain.csproj" />
       <ProjectReference Include="..\College.Shared\College.Shared.csproj" />
+
     </ItemGroup>
+
+
 
 
 </Project>
