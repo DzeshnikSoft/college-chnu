@@ -2,7 +2,7 @@ namespace College.API.Extensions;
 
 public static class CookieExtensions
 {
-    private const string CookieApiKey = "CollegeApiKey";
+    private const string CookieApiKey = "college_api_key";
 
     public static void SetApiKey(this HttpContext context, string key)
     {
@@ -13,7 +13,7 @@ public static class CookieExtensions
             Secure = true,
         };
 
-        context.Response.Cookies.Delete(CookieApiKey);
+        // context.Response.Cookies.Delete(CookieApiKey);
         context.Response.Cookies.Append(CookieApiKey, key, cookieOptions);
     }
 

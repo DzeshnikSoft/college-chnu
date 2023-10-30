@@ -25,8 +25,7 @@ public class AdminService : IAdminService
 
     public async Task<string> LoginAsync(CollegeAdmin admin)
     {
-        _logger.LogInformation("******* => Start login administrator {Login} {Password}", admin.Login, admin.Password);
-        _logger.LogInformation("******* => Actual login administrator {Login} {Password}", _collegeAdminSecrets.Login, _collegeAdminSecrets.Password);
+        _logger.LogInformation("******* => Start login administrator ");
         await Task.CompletedTask;
 
         if (string.IsNullOrEmpty(admin.Login) || string.IsNullOrEmpty(admin.Password))

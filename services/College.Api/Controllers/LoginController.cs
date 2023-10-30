@@ -33,7 +33,6 @@ public class LoginController : ControllerBase
                var apiKey = await _adminService.LoginAsync(loginModel);
 
                // Rewrite API KEY
-               HttpContext.RemoveApiKey();
                HttpContext.SetApiKey(apiKey);
 
                return Ok();

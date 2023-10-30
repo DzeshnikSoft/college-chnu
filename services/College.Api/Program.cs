@@ -15,9 +15,10 @@ builder.Services.AddMvc()
 
 builder.Services.AddCors(o => o.AddPolicy("CollegeApiPolicy", policyBuilder =>
 {
-    policyBuilder.AllowAnyOrigin()
+    policyBuilder.WithOrigins("http://localhost:4000", "http://localhost:3000", "http://localhost:5176")
         .AllowAnyMethod()
-        .AllowAnyHeader();
+        .AllowAnyHeader()
+        .AllowCredentials();
 }));
 
 // *************************
