@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-
-import userReducer from "../store/features/user.feature";
-import adminReducer from "./features/admin.feature";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import { categoriesApi } from "./api/categories";
 
 export const store = configureStore({
 	reducer: {
-		user: userReducer,
-		admin: adminReducer,
+		[categoriesApi.reducerPath]: categoriesApi.reducer,
 	},
+
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(categoriesApi.middleware),
 });
+
+setupListeners(store.dispatch);

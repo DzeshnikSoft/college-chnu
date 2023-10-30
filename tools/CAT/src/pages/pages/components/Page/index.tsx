@@ -8,36 +8,45 @@ import EditTitle from "@/components/Edit";
 
 import { CategoryDto } from "@/models/api";
 import { changeTitleCategory } from "@/store/features/admin.feature";
-
+import {
+	useDeleteCategoryMutation,
+	useUpdateCategoryMutation,
+} from "@/store/api/categories";
 interface PageState {
-	id: string;
-	newTitle: string;
+	categoryId: string;
+	title: string;
+	url: string;
 }
 
-export default function Page({ title, subCategories, id }: CategoryDto) {
+export default function Page({ title, subCategories, id, url }: CategoryDto) {
 	const [page, setPage] = useState<PageState>({
-		id: id,
-		newTitle: title,
+		categoryId: id,
+		title: title,
+		url: url,
 	});
-	const dispatch = useDispatch();
+	const [deleteCategory] = useDeleteCategoryMutation();
+	const [updateCategory] = useUpdateCategoryMutation();
 
 	const handleChange = ({ target }) => {
-		setPage({ id, newTitle: target.value });
+		setPage({ categoryId: id, url, title: target.value });
 	};
-	const handleClick = () => {
-		dispatch(changeTitleCategory(page));
+	const handleUpdate = () => {
+		updateCategory(page);
+	};
+	const handleDelete = () => {
+		deleteCategory(id);
 	};
 	return (
 		<div className='w-full flex flex-col h-full '>
 			<div className='w-full flex mb-10'>
 				<div className='ml-24'>
 					<EditTitle
-						title={page.newTitle}
+						title={page.title}
+						onClick={handleUpdate}
 						onChange={handleChange}
-						onClick={handleClick}
 					/>
 				</div>
-				<CloseButton className='ml-auto mr-20' />
+				<CloseButton onClick={handleDelete} className='ml-auto mr-20' />
 			</div>
 			<div className='grid grid-cols-3 gap-10 w-10/12 mx-auto place-items-center'>
 				{subCategories.map(({ title, pages, id, url }) => (

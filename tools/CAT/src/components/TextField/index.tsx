@@ -12,7 +12,7 @@ export default function TextField({
 			type={type}
 			value={value}
 			placeholder={placeholder}
-			className={`border ml-20 mr-3 rounded-md text-xl p-2 ${className}`}
+			className={`border rounded-md text-xl p-2 ${className}`}
 			onChange={onChange}
 		/>
 	);
