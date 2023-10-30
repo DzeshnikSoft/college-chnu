@@ -1,24 +1,42 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { MouseEvent, useState } from 'react';
+import { useEffect } from 'react';
 
 import { CollegeAdmin } from '@/models/college-admin';
-import { showSuccessNotif } from '@/providers/notify';
+import { showErrorNotif, showSuccessNotif } from '@/providers/notify';
+import { apiKeyStorage } from '@/services/localStorageService';
 import { useLoginMutation } from '@/store/apis/login';
 import { loginValidationSchema } from '@/validation/login.schema';
 import { Button, Input } from '@chakra-ui/react';
 
 const Authenticate = () => {
-	const [login, { status }] = useLoginMutation();
+	const [login, { data, error, isLoading }] = useLoginMutation();
 
 	const handleLogin = async (values: CollegeAdmin) => {
-		const res = await login(values);
-		console.log(status);
+		login(values);
 	};
 
 	const initialValues: CollegeAdmin = {
 		login: '',
 		password: '',
 	};
+
+	useEffect(() => {
+		if (error) {
+			if (error?.status === 400) {
+				showErrorNotif('Неправильний логін або пароль :(');
+			} else {
+				showErrorNotif('Щось пішло не по плану :(');
+			}
+		}
+	}, [error]);
+
+	useEffect(() => {
+		if (data) {
+			showSuccessNotif('Ласкаво просимо назад');
+			apiKeyStorage.set(data.apiKey);
+			// TODO: Add navigation to dashboard
+		}
+	}, [data]);
 
 	return (
 		<div className='h-screen flex'>
@@ -48,7 +66,12 @@ const Authenticate = () => {
 								component='span'
 							/>
 						</div>
-						<Button type='submit' disabled={!formik.isValid}>
+						<Button
+							isLoading={isLoading}
+							loadingText='Обробляється'
+							type='submit'
+							disabled={!formik.isValid}
+						>
 							Увійти
 						</Button>
 					</Form>

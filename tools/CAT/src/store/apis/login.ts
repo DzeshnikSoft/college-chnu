@@ -5,7 +5,6 @@ export const loginApi = createApi({
 	// TODO: Remove that URL after merge
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'https://localhost:5001/api/',
-		credentials: 'include',
 	}),
 	endpoints: (builder) => ({
 		login: builder.mutation<any, CollegeAdmin>({
