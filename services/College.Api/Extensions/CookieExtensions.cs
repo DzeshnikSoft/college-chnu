@@ -13,7 +13,6 @@ public static class CookieExtensions
             Secure = true,
         };
 
-        // context.Response.Cookies.Delete(CookieApiKey);
         context.Response.Cookies.Append(CookieApiKey, key, cookieOptions);
     }
 

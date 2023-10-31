@@ -24,4 +24,4 @@ public record UpdatePageViewModel(Guid Id, string Title, string Content, string 
 
 #endregion
 
-
+public record ApiKeyResponse(string ApiKey);
