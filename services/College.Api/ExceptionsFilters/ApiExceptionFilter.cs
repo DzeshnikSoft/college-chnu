@@ -2,6 +2,7 @@ using System.Net;
 using College.API.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
+using DnsClient.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -59,6 +60,8 @@ public class ApiExceptionFilter : IExceptionFilter
             {
                 context.Result = result;
             }
+
+            return;
         }
 
         if (context.Exception is ValidationException validationException)
@@ -75,6 +78,22 @@ public class ApiExceptionFilter : IExceptionFilter
             };
 
             context.Result = new BadRequestObjectResult(validationError);
+            return;
         }
+
+
+        var error = new ApiError
+        {
+            ReasonCode = "college_api_internal_server_error",
+            RequestId = context.HttpContext.TraceIdentifier,
+            Message = context.Exception.Message,
+        };
+        _logger.LogError(context.Exception, "ApiException InternalServerError");
+
+        var internalError = new ObjectResult(error)
+        {
+            StatusCode = 500,
+        };
+        context.Result = internalError;
     }
 }

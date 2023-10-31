@@ -1,6 +1,7 @@
 using System.Net;
 using College.API.Exceptions;
 using College.API.Extensions;
+using College.API.ViewModels;
 using College.Domain.Configuration;
 using College.Domain.Exceptions;
 using College.Domain.Services;
@@ -32,10 +33,7 @@ public class LoginController : ControllerBase
           {
                var apiKey = await _adminService.LoginAsync(loginModel);
 
-               // Rewrite API KEY
-               HttpContext.SetApiKey(apiKey);
-
-               return Ok();
+               return Ok(new ApiKeyResponse(apiKey));
           }
           catch (NotAuthorizedException ex)
           {
