@@ -15,5 +15,7 @@ export interface BasePropsTextField {
 	placeholder?: string;
 	className?: string;
 	type?: string;
+	required?: boolean;
+	pattern?: string;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

@@ -1,8 +1,8 @@
-import { CategoryDto } from '@/models/api';
-import { pagesItems } from '@/utils/pagesItems';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CategoryDto } from "@/models/api";
+import { pagesItems } from "@/utils/pagesItems";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AppState } from '../state';
+import { AppState } from "../state";
 
 export interface AdminState {
 	items: CategoryDto[] | null;
