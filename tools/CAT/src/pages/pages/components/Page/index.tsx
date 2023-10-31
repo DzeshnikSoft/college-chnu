@@ -11,7 +11,7 @@ import { changeTitleCategory } from "@/store/features/admin.feature";
 import {
 	useDeleteCategoryMutation,
 	useUpdateCategoryMutation,
-} from "@/store/api/categories";
+} from "@/store/apis/categories";
 interface PageState {
 	categoryId: string;
 	title: string;

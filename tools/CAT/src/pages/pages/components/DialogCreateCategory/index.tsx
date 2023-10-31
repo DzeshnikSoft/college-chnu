@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Dialog from "@/components/Dialog";
 import Button from "@/components/Button";
-import { useAddCategoryMutation } from "@/store/api/categories";
+import { useAddCategoryMutation } from "@/store/apis/categories";
 import TextField from "@/components/TextField";
 
 interface PropsCategory {

@@ -2,7 +2,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { pagesItems } from "@/utils/pagesItems";
 import Page from "./components/Page";
 import DialogCreateCategory from "./components/DialogCreateCategory";
-import { useGetCategoriesQuery } from "@/store/api/categories";
+import { useGetCategoriesQuery } from "@/store/apis/categories";
 import { useState } from "react";
 import AddButton from "@/components/AddButton";
 
