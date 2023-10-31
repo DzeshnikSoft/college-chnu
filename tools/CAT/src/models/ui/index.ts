@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface BaseUIComponentProps {
 	className?: string;
@@ -9,6 +9,7 @@ export interface BasePropsButton {
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	children?: ReactNode;
 }
+
 export interface BasePropsTextField {
 	value?: string;
 	placeholder?: string;

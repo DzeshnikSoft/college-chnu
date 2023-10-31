@@ -35,7 +35,7 @@ public class SubCategoryController : ControllerBase
         }
         catch (EntityNotFoundException ex)
         {
-            throw new ApiException(ex.Message, ApiErrorCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
+            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
         }
     }
 
@@ -51,7 +51,7 @@ public class SubCategoryController : ControllerBase
         }
         catch (EntityNotFoundException ex)
         {
-            throw new ApiException(ex.Message, ApiErrorCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
+            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
         }
     }
 
@@ -68,7 +68,7 @@ public class SubCategoryController : ControllerBase
         }
         catch (EntityNotFoundException ex)
         {
-            throw new ApiException(ex.Message, ApiErrorCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
+            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
         }
     }
 }
