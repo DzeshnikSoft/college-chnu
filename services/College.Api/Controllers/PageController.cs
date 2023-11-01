@@ -61,7 +61,7 @@ public class PageController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<List<PageDto>>> GetPagesAsync(Guid id)
+    public async Task<ActionResult<PageDto>> GetPagesAsync(Guid id)
     {
         _logger.LogInformation("Received request to Get page Id = {Id}", id);
 
