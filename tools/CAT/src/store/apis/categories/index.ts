@@ -1,38 +1,33 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "@/store/baseUrl";
-
+import {
+	addCategory,
+	getCategories,
+	updateCategory,
+	deleteCategory,
+} from "./endpoints/category";
+import {
+	addSubCategory,
+	updateSubCategory,
+	deleteSubCategory,
+} from "./endpoints/subCategory";
+import { addPage, updatePage, getPage, deletePage } from "./endpoints/page";
 export const categoriesApi = createApi({
 	reducerPath: "api",
 	baseQuery,
 	tagTypes: ["Categories"],
 	endpoints: (builder) => ({
-		getCategories: builder.query({
-			query: () => "/Categories",
-			providesTags: ["Categories"],
-		}),
-		addCategory: builder.mutation({
-			query: (data) => ({
-				url: "Categories",
-				method: "POST",
-				body: data,
-			}),
-			invalidatesTags: ["Categories"],
-		}),
-		updateCategory: builder.mutation({
-			query: (data) => ({
-				url: `Categories`,
-				method: "PUT",
-				body: data,
-			}),
-			invalidatesTags: ["Categories"],
-		}),
-		deleteCategory: builder.mutation({
-			query: (CategoryId) => ({
-				url: `Categories/${CategoryId}`,
-				method: "DELETE",
-			}),
-			invalidatesTags: ["Categories"],
-		}),
+		getCategories: getCategories(builder),
+		addCategory: addCategory(builder),
+		updateCategory: updateCategory(builder),
+		deleteCategory: deleteCategory(builder),
+		addSubCategory: addSubCategory(builder),
+		updateSubCategory: updateSubCategory(builder),
+		deleteSubCategory: deleteSubCategory(builder),
+		getPage: getPage(builder),
+		addPage: addPage(builder),
+		updatePage: updatePage(builder),
+		deletePage: deletePage(builder),
 	}),
 });
 
@@ -41,4 +36,11 @@ export const {
 	useAddCategoryMutation,
 	useDeleteCategoryMutation,
 	useUpdateCategoryMutation,
+	useAddSubCategoryMutation,
+	useDeleteSubCategoryMutation,
+	useUpdateSubCategoryMutation,
+	useAddPageMutation,
+	useUpdatePageMutation,
+	useGetPageQuery,
+	useDeletePageMutation,
 } = categoriesApi;

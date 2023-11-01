@@ -1,16 +1,16 @@
 import { BasePropsButton } from "@/models/ui";
-import Button from "../Button";
-
+import { Button } from "@chakra-ui/react";
 export default function AddButton({
 	className = "",
 	onClick,
+	children,
 }: BasePropsButton) {
 	return (
 		<Button
-			className={`flex bg-activeItems hover:bg-hoverActiveItems w-fit mx-auto text-white rounded-md items-center justify-center cursor-pointer px-3 ${className}`}
+			className={`flex !mb-0 w-fit mx-auto rounded-md items-center justify-center cursor-pointer px-3 ${className}`}
 			onClick={onClick}>
-			<i className='fa-solid fa-plus text-3xl'></i>
-			<span className='text-lg ml-3'>Додати</span>
+			<i className='fa-solid fa-plus'></i>
+			<span className='ml-3'>{children}</span>
 		</Button>
 	);
 }

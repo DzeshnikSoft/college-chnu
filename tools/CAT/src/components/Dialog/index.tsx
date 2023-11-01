@@ -14,7 +14,7 @@ export default function Dialog({
 	return (
 		<div
 			onClick={onClick}
-			className='w-full bg-black/20 z-20 h-screen absolute top-0 left-0 flex'>
+			className='w-screen bg-black/20 z-50 h-screen fixed top-0 left-0 flex'>
 			<div
 				onClick={(e) => e.stopPropagation()}
 				className={`rounded-md relative m-auto z-50 bg-white p-5 w-fit h-fit flex ${className}`}>
