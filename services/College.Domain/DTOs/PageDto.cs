@@ -9,4 +9,6 @@ public class PageDto
     public string Title { get; set; }
 
     public string Content { get; set; }
+
+    public Guid SubCategoryId { get; set; }
 }
