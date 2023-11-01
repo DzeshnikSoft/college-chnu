@@ -1,5 +1,3 @@
-// DO NOT EDIT BY HANDS
-
 // ..\..\services\College.Domain\DTOs\CategoryDto.cs
 export interface CategoryDto {
     id: string;
@@ -25,6 +23,7 @@ export interface PageDto {
     url: string;
     title: string;
     content: string;
+    subCategoryId: string;
 }
 
 // ..\..\services\College.Domain\DTOs\SubCategoryDto.cs

@@ -8,6 +8,7 @@ public class PageMapperProfile : Profile
 {
     public PageMapperProfile()
     {
-        CreateMap<PageDto, Page>();
+        CreateMap<PageDto, Page>()
+            .ReverseMap();
     }
 }
