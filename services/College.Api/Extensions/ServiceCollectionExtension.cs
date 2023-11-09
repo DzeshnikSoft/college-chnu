@@ -45,5 +45,6 @@ public static class ServiceCollectionExtension
         // Services
         // ****************************
         services.AddScoped<IAdminService, AdminService>();
+        services.AddScoped<IFileStorage, FileStorage>();
     }
 }
