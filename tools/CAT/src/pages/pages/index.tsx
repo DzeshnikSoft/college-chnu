@@ -1,46 +1,70 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { pagesItems } from "@/utils/pagesItems";
 import Page from "./components/Page";
 import DialogCreateCategory from "./components/DialogCreateCategory";
 import { useGetCategoriesQuery } from "@/store/apis/categories";
 import { useState } from "react";
+import { defaultUrl } from "@/utils/defaultUrl";
 import AddButton from "@/components/AddButton";
-
+import { CategoryDto } from "@/models/api";
+import DeleteButton from "@/components/DeleteButton";
+import SpinnerWrapper from "@/components/Spinner";
 const Pages = () => {
-	const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
-	const { data, loading } = useGetCategoriesQuery();
+	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
+		useState<boolean>(false);
+	const { data, isFetching } = useGetCategoriesQuery(undefined, {});
 
 	const handleClickOnAddButton = () => {
-		setIsOpenPopup(true);
+		setIsOpenPopupForCategoties(true);
 	};
-	const handleClose = () => {
-		setIsOpenPopup(false);
+	const handleClosePopupCategoties = () => {
+		setIsOpenPopupForCategoties(false);
 	};
 
 	return (
 		<div className='h-full w-full'>
-			<Tabs isFitted variant='enclosed'>
-				<TabList mb='1em'>
-					{data?.map(({ title }) => (
-						<Tab>{title}</Tab>
-					))}
-					<AddButton onClick={handleClickOnAddButton} />
-				</TabList>
-				<TabPanels>
-					{data?.map(({ title, subCategories, id, url }) => (
-						<TabPanel>
-							<Page
-								title={title}
-								id={id}
-								url={url}
-								subCategories={subCategories}
-							/>
-						</TabPanel>
-					))}
-				</TabPanels>
-			</Tabs>
-			{isOpenPopup && (
-				<DialogCreateCategory handleClose={handleClose} data={data} />
+			{!isFetching ? (
+				<Tabs isFitted>
+					<TabList>
+						{(data as CategoryDto[])?.map(
+							({ title }: CategoryDto) => (
+								<Tab>{title}</Tab>
+							)
+						)}
+						<AddButton
+							className='text-md h-full'
+							onClick={handleClickOnAddButton}>
+							Нова категорія
+						</AddButton>
+					</TabList>
+					<TabPanels>
+						{(data as CategoryDto[])?.map(
+							({
+								title,
+								subCategories,
+								id,
+								url,
+							}: CategoryDto) => (
+								<TabPanel>
+									<Page
+										title={title}
+										id={id}
+										url={url}
+										subCategories={subCategories}
+									/>
+								</TabPanel>
+							)
+						)}
+					</TabPanels>
+				</Tabs>
+			) : (
+				<SpinnerWrapper />
+			)}
+
+			{isOpenPopupForCategoties && (
+				<DialogCreateCategory
+					handleClose={handleClosePopupCategoties}
+					parentUrl={defaultUrl}
+				/>
 			)}
 		</div>
 	);

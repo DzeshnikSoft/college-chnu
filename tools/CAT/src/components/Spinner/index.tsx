@@ -1,10 +1,13 @@
 import { Spinner } from "@chakra-ui/react";
-interface StateSpinner {
-	className: string;
+
+interface SpinnerState {
+	className?: string;
 }
-export default function Spinner({ className }: StateSpinner) {
+
+export default function SpinnerWrapper({ className = "" }: SpinnerState) {
 	return (
-		<div className={`w-full h-full flex ${className}`}>
+		<div
+			className={`w-full h-full flex items-center justify-center${className}`}>
 			<Spinner
 				thickness='4px'
 				speed='0.65s'

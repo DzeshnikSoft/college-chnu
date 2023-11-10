@@ -1,64 +1,65 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SaveButton from "../SaveButton";
-import TextField from "../TextField";
+import {
+	InputGroup,
+	InputLeftAddon,
+	Input,
+	InputRightAddon,
+} from "@chakra-ui/react";
 import Button from "@/components/Button";
-interface BasePropsEdit {
-	title?: string;
+
+interface EditProps {
+	name: string;
+	value: string;
+	placeholder?: string;
+	type: string;
+	withoutButtonSave?: boolean;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
-export default function Edit({ title, onChange, onClick }: BasePropsEdit) {
-	const [isHovering, setIsHovering] = useState<boolean>(false);
-	const [isEditMode, setIsEditMode] = useState<boolean>(false);
-	const handleMouseOver = () => {
-		setIsHovering(true);
-	};
 
-	const handleMouseOut = () => {
-		setIsHovering(false);
-	};
+export default function Edit({
+	name,
+	onChange,
+	onClick,
+	value = "",
+	placeholder = "",
+	type = "",
+	withoutButtonSave = false,
+}: EditProps) {
+	const [editValue, setEditValue] = useState<string>(value);
+	const [isShowButton, setIsShowButton] = useState<boolean>(false);
+	const [initialValue, setInitialValue] = useState<string>(value);
 
-	const handleOnShowMode = () => {
-		setIsEditMode(true);
-	};
-
-	const handleOffShowMode = () => {
-		setIsEditMode(false);
-	};
-
-	const handleClickSave = (event: React.MouseEvent<HTMLElement>) => {
-		handleOffShowMode();
-		if (onClick) {
-			onClick(event);
+	useEffect(() => {
+		if (editValue === initialValue) {
+			setIsShowButton(false);
+		} else {
+			setIsShowButton(true);
 		}
+	}, [editValue, initialValue]);
+
+	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setEditValue(event.target.value);
+		setIsShowButton(false);
+		onChange(event);
 	};
 
 	return (
 		<div className='w-full flex flex-col'>
-			{isEditMode ? (
-				<div className='h-full flex items-center'>
-					<TextField
-						value={title}
-						className='!ml-0 mr-3'
-						onChange={onChange}
-					/>
-					<SaveButton onClick={handleClickSave} />
-				</div>
-			) : (
-				<div
-					className='relative w-fit'
-					onMouseOver={handleMouseOver}
-					onMouseOut={handleMouseOut}>
-					<span className='text-xl flex p-2'>{title}</span>
-					{isHovering && (
-						<Button
-							className='absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2 top-1 -right-10 bg-transparent hover:bg-transparent h-fit'
-							onClick={handleOnShowMode}>
-							<i className='fa-solid fa-pen-to-square'></i>
-						</Button>
-					)}
-				</div>
-			)}
+			<InputGroup>
+				<InputLeftAddon children={name} />
+				<Input
+					placeholder={placeholder}
+					onChange={handleInputChange}
+					value={editValue}
+				/>
+				{type === "link" && <InputRightAddon children='.com' />}
+
+				{!withoutButtonSave && isShowButton && (
+					<SaveButton onClick={onClick} className='ml-4' />
+				)}
+			</InputGroup>
 		</div>
 	);
 }

@@ -1,35 +1,41 @@
 import { useState } from "react";
 import Dialog from "@/components/Dialog";
 import Button from "@/components/Button";
-import { useAddCategoryMutation } from "@/store/apis/categories";
+import { useAddPageMutation } from "@/store/apis/categories";
 import Edit from "@/components/Edit";
 
-interface CategoryState {
+interface PageState {
 	title: string;
 	url: string;
+	content: string;
+	subCategoryId: string;
 }
-interface CategoryProps {
+interface PageProps {
 	handleClose: () => void;
 	parentUrl: string;
+	subCategoryId: string;
 }
-export default function DialogCreateCategory({
+export default function DialogCreatePage({
 	handleClose,
 	parentUrl,
-}: CategoryProps) {
-	const [createCategory, setCreateCategory] = useState<CategoryState>({
+	subCategoryId,
+}: PageProps) {
+	const [createPage, setCreatePage] = useState<PageState>({
+		subCategoryId: subCategoryId,
 		title: "",
 		url: "",
+		content: "",
 	});
-	const [addCategory] = useAddCategoryMutation();
+	const [addPage] = useAddPageMutation();
 
-	const handleChangeTitleCategory = ({ target }) => {
-		setCreateCategory({ ...createCategory, title: target.value });
+	const handleChangeTitlePage = ({ target }) => {
+		setCreatePage({ ...createPage, title: target.value });
 	};
-	const handleChangeUrlCategory = ({ target }) => {
-		setCreateCategory({ ...createCategory, url: target.value });
+	const handleChangeUrlPage = ({ target }) => {
+		setCreatePage({ ...createPage, url: target.value });
 	};
 	const handleClick = () => {
-		addCategory(createCategory);
+		addPage(createPage);
 		handleClose();
 	};
 
@@ -40,7 +46,7 @@ export default function DialogCreateCategory({
 					value=''
 					name='Назва'
 					type='text'
-					onChange={handleChangeTitleCategory}
+					onChange={handleChangeTitlePage}
 					withoutButtonSave={true}
 				/>
 				<div className='mt-6'>
@@ -48,7 +54,7 @@ export default function DialogCreateCategory({
 						value=''
 						name={parentUrl}
 						type='link'
-						onChange={handleChangeUrlCategory}
+						onChange={handleChangeUrlPage}
 						withoutButtonSave={true}
 					/>
 				</div>

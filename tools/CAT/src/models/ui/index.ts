@@ -1,16 +1,16 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
-export interface BaseUIComponentProps {
+export interface UIComponentProps {
 	className?: string;
 }
 
-export interface BasePropsButton {
+export interface ButtonProps {
 	className?: string;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	children?: ReactNode;
 }
 
-export interface BasePropsTextField {
+export interface TextFieldProps {
 	value?: string;
 	placeholder?: string;
 	className?: string;

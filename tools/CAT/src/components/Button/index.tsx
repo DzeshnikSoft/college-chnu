@@ -1,6 +1,10 @@
-import { BasePropsButton } from '@/models/ui';
+import { ButtonProps } from "@/models/ui";
 
-export default function Button({ children, className = '', onClick }: BasePropsButton) {
+export default function Button({
+	children,
+	className = "",
+	onClick,
+}: ButtonProps) {
 	return (
 		<button
 			type='submit'

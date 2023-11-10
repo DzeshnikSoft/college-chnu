@@ -1,41 +1,80 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-
+import { Card } from "@chakra-ui/react";
+import { defaultUrl } from "@/utils/defaultUrl";
 import Edit from "@/components/Edit";
+import DeleteButton from "@/components/DeleteButton";
 import { SubCategoryDto } from "@/models/api";
-import { changeTitleItemSubCategories } from "@/store/features/admin.feature";
-
+import {
+	useDeleteSubCategoryMutation,
+	useUpdateSubCategoryMutation,
+} from "@/store/apis/categories";
 import List from "../List";
 
 interface SubCategories {
-	id: string;
-	newTitle: string;
+	subCategoryId: string;
+	title: string;
+	url: string;
 }
-
-export default function SubCategories({ title, pages, id }: SubCategoryDto) {
-	const dispatch = useDispatch();
+export default function SubCategories({
+	title,
+	url,
+	pages,
+	id,
+	parentUrl,
+}: SubCategoryDto & { parentUrl: string }) {
 	const [subCategory, setSubCategory] = useState<SubCategories>({
-		id: id,
-		newTitle: title,
+		subCategoryId: id,
+		title: title,
+		url: url,
 	});
+	const [deleteSubCategory] = useDeleteSubCategoryMutation();
+	const [updateSubCategory] = useUpdateSubCategoryMutation();
 
-	const handleChange = ({ target }) => {
-		setSubCategory({ id: id, newTitle: target.value });
+	const handleChangeTitle = ({ target }) => {
+		setSubCategory({ subCategoryId: id, url, title: target.value });
 	};
 
+	const handleChangeUrl = ({ target }) => {
+		setSubCategory({ subCategoryId: id, title, url: target.value });
+	};
 	const handleClick = () => {
-		dispatch(changeTitleItemSubCategories(subCategory));
+		updateSubCategory(subCategory);
+	};
+
+	const handleDelete = () => {
+		deleteSubCategory(id);
 	};
 	return (
-		<div className='h-full w-full'>
+		<Card className='h-full w-full p-3'>
 			<div className='w-full flex items-center justify-between mb-5'>
-				<Edit
-					title={subCategory.newTitle}
-					onChange={handleChange}
-					onClick={handleClick}
+				<div className='flex flex-col'>
+					<Edit
+						name='Назва підкатегорії'
+						onChange={handleChangeTitle}
+						onClick={handleClick}
+						value={subCategory.title}
+						type='text'
+					/>
+					<div className='mt-5'>
+						<Edit
+							value={subCategory.url}
+							name={`${defaultUrl}${parentUrl}/`}
+							onChange={handleChangeUrl}
+							onClick={handleClick}
+							type='link'
+						/>
+					</div>
+				</div>
+				<DeleteButton
+					className='mr-auto ml-2 mb-auto ml-auto'
+					onClick={handleDelete}
 				/>
 			</div>
-			<List pages={pages} />
-		</div>
+			<List
+				pages={pages}
+				subCategoryId={subCategory.subCategoryId}
+				parentUrl={`${defaultUrl}${parentUrl}/${subCategory.url}/`}
+			/>
+		</Card>
 	);
 }
