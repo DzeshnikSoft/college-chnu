@@ -4,13 +4,13 @@ import Button from "@/components/Button";
 import { useAddPageMutation } from "@/store/apis/categories";
 import Edit from "@/components/Edit";
 
-interface StatePage {
+interface PageState {
 	title: string;
 	url: string;
 	content: string;
 	subCategoryId: string;
 }
-interface PropsPage {
+interface PageProps {
 	handleClose: () => void;
 	parentUrl: string;
 	subCategoryId: string;
@@ -19,8 +19,8 @@ export default function DialogCreatePage({
 	handleClose,
 	parentUrl,
 	subCategoryId,
-}: PropsPage) {
-	const [createPage, setCreatePage] = useState<StatePage>({
+}: PageProps) {
+	const [createPage, setCreatePage] = useState<PageState>({
 		subCategoryId: subCategoryId,
 		title: "",
 		url: "",

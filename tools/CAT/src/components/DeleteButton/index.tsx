@@ -1,10 +1,10 @@
 import { Button } from "@chakra-ui/react";
-import { BasePropsButton } from "@/models/ui";
+import { ButtonProps } from "@/models/ui";
 export default function DeleteButton({
 	children,
 	className,
 	onClick,
-}: BasePropsButton) {
+}: ButtonProps) {
 	return (
 		<Button colorScheme='red' className={className} onClick={onClick}>
 			{children && <span className='mr-3'>{children}</span>}

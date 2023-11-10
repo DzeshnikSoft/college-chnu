@@ -10,14 +10,14 @@ import {
 	useDeleteCategoryMutation,
 	useUpdateCategoryMutation,
 } from "@/store/apis/categories";
-interface PageState {
+interface StatePage {
 	categoryId: string;
 	title: string;
 	url: string;
 }
 
 export default function Page({ title, subCategories, id, url }: CategoryDto) {
-	const [page, setPage] = useState<PageState>({
+	const [page, setPage] = useState<StatePage>({
 		categoryId: id,
 		title: title,
 		url: url,

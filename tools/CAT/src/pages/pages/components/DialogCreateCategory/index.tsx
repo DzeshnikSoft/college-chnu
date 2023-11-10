@@ -4,19 +4,19 @@ import Button from "@/components/Button";
 import { useAddCategoryMutation } from "@/store/apis/categories";
 import Edit from "@/components/Edit";
 
-interface StateCategory {
+interface CategoryState {
 	title: string;
 	url: string;
 }
-interface PropsCategory {
+interface CategoryProps {
 	handleClose: () => void;
 	parentUrl: string;
 }
 export default function DialogCreateCategory({
 	handleClose,
 	parentUrl,
-}: PropsCategory) {
-	const [createCategory, setCreateCategory] = useState<StateCategory>({
+}: CategoryProps) {
+	const [createCategory, setCreateCategory] = useState<CategoryState>({
 		title: "",
 		url: "",
 	});

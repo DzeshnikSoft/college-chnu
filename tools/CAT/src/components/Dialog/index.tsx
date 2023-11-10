@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import CloseButton from "../CloseButton";
-interface StateDialog {
+interface DialogState {
 	className?: string;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	children?: ReactNode;
@@ -10,7 +10,7 @@ export default function Dialog({
 	children,
 	className = "",
 	onClick,
-}: StateDialog) {
+}: DialogState) {
 	return (
 		<div
 			onClick={onClick}

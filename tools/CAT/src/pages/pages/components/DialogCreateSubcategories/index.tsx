@@ -3,13 +3,14 @@ import Dialog from "@/components/Dialog";
 import Edit from "@/components/Edit";
 import Button from "@/components/Button";
 import { useAddSubCategoryMutation } from "@/store/apis/categories";
-interface StateCategory {
+
+interface CategoryState {
 	categoryId: string;
 	title: string;
 	url: string;
 }
 
-interface PropsSubCategory {
+interface SubCategoryProps {
 	categoryId: string;
 	handleClose: () => void;
 	parentUrl: string;
@@ -18,8 +19,8 @@ export default function DialogCreateSubCategories({
 	categoryId,
 	handleClose,
 	parentUrl,
-}: PropsSubCategory) {
-	const [createSubCategory, setCreateSubCategory] = useState<StateCategory>({
+}: SubCategoryProps) {
+	const [createSubCategory, setCreateSubCategory] = useState<CategoryState>({
 		categoryId: categoryId,
 		title: "",
 		url: "",

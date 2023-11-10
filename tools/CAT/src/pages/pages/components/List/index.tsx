@@ -8,7 +8,7 @@ interface ListProps {
 	pages: PageDto[];
 }
 
-interface StatePage {
+interface PageState {
 	subCategoryId: string;
 	title: string;
 	url: string;
@@ -21,7 +21,7 @@ export default function List({
 }: ListProps & { subCategoryId: string } & { parentUrl: string }) {
 	const [isDialogCreatePage, setIsDialogCreatePage] =
 		useState<boolean>(false);
-	const [page, setPage] = useState<StatePage>({
+	const [page, setPage] = useState<PageState>({
 		subCategoryId: subCategoryId,
 		title: "",
 		url: "",

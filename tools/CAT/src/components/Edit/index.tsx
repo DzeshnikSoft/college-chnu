@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import Button from "@/components/Button";
 
-interface BasePropsEdit {
+interface EditProps {
 	name: string;
 	value: string;
 	placeholder?: string;
@@ -26,7 +26,7 @@ export default function Edit({
 	placeholder = "",
 	type = "",
 	withoutButtonSave = false,
-}: BasePropsEdit) {
+}: EditProps) {
 	const [editValue, setEditValue] = useState<string>(value);
 	const [isShowButton, setIsShowButton] = useState<boolean>(false);
 	const [initialValue, setInitialValue] = useState<string>(value);

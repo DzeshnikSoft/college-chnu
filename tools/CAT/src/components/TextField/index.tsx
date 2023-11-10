@@ -1,4 +1,4 @@
-import { BasePropsTextField } from "@/models/ui";
+import { TextFieldProps } from "@/models/ui";
 
 export default function TextField({
 	type = "",
@@ -6,7 +6,7 @@ export default function TextField({
 	placeholder = "",
 	value,
 	onChange,
-}: BasePropsTextField) {
+}: TextFieldProps) {
 	return (
 		<input
 			type={type}

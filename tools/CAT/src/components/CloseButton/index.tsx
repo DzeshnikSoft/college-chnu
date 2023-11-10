@@ -1,9 +1,6 @@
 import Button from "../Button";
-import { BasePropsButton } from "@/models/ui";
-export default function CloseButton({
-	className = "",
-	onClick,
-}: BasePropsButton) {
+import { ButtonProps } from "@/models/ui";
+export default function CloseButton({ className = "", onClick }: ButtonProps) {
 	return (
 		<Button
 			onClick={onClick}
