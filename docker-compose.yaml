@@ -21,7 +21,7 @@ services:
         ports:
             - '5005:80'
         volumes:
-            - ./uploads:/app/uploads
+            - ./data:/app/data
 
     nginx:
         build:

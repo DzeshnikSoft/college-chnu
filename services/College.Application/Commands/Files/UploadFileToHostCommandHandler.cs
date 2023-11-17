@@ -22,7 +22,7 @@ public class UploadFileToHostCommandHandler : IRequestHandler<UploadFileToHostCo
 {
     private readonly ILogger<UploadFileToHostCommandHandler> _logger;
     private readonly IFileStorage _fileStorage;
-    private const string DestinationFilesFolder = "uploads";
+    private const string DestinationFilesFolder = "data";
 
     public UploadFileToHostCommandHandler(ILogger<UploadFileToHostCommandHandler> logger, IFileStorage fileStorage)
     {
