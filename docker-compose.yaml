@@ -11,8 +11,8 @@ services:
             context: ./services
         ports:
             - '5005:80'
-        volumes:
-            - ./data:/app/data
+        # volumes:
+        #     - ./data:/app/data
 
     nginx:
         build:

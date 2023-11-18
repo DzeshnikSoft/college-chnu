@@ -1,7 +1,6 @@
 using College.API.ExceptionsFilters;
 using College.API.Extensions;
 using College.Domain.Filters;
-using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,10 +33,11 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseCors("CollegeApiPolicy");
 app.MapControllers();
 
 app.Run();
+app.Logger.LogInformation("Application BOOM BOOM start");

@@ -7,9 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace College.Application.Commands.Pages;
 
-public class DeletePageCommand(Guid pageId) : IRequest<Unit>
+public class DeletePageCommand : IRequest<Unit>
 {
-    public Guid PageId { get; set; } = pageId;
+    public DeletePageCommand(Guid pageId)
+    {
+        PageId = pageId;
+    }
+    public Guid PageId { get; set; }
 }
 
 public class DeletePageCommandHandler : IRequestHandler<DeletePageCommand, Unit>
