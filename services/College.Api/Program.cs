@@ -1,5 +1,7 @@
 using College.API.ExceptionsFilters;
 using College.API.Extensions;
+using College.Domain.Filters;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,7 @@ builder.Services.AddCors(o => o.AddPolicy("CollegeApiPolicy", policyBuilder =>
         .AllowAnyHeader();
 }));
 
+builder.Services.AddScoped<IFilePathFilter, FilePathFilter>();
 // *************************
 // Configure services
 // *************************

@@ -3,6 +3,7 @@ using College.Application.Queries.Pages;
 using College.Data.Context;
 using College.Domain.Configuration;
 using College.Domain.Services;
+using College.Domain.Settings;
 using Microsoft.EntityFrameworkCore;
 
 namespace College.API.Extensions;
@@ -12,7 +13,7 @@ public static class ServiceCollectionExtension
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
         // ****************************
-        // datastore
+        // Datastore
         // ****************************
         services.AddDbContext<CollegeDbContext>(cfg =>
         {
@@ -29,6 +30,10 @@ public static class ServiceCollectionExtension
         var collegeApiKeyOptions = new CollegeApiKeyOptions();
         configuration.GetSection("CollegeApiKeyOptions").Bind(collegeApiKeyOptions);
         services.AddSingleton(collegeApiKeyOptions);
+
+        var fileStorageSettings = new FileStorageSettings();
+        configuration.GetSection("FileStorageSettings").Bind(fileStorageSettings);
+        services.AddSingleton(fileStorageSettings);
 
         // ****************************
         // MediatR
