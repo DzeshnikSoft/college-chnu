@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   deploy:
@@ -22,6 +24,7 @@ jobs:
         port: 22
         script: |
           cd /projects/college-chnu
+          git checkout feature/upload-file-api
           git pull
           docker-compose down
           docker-compose build
