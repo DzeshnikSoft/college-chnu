@@ -15,14 +15,9 @@ public interface IFileStorage
     Task<string> SaveFileAsync(string filePath, byte[] fileBytes);
 }
 
-public class FileStorage : IFileStorage
+public class FileStorage(ILogger<FileStorage> logger) : IFileStorage
 {
-    private readonly ILogger<FileStorage> _logger;
-
-    public FileStorage(ILogger<FileStorage> logger)
-    {
-        _logger = logger.ThrowIfNull();
-    }
+    private readonly ILogger<FileStorage> _logger = logger.ThrowIfNull();
 
     public async Task<string> SaveFileAsync(string filePath, byte[] fileBytes)
     {

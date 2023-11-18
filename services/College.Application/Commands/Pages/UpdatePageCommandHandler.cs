@@ -10,22 +10,14 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.Pages;
 
-public class UpdatePageCommand : IRequest<PageDto>
+public class UpdatePageCommand(Guid pageId, string title, string url, string content, Guid? subCategoryId)
+    : IRequest<PageDto>
 {
-    public UpdatePageCommand(Guid pageId, string title, string url, string content, Guid? subCategoryId)
-    {
-        PageId = pageId;
-        Title = title;
-        Url = url;
-        Content = content;
-        SubCategoryId = subCategoryId;
-    }
-
-    public Guid PageId { get; set; }
-    public string? Title { get; set; }
-    public string? Url { get; set; }
-    public string? Content { get; set; }
-    public Guid? SubCategoryId { get; set; }
+    public Guid PageId { get; set; } = pageId;
+    public string? Title { get; set; } = title;
+    public string? Url { get; set; } = url;
+    public string? Content { get; set; } = content;
+    public Guid? SubCategoryId { get; set; } = subCategoryId;
 }
 
 public class UpdatePageCommandHandler : IRequestHandler<UpdatePageCommand, PageDto>

@@ -7,17 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.Files;
 
-public class UploadFileToHostCommand : IRequest<string>
+public class UploadFileToHostCommand(string fileName, byte[] fileBytes) : IRequest<string>
 {
-    public UploadFileToHostCommand(string fileName, byte[] fileBytes)
-    {
-        FileName = fileName;
-        FileBytes = fileBytes;
-    }
+    public string FileName { get; } = fileName;
 
-    public string FileName { get; }
-
-    public byte[] FileBytes { get; }
+    public byte[] FileBytes { get; } = fileBytes;
 }
 
 public class UploadFileToHostCommandHandler : IRequestHandler<UploadFileToHostCommand, string>
