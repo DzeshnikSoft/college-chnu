@@ -38,6 +38,7 @@ public class FileStorage : IFileStorage
             {
                 Directory.CreateDirectory(directory);
             }
+
             await using var fileStream = new FileStream(filePath, FileMode.Create);
 
             await fileStream.WriteAsync(fileBytes);
