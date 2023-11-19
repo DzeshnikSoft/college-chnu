@@ -1,5 +1,6 @@
 using College.API.ExceptionsFilters;
 using College.API.Extensions;
+using College.Domain.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddCors(o => o.AddPolicy("CollegeApiPolicy", policyBuilder =>
         .AllowAnyHeader();
 }));
 
+builder.Services.AddScoped<IFilePathFilter, FilePathFilter>();
 // *************************
 // Configure services
 // *************************
@@ -31,10 +33,11 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseCors("CollegeApiPolicy");
 app.MapControllers();
 
 app.Run();
+app.Logger.LogInformation("Application BOOM BOOM start");

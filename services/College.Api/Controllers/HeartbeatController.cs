@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace College.API.Controllers;
 
 [ApiController]
-[Route("/api/[controller]")]
+[Route("api/[controller]")]
 public class HeartbeatController : ControllerBase
 {
     [HttpGet]

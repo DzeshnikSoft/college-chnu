@@ -14,13 +14,8 @@ public class UpdatePageCommand : IRequest<PageDto>
 {
     public UpdatePageCommand(Guid pageId, string title, string url, string content, Guid? subCategoryId)
     {
-        PageId = pageId;
-        Title = title;
-        Url = url;
-        Content = content;
-        SubCategoryId = subCategoryId;
-    }
 
+    }
     public Guid PageId { get; set; }
     public string? Title { get; set; }
     public string? Url { get; set; }

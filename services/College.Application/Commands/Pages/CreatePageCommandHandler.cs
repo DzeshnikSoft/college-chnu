@@ -7,14 +7,12 @@ using MediatR;
 
 namespace College.Application.Commands.Pages;
 
-public class CreatePageCommand : IRequest<PageDto>
+public class CreatePageCommand
+    : IRequest<PageDto>
 {
     public CreatePageCommand(string title, string content, string url, Guid? subCategoryId)
     {
-        Title = title;
-        Content = content;
-        Url = url;
-        SubCategoryId = subCategoryId;
+
     }
 
     public string Title { get; set; }

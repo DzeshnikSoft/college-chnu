@@ -13,7 +13,6 @@ public class DeletePageCommand : IRequest<Unit>
     {
         PageId = pageId;
     }
-
     public Guid PageId { get; set; }
 }
 

@@ -25,10 +25,7 @@
       <ProjectReference Include="..\College.Application\College.Application.csproj" />
       <ProjectReference Include="..\College.Data\College.Data.csproj" />
       <ProjectReference Include="..\College.Shared\College.Shared.csproj" />
-
     </ItemGroup>
-
-
 
 
 </Project>
