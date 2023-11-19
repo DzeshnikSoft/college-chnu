@@ -2,6 +2,7 @@
 using College.Application.Queries.Pages;
 using College.Data.Context;
 using College.Domain.Configuration;
+using College.Domain.Filters;
 using College.Domain.Services;
 using College.Domain.Settings;
 using Microsoft.EntityFrameworkCore;
@@ -51,5 +52,7 @@ public static class ServiceCollectionExtension
         // ****************************
         services.AddScoped<IAdminService, AdminService>();
         services.AddScoped<IFileStorage, FileStorage>();
+        services.AddScoped<IFilePathFilter, FilePathFilter>();
+        services.AddScoped<ITemplateFactory, TemplateFactory>();
     }
 }

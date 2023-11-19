@@ -3,6 +3,7 @@ using College.API.ViewModels;
 using College.Application.Commands.Pages;
 using College.Application.Queries.Pages;
 using College.Domain.DTOs;
+using College.Domain.Enumerations;
 using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
@@ -37,8 +38,15 @@ public class PageController : ControllerBase
     {
         _logger.LogInformation("Received request to Create page");
 
+        var command = new CreatePageCommand(
+            pageViewModel.Title,
+            pageViewModel.Content,
+            pageViewModel.Url,
+            pageViewModel.SubCategoryId,
+            new TemplateDto { Type = pageViewModel.Type, Image = pageViewModel.Image, Label = pageViewModel.Label });
+
         return Ok(
-            await _mediator.Send(new CreatePageCommand(pageViewModel.Title, pageViewModel.Content, pageViewModel.Url, pageViewModel.SubCategoryId)));
+            await _mediator.Send(command));
     }
 
     [HttpPut]
@@ -46,13 +54,20 @@ public class PageController : ControllerBase
     {
         try
         {
-            return Ok(await _mediator.Send(
-                new UpdatePageCommand(
-                    pageViewModel.Id,
-                    pageViewModel.Title,
-                    pageViewModel.Url,
-                    pageViewModel.Content,
-                    pageViewModel.SubCategoryId)));
+            var command = new UpdatePageCommand(
+                pageViewModel.Id,
+                pageViewModel.Title,
+                pageViewModel.Url,
+                pageViewModel.Content,
+                pageViewModel.SubCategoryId,
+                new TemplateDto
+                {
+                    Type = pageViewModel.Type,
+                    Image = new ImageDto{ Alt = pageViewModel.Image.Alt, Url = pageViewModel.Url},
+                    Label = pageViewModel.Label,
+                });
+
+            return Ok(await _mediator.Send(command));
         }
         catch (EntityNotFoundException ex)
         {

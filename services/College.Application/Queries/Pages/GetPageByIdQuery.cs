@@ -29,7 +29,10 @@ public class GetPageByIdQueryHandler : IRequestHandler<GetPageByIdQuery, PageDto
 
     public async Task<PageDto> Handle(GetPageByIdQuery request, CancellationToken cancellationToken)
     {
-        var page = await _db.Pages.SingleOrDefaultAsync(p => p.Id == request.PageId, cancellationToken);
+        var page = await _db.Pages
+            .Include(x =>x.Template)
+            .ThenInclude(x => x.Image)
+            .SingleOrDefaultAsync(p => p.Id == request.PageId, cancellationToken);
 
         if (page is null)
         {

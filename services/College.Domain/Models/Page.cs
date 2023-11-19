@@ -10,9 +10,14 @@ public class Page
     public string Title { get; set; }
 
     /// <summary>
-    /// HTML Page content
+    /// HTML Page content. Required Filed for each page.
     /// </summary>
     public string Content { get; set; }
+
+    /// <summary>
+    /// Template for each page. If TemplateType == Default ==> This is null.
+    /// </summary>
+    public Template Template { get; set; }
 
     public SubCategory? SubCategory { get; set; }
 

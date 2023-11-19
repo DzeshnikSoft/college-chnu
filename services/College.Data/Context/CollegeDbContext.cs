@@ -1,4 +1,5 @@
-﻿using College.Domain.Models;
+﻿using College.Domain.Enumerations;
+using College.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace College.Data.Context;
@@ -14,4 +15,8 @@ public class CollegeDbContext : DbContext
     public virtual DbSet<SubCategory> SubCategories { get; set; }
 
     public virtual DbSet<News> News { get; set; }
+
+    public virtual DbSet<Image> Images { get; set; }
+
+    public virtual DbSet<Template> Templates { get; set; }
 }

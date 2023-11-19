@@ -1,3 +1,6 @@
+using College.Domain.DTOs;
+using College.Domain.Enumerations;
+
 namespace College.API.ViewModels;
 
 #region Category View Models
@@ -18,9 +21,24 @@ public record UpdateSubCategoryViewModel(Guid SubCategoryId, string Title, strin
 
 #region Pages View Models
 
-public record PageViewModel(string Title, string Content, string Url, Guid SubCategoryId);
+public record PageViewModel(
+    string Title,
+    string Content,
+    string Url,
+    Guid SubCategoryId,
+    TemplateType Type,
+    ImageDto Image,
+    string Label);
 
-public record UpdatePageViewModel(Guid Id, string Title, string Content, string Url, Guid SubCategoryId);
+public record UpdatePageViewModel(
+    Guid Id,
+    string Title,
+    string Content,
+    string Url,
+    Guid SubCategoryId,
+    TemplateType Type,
+    ImageDto Image,
+    string Label);
 
 #endregion
 
