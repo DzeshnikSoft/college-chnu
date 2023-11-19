@@ -6,8 +6,8 @@ import { useState } from "react";
 import { defaultUrl } from "@/utils/defaultUrl";
 import AddButton from "@/components/AddButton";
 import { CategoryDto } from "@/models/api";
-import DeleteButton from "@/components/DeleteButton";
 import SpinnerWrapper from "@/components/Spinner";
+
 const Pages = () => {
 	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
 		useState<boolean>(false);

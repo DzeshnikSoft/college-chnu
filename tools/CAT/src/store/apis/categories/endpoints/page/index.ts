@@ -1,4 +1,4 @@
-const url = "Page";
+const url = "/api/Page";
 export const getPage = (builder) => {
 	return builder.query({
 		query: (id) => `/${url}/${id}`,
