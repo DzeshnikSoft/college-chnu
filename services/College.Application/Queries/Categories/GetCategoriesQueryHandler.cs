@@ -28,6 +28,8 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ILi
             .AsSplitQuery()
             .Include(c => c.SubCategories)
             .ThenInclude(x => x.Pages)
+            .ThenInclude(x =>x.Template)
+            .ThenInclude(x => x.Image)
             .ToListAsync(cancellationToken: cancellationToken);
 
         return _mapper.Map<IList<CategoryDto>>(categories);
