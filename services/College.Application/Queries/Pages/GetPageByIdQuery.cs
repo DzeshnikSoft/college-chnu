@@ -5,6 +5,7 @@ using College.Domain.Models;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace College.Application.Queries.Pages;
 
@@ -21,10 +22,12 @@ public class GetPageByIdQuery : IRequest<PageDto>
 public class GetPageByIdQueryHandler : IRequestHandler<GetPageByIdQuery, PageDto>
 {
     private readonly CollegeDbContext _db;
+    private readonly IMapper _mapper;
 
-    public GetPageByIdQueryHandler(CollegeDbContext db)
+    public GetPageByIdQueryHandler(CollegeDbContext db, IMapper mapper)
     {
         _db = db.ThrowIfNull();
+        _mapper = mapper.ThrowIfNull();
     }
 
     public async Task<PageDto> Handle(GetPageByIdQuery request, CancellationToken cancellationToken)
@@ -39,12 +42,6 @@ public class GetPageByIdQueryHandler : IRequestHandler<GetPageByIdQuery, PageDto
             throw new EntityNotFoundException(nameof(Page), request.PageId);
         }
 
-        return new PageDto
-        {
-            Id = page.Id,
-            Content = page.Content,
-            Title = page.Title,
-            Url = page.Url,
-        };
+        return _mapper.Map<PageDto>(page);
     }
 }
