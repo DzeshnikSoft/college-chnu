@@ -38,7 +38,11 @@ public class UpdatePageCommandHandler : IRequestHandler<UpdatePageCommand, PageD
     private readonly IMapper _mapper;
     private readonly ITemplateFactory _templateFactory;
 
-    public UpdatePageCommandHandler(CollegeDbContext db, ILogger<UpdatePageCommandHandler> logger, IMapper mapper, ITemplateFactory templateFactory)
+    public UpdatePageCommandHandler(
+        CollegeDbContext db,
+        ILogger<UpdatePageCommandHandler> logger,
+        IMapper mapper,
+        ITemplateFactory templateFactory)
     {
         _templateFactory = templateFactory;
         _mapper = mapper.ThrowIfNull();
@@ -65,12 +69,8 @@ public class UpdatePageCommandHandler : IRequestHandler<UpdatePageCommand, PageD
         }
         if (request.SubCategoryId.HasValue)
         {
-            var subCategory = _db.SubCategories.FirstOrDefault(x => x.Id == request.SubCategoryId.Value);
-
-            if (subCategory is null)
-            {
-                throw new Exception("SubCategory with this Id is not exist");
-            }
+            var subCategory = _db.SubCategories.FirstOrDefault(x => x.Id == request.SubCategoryId.Value)
+                ?? throw new Exception("SubCategory with this Id is not exist");
 
             page.SubCategoryId = request.SubCategoryId.Value;
         }

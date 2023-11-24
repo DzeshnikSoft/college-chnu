@@ -21,7 +21,8 @@ public class TemplateFactory : ITemplateFactory
                 Type = templateDto.Type,
                 Image = new Image
                 {
-                    Alt = templateDto.Image.Alt, Url = templateDto.Image.Url
+                    Alt = templateDto.Image.Alt,
+                    Url = templateDto.Image.Url
                 },
                 Title = templateDto.Label,
             },
