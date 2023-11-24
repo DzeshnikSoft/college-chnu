@@ -3,7 +3,6 @@ using College.API.ViewModels;
 using College.Application.Commands.Pages;
 using College.Application.Queries.Pages;
 using College.Domain.DTOs;
-using College.Domain.Enumerations;
 using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
@@ -43,7 +42,7 @@ public class PageController : ControllerBase
             pageViewModel.Content,
             pageViewModel.Url,
             pageViewModel.SubCategoryId,
-            new TemplateDto { Type = pageViewModel.Type, Image = pageViewModel.Image, Label = pageViewModel.Label });
+            new TemplateDto { Type = pageViewModel.Template.Type, Image = pageViewModel.Template.Image, Label = pageViewModel.Template.Label });
 
         return Ok(
             await _mediator.Send(command));
@@ -62,9 +61,13 @@ public class PageController : ControllerBase
                 pageViewModel.SubCategoryId,
                 new TemplateDto
                 {
-                    Type = pageViewModel.Type,
-                    Image = new ImageDto{ Alt = pageViewModel.Image.Alt, Url = pageViewModel.Url},
-                    Label = pageViewModel.Label,
+                    Type = pageViewModel.Template.Type,
+                    Image = new ImageDto
+                    {
+                        Alt = pageViewModel.Template.Image?.Alt,
+                        Url = pageViewModel.Template.Image?.Url
+                    },
+                    Label = pageViewModel.Template.Label,
                 });
 
             return Ok(await _mediator.Send(command));

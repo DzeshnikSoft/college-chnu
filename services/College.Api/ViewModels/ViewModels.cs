@@ -26,9 +26,7 @@ public record PageViewModel(
     string Content,
     string Url,
     Guid SubCategoryId,
-    TemplateType Type,
-    ImageDto Image,
-    string Label);
+    TemplateViewModel Template);
 
 public record UpdatePageViewModel(
     Guid Id,
@@ -36,9 +34,13 @@ public record UpdatePageViewModel(
     string Content,
     string Url,
     Guid SubCategoryId,
-    TemplateType Type,
-    ImageDto Image,
-    string Label);
+    TemplateViewModel Template);
+
+#endregion
+
+#region Templates View Models
+
+public record TemplateViewModel(ImageDto? Image, string? Label, TemplateType Type);
 
 #endregion
 
