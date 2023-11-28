@@ -1,6 +1,6 @@
-import { Input } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import SaveButton from "../SaveButton";
+import { Input } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import SaveButton from '../SaveButton';
 
 interface EditDefaultInputProps {
 	className?: string;
@@ -15,7 +15,7 @@ export default function EditDefaultInput({
 	value,
 	onClick,
 	placeholder,
-	className,
+	className = '',
 }: EditDefaultInputProps) {
 	const [editValue, setEditValue] = useState<string>(value);
 	const [isShowButton, setIsShowButton] = useState<boolean>(false);

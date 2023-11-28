@@ -1,12 +1,13 @@
-import { useState, useEffect, ChangeEvent } from "react";
-import { useRef } from "react";
-import { Button } from "@chakra-ui/react";
-import SpinnerWrapper from "../Spinner";
-import uploadFile from "@/store/apis/uploadFile";
+import { useState, useEffect, ChangeEvent } from 'react';
+import { useRef } from 'react';
+import { Button } from '@chakra-ui/react';
+import SpinnerWrapper from '../Spinner';
+import uploadFile from '@/store/apis/uploadFile';
+
 export default function UploadFileWrapper() {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
-	const [fileUrl, setFileUrl] = useState<string>("");
-	const [fileName, setFileName] = useState<string>("");
+	const [fileUrl, setFileUrl] = useState<string>('');
+	const [fileName, setFileName] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(false);
 	const urlRef = useRef<HTMLInputElement | null>(null);
 	const fileInputRef = useRef(null);
@@ -53,7 +54,7 @@ export default function UploadFileWrapper() {
 						<i className='fa-solid fa-file-arrow-up text-2xl'></i>
 					</Button>
 				</div>
-				<span>{fileName ? fileName : "Файл не вибрано"}</span>
+				<span>{fileName ? fileName : 'Файл не вибрано'}</span>
 				<Button className='w-fit mt-1' type='submit'>
 					Завантажити та отримати посилання
 				</Button>

@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
-import { Card } from "@chakra-ui/react";
+import { ReactNode } from 'react';
+import { Card } from '@chakra-ui/react';
 interface ItemWrapperProps {
 	children?: ReactNode;
 	handleChangeTemplateType: (e) => void;
-	type: string;
-	selectedType: string;
+	type: number;
+	selectedType: number;
 }
 export default function ItemWrapper({
 	children,
@@ -19,7 +19,7 @@ export default function ItemWrapper({
 		<Card
 			onClick={handleClick}
 			className={`w-72 h-80 overflow-hidden cursor-pointer hover:scale-110 duration-100 ${
-				type == selectedType && "scale-110 duration-100"
+				type == selectedType && 'scale-110 duration-100'
 			}`}>
 			{children}
 		</Card>

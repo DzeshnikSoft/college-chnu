@@ -1,32 +1,32 @@
-import { RouteObject } from "react-router-dom";
+import { RouteObject } from 'react-router-dom';
 
-import PageLayout from "../layout/page-layout";
-import Authenticate from "./authenticate";
-import News from "./news";
-import Pages from "./pages";
-import Settings from "./settings";
+import PageLayout from '../layout/page-layout';
+import Authenticate from './authenticate';
+import News from './news';
+import Pages from './pages';
+import Settings from './settings';
 
 export const routes: RouteObject[] = [
 	{
-		path: "/",
+		path: '/',
 		element: <PageLayout />,
 		children: [
 			{
-				path: "news",
+				path: 'news',
 				element: <News />,
 			},
 			{
-				path: "pages",
+				path: 'pages',
 				element: <Pages />,
 			},
 			{
-				path: "settings",
+				path: 'settings',
 				element: <Settings />,
 			},
 		],
 	},
 	{
-		path: "/authenticate",
+		path: '/authenticate',
 		element: <Authenticate />,
 	},
 ];

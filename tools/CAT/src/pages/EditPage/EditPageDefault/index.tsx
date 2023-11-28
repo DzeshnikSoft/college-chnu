@@ -1,8 +1,18 @@
-import EditorWrapper from "@/components/EditorWrapper";
-export default function EditPageDefault() {
+import EditorWrapper from '@/components/EditorWrapper';
+interface EditPageDefaultProps {
+	content: string;
+	handleChangeContent: (e) => void;
+}
+export default function EditPageDefault({
+	content,
+	handleChangeContent,
+}: EditPageDefaultProps) {
 	return (
 		<div className='w-full'>
-			<EditorWrapper />
+			<EditorWrapper
+				handleChangeContent={handleChangeContent}
+				content={content}
+			/>
 		</div>
 	);
 }

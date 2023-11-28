@@ -1,12 +1,12 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import Page from "./components/Page";
-import DialogCreateCategory from "./components/DialogCreateCategory";
-import { useGetCategoriesQuery } from "@/store/apis/categories";
-import { useState } from "react";
-import { defaultUrl } from "@/utils/defaultUrl";
-import AddButton from "@/components/AddButton";
-import { CategoryDto } from "@/models/api";
-import SpinnerWrapper from "@/components/Spinner";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import Page from './components/Page';
+import DialogCreateCategory from './components/DialogCreateCategory';
+import { useGetCategoriesQuery } from '@/store/apis/categories';
+import { useState } from 'react';
+import { defaultUrl } from '@/utils/defaultUrl';
+import AddButton from '@/components/AddButton';
+import { CategoryDto } from '@/models/api';
+import SpinnerWrapper from '@/components/Spinner';
 
 const Pages = () => {
 	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
@@ -26,8 +26,8 @@ const Pages = () => {
 				<Tabs isFitted>
 					<TabList>
 						{(data as CategoryDto[])?.map(
-							({ title }: CategoryDto) => (
-								<Tab>{title}</Tab>
+							({ title, id }: CategoryDto) => (
+								<Tab key={id}>{title}</Tab>
 							)
 						)}
 						<AddButton
@@ -44,7 +44,7 @@ const Pages = () => {
 								id,
 								url,
 							}: CategoryDto) => (
-								<TabPanel>
+								<TabPanel key={id}>
 									<Page
 										title={title}
 										id={id}

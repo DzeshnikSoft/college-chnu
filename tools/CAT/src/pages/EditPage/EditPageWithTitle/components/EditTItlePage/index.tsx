@@ -1,50 +1,56 @@
-import { useState, useEffect } from "react";
-import EditDefaultInput from "@/components/EditDefaultInput";
+import { useState, useEffect } from 'react';
+import EditDefaultInput from '@/components/EditDefaultInput';
 
 interface EditTitlePageState {
-	title: string;
-	imageUrl: string;
+	label: string;
+	url: string;
 }
 
-export default function EditTitlePage() {
+export default function EditTitlePage({
+	title,
+	img,
+	handleChangeTemplateData,
+}) {
 	const [initialValue, setInitialValue] = useState<EditTitlePageState>({
-		title: "",
-		imageUrl: "",
+		label: title,
+		url: img,
 	});
 
-	const handleSave = () => {};
+	const handleSave = () => {
+		handleChangeTemplateData(initialValue);
+	};
 
 	const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
-		setInitialValue({ ...initialValue, title: value });
+		setInitialValue({ ...initialValue, label: value });
 	};
 
 	const handleChangeImageUrl = (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
 		const { value } = event.target;
-		setInitialValue({ ...initialValue, imageUrl: value });
+		setInitialValue({ ...initialValue, url: value });
 	};
 
 	return (
 		<div className='h-72 w-full relative border'>
 			<img
 				className='w-full h-full object-cover'
-				src={initialValue.imageUrl}
+				src={initialValue.url}
 				alt=''
 			/>
 			<EditDefaultInput
 				onChange={handleChangeTitle}
 				onClick={handleSave}
 				placeholder='Введіть заголовок'
-				value={initialValue.title}
+				value={initialValue.label}
 				className='absolute flex min-w-72 w-fit max-w-fit h-fit top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4'
 			/>
 			<EditDefaultInput
 				onChange={handleChangeImageUrl}
 				onClick={handleSave}
 				placeholder='Введіть посилання'
-				value={initialValue.imageUrl}
+				value={initialValue.url}
 				className='!absolute bottom-5 right-5'
 			/>
 		</div>

@@ -5,15 +5,15 @@ export interface Editor {
 
 export const itemsEditor: Editor = {
 	toolbar:
-		"undo redo | formatselect | " +
-		"bold italic backcolor | alignleft aligncenter " +
-		"alignright alignjustify | bullist numlist outdent indent | " +
-		"removeformat | help | indent | fontsizeselect | image | link", // Додайте "link" сюди
+		'undo redo | formatselect | ' +
+		'bold italic backcolor | alignleft aligncenter ' +
+		'alignright alignjustify | bullist numlist outdent indent | fontsizeselect forecolor' +
+		'removeformat | help | indent | fontsizeselect | image | link',
 	plugins: [
-		"advlist autolink lists link image charmap print preview anchor",
-		"searchreplace visualblocks code fullscreen",
-		"link",
-		"insertdatetime media table paste code help wordcount",
-		"image",
+		'advlist autolink lists link image charmap print preview anchor',
+		'searchreplace visualblocks code fullscreen',
+		'link',
+		'insertdatetime media table paste code help wordcount',
+		'image',
 	],
 };
