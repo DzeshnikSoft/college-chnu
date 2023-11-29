@@ -1,4 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import baseQuery from "@/store/baseUrl";
 import {
 	addCategory,
@@ -12,6 +13,7 @@ import {
 	deleteSubCategory,
 } from "./endpoints/subCategory";
 import { addPage, updatePage, getPage, deletePage } from "./endpoints/page";
+
 export const categoriesApi = createApi({
 	reducerPath: "api",
 	baseQuery,

@@ -1,3 +1,5 @@
 {
-    "dotnet.defaultSolution": "services/CollegeWebServices.sln"
+	"prettier.jsxSingleQuote": true,
+	"prettier.singleQuote": true,
+	"html.completion.attributeDefaultValue": "singlequotes"
 }

@@ -1,31 +1,22 @@
+import { Input } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import SaveButton from '../SaveButton';
-import {
-	InputGroup,
-	InputLeftAddon,
-	Input,
-	InputRightAddon,
-} from '@chakra-ui/react';
 
-interface EditProps {
-	name: string;
+interface EditDefaultInputProps {
+	className?: string;
 	value: string;
 	placeholder?: string;
-	type: string;
-	withoutButtonSave?: boolean;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function Edit({
-	name,
+export default function EditDefaultInput({
 	onChange,
+	value,
 	onClick,
-	value = '',
-	placeholder = '',
-	type = '',
-	withoutButtonSave = false,
-}: EditProps) {
+	placeholder,
+	className = '',
+}: EditDefaultInputProps) {
 	const [editValue, setEditValue] = useState<string>(value);
 	const [isShowButton, setIsShowButton] = useState<boolean>(false);
 	const [initialValue, setInitialValue] = useState<string>(value);
@@ -42,22 +33,21 @@ export default function Edit({
 		setEditValue(event.target.value);
 		onChange(event);
 	};
-
+	const handleClick = (e) => {
+		onClick(e);
+		setIsShowButton(false);
+	};
 	return (
-		<div className='w-full flex flex-col'>
-			<InputGroup>
-				<InputLeftAddon children={name} />
-				<Input
-					placeholder={placeholder}
-					onChange={handleInputChange}
-					value={editValue}
-				/>
-				{type === 'link' && <InputRightAddon children='.com' />}
-
-				{!withoutButtonSave && isShowButton && (
-					<SaveButton onClick={onClick} className='ml-4' />
-				)}
-			</InputGroup>
+		<div className={`flex w-fit max-w-fit h-fit ${className}`}>
+			<Input
+				placeholder={placeholder}
+				onChange={handleInputChange}
+				value={editValue}
+				className='!border-white !bg-textColorTitlePage min-w-60 w-fit text-4xl text-white font-medium p-2'
+			/>
+			{isShowButton && (
+				<SaveButton onClick={handleClick} className='ml-4' />
+			)}
 		</div>
 	);
 }

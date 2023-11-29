@@ -1,4 +1,5 @@
-const url = "SubCategory";
+const url = "api/SubCategory";
+
 export const addSubCategory = (builder) => {
 	return builder.mutation({
 		query: (data) => ({

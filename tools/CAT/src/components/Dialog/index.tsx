@@ -1,15 +1,17 @@
-import { ReactNode } from "react";
-import CloseButton from "../CloseButton";
+import { ReactNode } from 'react';
+import CloseButton from '../CloseButton';
 interface DialogState {
 	className?: string;
-	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-	children?: ReactNode;
+	onClick: (event: React.MouseEvent<HTMLElement>) => void;
+	children: ReactNode;
+	withoutCloseButton?: boolean;
 }
 
 export default function Dialog({
 	children,
-	className = "",
+	className = '',
 	onClick,
+	withoutCloseButton = false,
 }: DialogState) {
 	return (
 		<div
@@ -18,10 +20,13 @@ export default function Dialog({
 			<div
 				onClick={(e) => e.stopPropagation()}
 				className={`rounded-md relative m-auto z-50 bg-white p-5 w-fit h-fit flex ${className}`}>
-				<CloseButton
-					className='absolute top-0.5 right-0.5'
-					onClick={onClick}
-				/>
+				{!withoutCloseButton && (
+					<CloseButton
+						className='absolute top-0.5 right-0.5'
+						onClick={onClick}
+					/>
+				)}
+
 				{children}
 			</div>
 		</div>
