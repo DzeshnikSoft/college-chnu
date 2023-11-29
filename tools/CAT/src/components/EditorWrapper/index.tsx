@@ -39,7 +39,7 @@ export default function EditorWrapper({
 						'body { font-family:Roboto,sans-serif; font-size:14px;}',
 				}}
 			/>
-			<Button className='mx-auto' onClick={handleClick}>
+			<Button className='ml-auto mr-3 mt-2' onClick={handleClick}>
 				Зберегти дані в редакторі
 			</Button>
 		</div>

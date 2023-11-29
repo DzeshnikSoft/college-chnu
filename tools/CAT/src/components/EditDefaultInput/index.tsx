@@ -33,7 +33,10 @@ export default function EditDefaultInput({
 		setEditValue(event.target.value);
 		onChange(event);
 	};
-
+	const handleClick = (e) => {
+		onClick(e);
+		setIsShowButton(false);
+	};
 	return (
 		<div className={`flex w-fit max-w-fit h-fit ${className}`}>
 			<Input
@@ -42,7 +45,9 @@ export default function EditDefaultInput({
 				value={editValue}
 				className='!border-white !bg-textColorTitlePage min-w-60 w-fit text-4xl text-white font-medium p-2'
 			/>
-			{isShowButton && <SaveButton onClick={onClick} className='ml-4' />}
+			{isShowButton && (
+				<SaveButton onClick={handleClick} className='ml-4' />
+			)}
 		</div>
 	);
 }

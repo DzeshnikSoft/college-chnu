@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import SaveButton from "../SaveButton";
+import { useState, useEffect } from 'react';
+import SaveButton from '../SaveButton';
 import {
 	InputGroup,
 	InputLeftAddon,
 	Input,
 	InputRightAddon,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface EditProps {
 	name: string;
@@ -21,9 +21,9 @@ export default function Edit({
 	name,
 	onChange,
 	onClick,
-	value = "",
-	placeholder = "",
-	type = "",
+	value = '',
+	placeholder = '',
+	type = '',
 	withoutButtonSave = false,
 }: EditProps) {
 	const [editValue, setEditValue] = useState<string>(value);
@@ -52,7 +52,7 @@ export default function Edit({
 					onChange={handleInputChange}
 					value={editValue}
 				/>
-				{type === "link" && <InputRightAddon children='.com' />}
+				{type === 'link' && <InputRightAddon children='.com' />}
 
 				{!withoutButtonSave && isShowButton && (
 					<SaveButton onClick={onClick} className='ml-4' />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dialog from '@/components/Dialog';
 import { Button } from '@chakra-ui/react';
 import { useAddPageMutation } from '@/store/apis/categories';
@@ -19,7 +19,9 @@ export default function DialogCreatePage({
 	parentUrl,
 	subCategoryId,
 }: PageProps) {
-	const { pageData, setPageData } = useInitialPageState();
+	const { pageData, setPageData } = useInitialPageState({
+		subCategoryId,
+	});
 
 	const [isOpenEditorPage, setIsOpenEditorPage] = useState<boolean>(false);
 
@@ -52,7 +54,7 @@ export default function DialogCreatePage({
 			title: title,
 			url: url,
 			subCategoryId: subCategoryId,
-			template: { ...template },
+			template: { ...template, type: template.type },
 			content: content,
 		};
 

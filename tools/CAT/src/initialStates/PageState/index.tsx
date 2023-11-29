@@ -1,24 +1,27 @@
 import { PageDto } from '@/models/api';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const initialPageState: PageDto = {
-	id: '',
-	title: '',
-	url: '',
-	subCategoryId: '',
-	template: {
-		type: 1,
-		image: {
-			url: '',
-			alt: '',
+interface Props {
+	id?: string;
+	subCategoryId?: string;
+}
+
+export const useInitialPageState = ({ id, subCategoryId }: Props) => {
+	const [pageData, setPageData] = useState<PageDto>({
+		id: id,
+		title: '',
+		url: '',
+		subCategoryId: subCategoryId,
+		template: {
+			type: -1,
+			image: {
+				url: '',
+				alt: '',
+			},
+			label: '',
 		},
-		label: '',
-	},
-	content: '',
-};
-
-export const useInitialPageState = () => {
-	const [pageData, setPageData] = useState<PageDto>(initialPageState);
+		content: '',
+	});
 
 	return { pageData, setPageData };
 };

@@ -23,7 +23,6 @@ export const updatePage = (builder) => {
 			method: 'PUT',
 			body: data,
 		}),
-		invalidatesTags: ['Categories'],
 	});
 };
 
