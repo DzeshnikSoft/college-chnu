@@ -1,9 +1,9 @@
+using System.Net;
 using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.Pages;
 using College.Application.Queries.Pages;
 using College.Domain.DTOs;
-using College.Domain.Enumerations;
 using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
@@ -71,7 +71,7 @@ public class PageController : ControllerBase
         }
         catch (EntityNotFoundException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
+            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, HttpStatusCode.NotFound);
         }
     }
 
@@ -91,7 +91,26 @@ public class PageController : ControllerBase
         }
         catch (EntityNotFoundException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
+            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, HttpStatusCode.NotFound);
+        }
+    }
+
+    [HttpGet]
+    [Route("path/{path}")]
+    public async Task<ActionResult<PageDto>> GetPageByPathAsync(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return NotFound();
+        }
+
+        try
+        {
+            return Ok(await _mediator.Send(new GetPageByPathQuery(WebUtility.UrlDecode(path))));
+        }
+        catch (EntityNotFoundException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, HttpStatusCode.NotFound);
         }
     }
 
@@ -113,7 +132,7 @@ public class PageController : ControllerBase
         }
         catch (EntityNotFoundException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
+            throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, HttpStatusCode.NotFound);
         }
     }
 }
