@@ -4,12 +4,7 @@ import SocialMediaIcon from '../../SocialMediaIcon';
 import { useGetCategoriesQuery } from '../../../store/apis/categories';
 
 const Footer = () => {
-	const { data, isFetching } = useGetCategoriesQuery(undefined, {});
-
-	useEffect(() => {
-		console.log(data);
-		console.log(process.env.REACT_APP_API_URL);
-	}, []);
+	const { data, isFetching } = useGetCategoriesQuery();
 
 	return (
 		<footer className='footer' id='footer'>

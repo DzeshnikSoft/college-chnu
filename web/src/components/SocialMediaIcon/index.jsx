@@ -7,10 +7,6 @@ function SocialMediaIcon({ name }) {
 	});
 
 	useEffect(() => {
-		selectIcons(name);
-	}, []);
-
-	const selectIcons = (name) => {
 		switch (name) {
 			case 'instagram':
 				setIconData({
@@ -33,7 +29,8 @@ function SocialMediaIcon({ name }) {
 			default:
 				return '';
 		}
-	};
+	}, []);
+
 	return (
 		<a href={iconData.url} target='_blank' rel='noreferrer'>
 			<i
