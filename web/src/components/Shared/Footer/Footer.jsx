@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Footer.css';
 import SocialMediaIcon from '../../SocialMediaIcon';
+import { useGetCategoriesQuery } from '../../../store/apis/categories';
 
 const Footer = () => {
+	const { data, isFetching } = useGetCategoriesQuery(undefined, {});
+
+	useEffect(() => {
+		console.log(data);
+		console.log(process.env.REACT_APP_API_URL);
+	}, []);
+
 	return (
 		<footer className='footer' id='footer'>
 			<div className='w-10/12 mx-auto h-full flex gap-10'>
