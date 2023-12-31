@@ -10,28 +10,17 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Queries.Pages;
 
-public class GetPageByPathQuery : IRequest<PageDto>
+public class GetPageByPathQuery(string path) : IRequest<PageDto>
 {
-    public GetPageByPathQuery(string path)
-    {
-        Path = path;
-    }
-
-    public string Path { get; set; }
+    public string Path { get; set; } = path;
 }
 
-public class GetPageByPathCommandHandler : IRequestHandler<GetPageByPathQuery, PageDto>
+public class GetPageByPathCommandHandler(ILogger<GetPageByPathCommandHandler> logger, CollegeDbContext db, IMapper mapper)
+    : IRequestHandler<GetPageByPathQuery, PageDto>
 {
-    private readonly ILogger<GetPageByPathCommandHandler> _logger;
-    private readonly CollegeDbContext _db;
-    private readonly IMapper _mapper;
-
-    public GetPageByPathCommandHandler(ILogger<GetPageByPathCommandHandler> logger, CollegeDbContext db, IMapper mapper)
-    {
-        _mapper = mapper.ThrowIfNull();
-        _db = db.ThrowIfNull();
-        _logger = logger.ThrowIfNull();
-    }
+    private readonly ILogger<GetPageByPathCommandHandler> _logger = logger.ThrowIfNull();
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     public async Task<PageDto> Handle(GetPageByPathQuery request, CancellationToken cancellationToken)
     {

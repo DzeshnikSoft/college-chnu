@@ -7,36 +7,23 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.Files;
 
-public class UploadFileToHostCommand : IRequest<string>
+public class UploadFileToHostCommand(string fileName, byte[] fileBytes) : IRequest<string>
 {
-    public UploadFileToHostCommand(string fileName, byte[] fileBytes)
-    {
-        FileName = fileName;
-        FileBytes = fileBytes;
-    }
-    public string FileName { get; }
+    public string FileName { get; } = fileName;
 
-    public byte[] FileBytes { get; }
+    public byte[] FileBytes { get; } = fileBytes;
 }
 
-public class UploadFileToHostCommandHandler : IRequestHandler<UploadFileToHostCommand, string>
+public class UploadFileToHostCommandHandler(
+    ILogger<UploadFileToHostCommandHandler> logger,
+    IFileStorage fileStorage,
+    IFilePathFilter filePathFilter,
+    FileStorageSettings fileStorageSettings) : IRequestHandler<UploadFileToHostCommand, string>
 {
-    private readonly ILogger<UploadFileToHostCommandHandler> _logger;
-    private readonly IFileStorage _fileStorage;
-    private readonly IFilePathFilter _filePathFilter;
-    private readonly FileStorageSettings _fileStorageSettings;
-
-    public UploadFileToHostCommandHandler(
-        ILogger<UploadFileToHostCommandHandler> logger,
-        IFileStorage fileStorage,
-        IFilePathFilter filePathFilter,
-        FileStorageSettings fileStorageSettings)
-    {
-        _fileStorageSettings = fileStorageSettings.ThrowIfNull();
-        _filePathFilter = filePathFilter.ThrowIfNull();
-        _fileStorage = fileStorage.ThrowIfNull();
-        _logger = logger.ThrowIfNull();
-    }
+    private readonly ILogger<UploadFileToHostCommandHandler> _logger = logger.ThrowIfNull();
+    private readonly IFileStorage _fileStorage = fileStorage.ThrowIfNull();
+    private readonly IFilePathFilter _filePathFilter = filePathFilter.ThrowIfNull();
+    private readonly FileStorageSettings _fileStorageSettings = fileStorageSettings.ThrowIfNull();
 
     public async Task<string> Handle(UploadFileToHostCommand request, CancellationToken cancellationToken)
     {

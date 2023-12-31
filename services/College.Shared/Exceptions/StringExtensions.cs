@@ -4,7 +4,7 @@ public static class StringExtensions
 {
     public static bool CheckIfImageFilePath(this string filePath)
     {
-        var extension = System.IO.Path.GetExtension(filePath);
+        var extension = Path.GetExtension(filePath);
 
         if (string.IsNullOrEmpty(extension))
         {

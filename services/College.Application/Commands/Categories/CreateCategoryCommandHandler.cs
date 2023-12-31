@@ -9,29 +9,17 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.Categories;
 
-public class CreateCategoryCommand : IRequest<CategoryDto>
+public class CreateCategoryCommand(string title, string url) : IRequest<CategoryDto>
 {
-    public CreateCategoryCommand(string title, string url)
-    {
-        Title = title;
-        Url = url;
-    }
+    public string Title { get; } = title;
 
-    public string Title { get; }
-
-    public string? Url { get; }
+    public string? Url { get; } = url;
 }
 
-public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, CategoryDto>
+public class CreateCategoryCommandHandler(CollegeDbContext db, ILogger<CreateCategoryCommandHandler> logger) : IRequestHandler<CreateCategoryCommand, CategoryDto>
 {
-    private readonly CollegeDbContext _db;
-    private readonly ILogger<CreateCategoryCommandHandler> _logger;
-
-    public CreateCategoryCommandHandler(CollegeDbContext db, ILogger<CreateCategoryCommandHandler> logger)
-    {
-        _logger = logger.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly ILogger<CreateCategoryCommandHandler> _logger = logger.ThrowIfNull();
 
     public async Task<CategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {

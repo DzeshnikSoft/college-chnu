@@ -1,3 +1,4 @@
+using AutoMapper;
 using College.Data.Context;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
@@ -5,35 +6,23 @@ using College.Domain.Models;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 
 namespace College.Application.Queries.Pages;
 
-public class GetPageByIdQuery : IRequest<PageDto>
+public class GetPageByIdQuery(Guid pageId) : IRequest<PageDto>
 {
-    public GetPageByIdQuery(Guid pageId)
-    {
-        PageId = pageId;
-    }
-
-    public Guid PageId { get; set; }
+    public Guid PageId { get; set; } = pageId;
 }
 
-public class GetPageByIdQueryHandler : IRequestHandler<GetPageByIdQuery, PageDto>
+public class GetPageByIdQueryHandler(CollegeDbContext db, IMapper mapper) : IRequestHandler<GetPageByIdQuery, PageDto>
 {
-    private readonly CollegeDbContext _db;
-    private readonly IMapper _mapper;
-
-    public GetPageByIdQueryHandler(CollegeDbContext db, IMapper mapper)
-    {
-        _db = db.ThrowIfNull();
-        _mapper = mapper.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     public async Task<PageDto> Handle(GetPageByIdQuery request, CancellationToken cancellationToken)
     {
         var page = await _db.Pages
-            .Include(x =>x.Template)
+            .Include(x => x.Template)
             .ThenInclude(x => x.Image)
             .SingleOrDefaultAsync(p => p.Id == request.PageId, cancellationToken);
 

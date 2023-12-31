@@ -12,16 +12,10 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class SubCategoryController : ControllerBase
+public class SubCategoryController(IMediator mediator, ILogger<SubCategoryController> logger) : ControllerBase
 {
-    private readonly IMediator _mediator;
-    private readonly ILogger<SubCategoryController> _logger;
-
-    public SubCategoryController(IMediator mediator, ILogger<SubCategoryController> logger)
-    {
-        _logger = logger.ThrowIfNull();
-        _mediator = mediator.ThrowIfNull();
-    }
+    private readonly IMediator _mediator = mediator.ThrowIfNull();
+    private readonly ILogger<SubCategoryController> _logger = logger.ThrowIfNull();
 
     [HttpPost]
     public async Task<ActionResult<SubCategoryDto>> CreateSubCategoryAsync(SubCategoryViewModel subCategoryViewModel)

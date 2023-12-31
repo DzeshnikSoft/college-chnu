@@ -11,18 +11,11 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class NewsController : ControllerBase
+public class NewsController(IMediator mediator, ILogger<NewsController> logger, IMapper mapper) : ControllerBase
 {
-    private readonly IMediator _mediator;
-    private readonly ILogger<NewsController> _logger;
-    private readonly IMapper _mapper;
-
-    public NewsController(IMediator mediator, ILogger<NewsController> logger, IMapper mapper)
-    {
-        _mapper = mapper.ThrowIfNull();
-        _logger = logger.ThrowIfNull();
-        _mediator = mediator.ThrowIfNull();
-    }
+    private readonly IMediator _mediator = mediator.ThrowIfNull();
+    private readonly ILogger<NewsController> _logger = logger.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     [HttpGet]
     public async Task<ActionResult<IList<NewsDto>>> GetNews()

@@ -13,16 +13,10 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class CategoriesController : ControllerBase
+public class CategoriesController(ILogger<CategoriesController> logger, IMediator mediator) : ControllerBase
 {
-    private readonly ILogger<CategoriesController> _logger;
-    private readonly IMediator _mediator;
-
-    public CategoriesController(ILogger<CategoriesController> logger, IMediator mediator)
-    {
-        _logger = logger.ThrowIfNull();
-        _mediator = mediator.ThrowIfNull();
-    }
+    private readonly ILogger<CategoriesController> _logger = logger.ThrowIfNull();
+    private readonly IMediator _mediator = mediator.ThrowIfNull();
 
     [HttpGet]
     public async Task<ActionResult<IList<CategoryDto>>> GetCategories()

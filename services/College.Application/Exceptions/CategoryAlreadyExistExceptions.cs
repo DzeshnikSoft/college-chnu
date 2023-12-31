@@ -1,8 +1,5 @@
 namespace College.Application.Exceptions;
 
-public class CategoryAlreadyExistExceptions : Exception
+public class CategoryAlreadyExistExceptions(string message) : Exception(message)
 {
-    public CategoryAlreadyExistExceptions(string message) : base(message)
-    {
-    }
 }
