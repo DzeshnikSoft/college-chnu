@@ -1,21 +1,15 @@
-using System.Net;
 using College.API.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
-using DnsClient.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Net;
 
 namespace College.API.ExceptionsFilters;
 
-public class ApiExceptionFilter : IExceptionFilter
+public class ApiExceptionFilter(ILogger<ApiExceptionFilter> logger) : IExceptionFilter
 {
-    private readonly ILogger<ApiExceptionFilter> _logger;
-
-    public ApiExceptionFilter(ILogger<ApiExceptionFilter> logger)
-    {
-        _logger = logger.ThrowIfNull();
-    }
+    private readonly ILogger<ApiExceptionFilter> _logger = logger.ThrowIfNull();
 
     public void OnException(ExceptionContext context)
     {

@@ -12,7 +12,7 @@ public static class StringExtensions
         }
 
 
-        string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+        string[] imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"];
         var lowerCaseExtension = extension.ToLower();
 
         return imageExtensions.Contains(lowerCaseExtension);
