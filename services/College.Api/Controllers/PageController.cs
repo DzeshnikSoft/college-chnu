@@ -94,8 +94,8 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
     }
 
     [HttpGet]
-    [Route("path/{path}")]
-    public async Task<ActionResult<PageDto>> GetPageByPathAsync(string path)
+    [Route("by-path")]
+    public async Task<ActionResult<PageDto>> GetPageByPathAsync([FromQuery] string path)
     {
         if (string.IsNullOrWhiteSpace(path))
         {

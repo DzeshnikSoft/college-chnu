@@ -52,9 +52,9 @@ public class GetPageByPathCommandHandler(ILogger<GetPageByPathCommandHandler> lo
     {
         var pathSections = path.Split('/');
 
-        var categoryPath = "";
-        var subCategoryPath = "";
-        var pagePath = "";
+        var categoryPath = string.Empty;
+        var subCategoryPath = string.Empty;
+        var pagePath = string.Empty;
 
         if (pathSections.Length >= 1)
         {
