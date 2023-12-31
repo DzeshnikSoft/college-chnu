@@ -1,16 +1,9 @@
 namespace College.Application.Exceptions;
 
-public class FileNotFoundException : Exception
+public class FileNotFoundException(string filePath) : Exception($"File with path = {filePath} not found!")
 {
-    public FileNotFoundException(string filePath) :
-        base($"File with path = {filePath} not found!")
-    {
-    }
 }
 
-public class FileIncorrectPathException : Exception
+public class FileIncorrectPathException(string message) : Exception(message)
 {
-    public FileIncorrectPathException(string message) : base(message)
-    {
-    }
 }

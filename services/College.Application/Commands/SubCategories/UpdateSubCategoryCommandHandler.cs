@@ -9,32 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace College.Application.Commands.SubCategories;
 
-public class UpdateSubCategoryCommand : IRequest<SubCategoryDto>
+public class UpdateSubCategoryCommand(Guid subCategoryId, string title, string url) : IRequest<SubCategoryDto>
 {
-    public UpdateSubCategoryCommand(Guid subCategoryId, string title, string url)
-    {
-        SubCategoryId = subCategoryId;
-        Title = title;
-        Url = url;
-    }
+    public Guid SubCategoryId { get; set; } = subCategoryId;
 
-    public Guid SubCategoryId { get; set; }
+    public string? Title { get; set; } = title;
 
-    public string? Title { get; set; }
-
-    public string? Url { get; set; }
+    public string? Url { get; set; } = url;
 }
 
-public class UpdateSubCategoryCommandHandler : IRequestHandler<UpdateSubCategoryCommand, SubCategoryDto>
+public class UpdateSubCategoryCommandHandler(CollegeDbContext db, IMapper mapper) : IRequestHandler<UpdateSubCategoryCommand, SubCategoryDto>
 {
-    private readonly CollegeDbContext _db;
-    private readonly IMapper _mapper;
-
-    public UpdateSubCategoryCommandHandler(CollegeDbContext db, IMapper mapper)
-    {
-        _mapper = mapper.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     public async Task<SubCategoryDto> Handle(UpdateSubCategoryCommand request, CancellationToken cancellationToken)
     {

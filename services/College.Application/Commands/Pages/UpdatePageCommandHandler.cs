@@ -12,43 +12,27 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.Pages;
 
-public class UpdatePageCommand : IRequest<PageDto>
+public class UpdatePageCommand(Guid pageId, string title, string url, string content, Guid? subCategoryId, TemplateDto? template)
+    : IRequest<PageDto>
 {
-    public UpdatePageCommand(Guid pageId, string title, string url, string content, Guid? subCategoryId, TemplateDto? template)
-    {
-        PageId = pageId;
-        SubCategoryId = subCategoryId;
-        Title = title;
-        Url = url;
-        Content = content;
-        Template = template;
-    }
-    public Guid PageId { get; set; }
-    public string? Title { get; set; }
-    public string? Url { get; set; }
-    public string? Content { get; set; }
-    public Guid? SubCategoryId { get; set; }
-    public TemplateDto? Template { get; set; }
+    public Guid PageId { get; set; } = pageId;
+    public string? Title { get; set; } = title;
+    public string? Url { get; set; } = url;
+    public string? Content { get; set; } = content;
+    public Guid? SubCategoryId { get; set; } = subCategoryId;
+    public TemplateDto? Template { get; set; } = template;
 }
 
-public class UpdatePageCommandHandler : IRequestHandler<UpdatePageCommand, PageDto>
+public class UpdatePageCommandHandler(
+    CollegeDbContext db,
+    ILogger<UpdatePageCommandHandler> logger,
+    IMapper mapper,
+    ITemplateFactory templateFactory) : IRequestHandler<UpdatePageCommand, PageDto>
 {
-    private readonly CollegeDbContext _db;
-    private readonly ILogger<UpdatePageCommandHandler> _logger;
-    private readonly IMapper _mapper;
-    private readonly ITemplateFactory _templateFactory;
-
-    public UpdatePageCommandHandler(
-        CollegeDbContext db,
-        ILogger<UpdatePageCommandHandler> logger,
-        IMapper mapper,
-        ITemplateFactory templateFactory)
-    {
-        _templateFactory = templateFactory;
-        _mapper = mapper.ThrowIfNull();
-        _logger = logger.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly ILogger<UpdatePageCommandHandler> _logger = logger.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
+    private readonly ITemplateFactory _templateFactory = templateFactory;
 
     public async Task<PageDto> Handle(UpdatePageCommand request, CancellationToken cancellationToken)
     {
@@ -56,12 +40,8 @@ public class UpdatePageCommandHandler : IRequestHandler<UpdatePageCommand, PageD
             .Include(x => x.Template)
             .ThenInclude(x => x.Image)
             .SingleOrDefaultAsync(
-            p => p.Id == request.PageId, cancellationToken);
-
-        if (page is null)
-        {
-            throw new EntityNotFoundException(nameof(Page), request.PageId);
-        }
+            p => p.Id == request.PageId, cancellationToken)
+            ?? throw new EntityNotFoundException(nameof(Page), request.PageId);
 
         if (request.Title is not null)
         {

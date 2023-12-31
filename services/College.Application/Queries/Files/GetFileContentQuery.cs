@@ -7,26 +7,15 @@ using FileNotFoundException = College.Application.Exceptions.FileNotFoundExcepti
 
 namespace College.Application.Queries.Files;
 
-public class GetFileContentQuery : IRequest<byte[]>
+public class GetFileContentQuery(string filePath) : IRequest<byte[]>
 {
-    public GetFileContentQuery(string filePath)
-    {
-        FilePath = filePath;
-    }
-
-    public string FilePath { get; set; }
+    public string FilePath { get; set; } = filePath;
 }
 
-public class GetFileContentQueryHandler : IRequestHandler<GetFileContentQuery, byte[]>
+public class GetFileContentQueryHandler(ILogger<GetFileContentQueryHandler> logger, FileStorageSettings fileStorageSettings) : IRequestHandler<GetFileContentQuery, byte[]>
 {
-    private readonly ILogger<GetFileContentQueryHandler> _logger;
-    private readonly FileStorageSettings _fileStorageSettings;
-
-    public GetFileContentQueryHandler(ILogger<GetFileContentQueryHandler> logger, FileStorageSettings fileStorageSettings)
-    {
-        _logger = logger.ThrowIfNull();
-        _fileStorageSettings = fileStorageSettings.ThrowIfNull();
-    }
+    private readonly ILogger<GetFileContentQueryHandler> _logger = logger.ThrowIfNull();
+    private readonly FileStorageSettings _fileStorageSettings = fileStorageSettings.ThrowIfNull();
 
     public async Task<byte[]> Handle(GetFileContentQuery request, CancellationToken cancellationToken)
     {

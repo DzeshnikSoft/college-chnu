@@ -9,32 +9,19 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.SubCategories;
 
-public class CreateSubCategoryCommand : IRequest<SubCategoryDto>
+public class CreateSubCategoryCommand(string title, string url, Guid categoryId) : IRequest<SubCategoryDto>
 {
-    public CreateSubCategoryCommand(string title, string url, Guid categoryId)
-    {
-        Title = title;
-        Url = url;
-        CategoryId = categoryId;
-    }
+    public string Title { get; } = title;
 
-    public string Title { get; }
+    public string Url { get; } = url;
 
-    public string Url { get; }
-
-    public Guid CategoryId { get; }
+    public Guid CategoryId { get; } = categoryId;
 }
 
-public class CreateSubCategoryCommandHandler : IRequestHandler<CreateSubCategoryCommand, SubCategoryDto>
+public class CreateSubCategoryCommandHandler(CollegeDbContext db, ILogger<CreateSubCategoryCommandHandler> logger) : IRequestHandler<CreateSubCategoryCommand, SubCategoryDto>
 {
-    private readonly CollegeDbContext _db;
-    private readonly ILogger<CreateSubCategoryCommandHandler> _logger;
-
-    public CreateSubCategoryCommandHandler(CollegeDbContext db, ILogger<CreateSubCategoryCommandHandler> logger)
-    {
-        _logger = logger.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly ILogger<CreateSubCategoryCommandHandler> _logger = logger.ThrowIfNull();
 
     public async Task<SubCategoryDto> Handle(CreateSubCategoryCommand request, CancellationToken cancellationToken)
     {

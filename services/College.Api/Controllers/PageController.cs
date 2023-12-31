@@ -1,4 +1,3 @@
-using System.Net;
 using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.Pages;
@@ -9,21 +8,16 @@ using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace College.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PageController : ControllerBase
+public class PageController(IMediator mediator, ILogger<PageController> logger) : ControllerBase
 {
-    private readonly IMediator _mediator;
-    private readonly ILogger<PageController> _logger;
-
-    public PageController(IMediator mediator, ILogger<PageController> logger)
-    {
-        _logger = logger.ThrowIfNull();
-        _mediator = mediator.ThrowIfNull();
-    }
+    private readonly IMediator _mediator = mediator.ThrowIfNull();
+    private readonly ILogger<PageController> _logger = logger.ThrowIfNull();
 
     [HttpGet]
     public async Task<ActionResult<List<PageDto>>> GetPagesAsync()

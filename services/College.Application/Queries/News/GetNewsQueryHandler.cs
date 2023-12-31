@@ -11,16 +11,10 @@ public class GetNewsQuery : IRequest<IList<NewsDto>>
 {
 }
 
-public class GetNewsQueryHandler : IRequestHandler<GetNewsQuery, IList<NewsDto>>
+public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequestHandler<GetNewsQuery, IList<NewsDto>>
 {
-    private readonly CollegeDbContext _db;
-    private readonly IMapper _mapper;
-
-    public GetNewsQueryHandler(CollegeDbContext db, IMapper mapper)
-    {
-        _mapper = mapper.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     public async Task<IList<NewsDto>> Handle(GetNewsQuery request, CancellationToken cancellationToken)
     {

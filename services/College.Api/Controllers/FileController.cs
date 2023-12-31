@@ -10,18 +10,11 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("files")]
-public class FileController : ControllerBase
+public class FileController(IMediator mediator, ILogger<FileController> logger, FileStorageSettings fileStorageSettings) : ControllerBase
 {
-    private readonly IMediator _mediator;
-    private readonly ILogger<FileController> _logger;
-    private readonly FileStorageSettings _fileStorageSettings;
-
-    public FileController(IMediator mediator, ILogger<FileController> logger, FileStorageSettings fileStorageSettings)
-    {
-        _fileStorageSettings = fileStorageSettings;
-        _logger = logger.ThrowIfNull();
-        _mediator = mediator.ThrowIfNull();
-    }
+    private readonly IMediator _mediator = mediator.ThrowIfNull();
+    private readonly ILogger<FileController> _logger = logger.ThrowIfNull();
+    private readonly FileStorageSettings _fileStorageSettings = fileStorageSettings;
 
     [HttpGet("images/{fileName}")]
     public async Task<FileContentResult> GetImage(string fileName)
@@ -42,7 +35,7 @@ public class FileController : ControllerBase
             throw new FileIncorrectPathException("File should have valid path");
         }
 
-        return await ReadAndGetFileAsync(Path.Combine("others", fileName),  "application/octet-stream");
+        return await ReadAndGetFileAsync(Path.Combine("others", fileName), "application/octet-stream");
     }
 
     [HttpGet("documents/{fileName}")]
@@ -67,7 +60,7 @@ public class FileController : ControllerBase
         var name = string.IsNullOrEmpty(fileName) ? file.FileName : $"{fileName}{Path.GetExtension(file.FileName)}";
 
         var bytes = await GetFileBytesAsync(file);
-        var path =  await _mediator.Send(
+        var path = await _mediator.Send(
             new UploadFileToHostCommand(name, bytes));
 
         return $"{_fileStorageSettings.BaseServerUrl}/{path}";

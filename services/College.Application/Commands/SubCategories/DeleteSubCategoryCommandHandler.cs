@@ -8,37 +8,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace College.Application.Commands.SubCategories;
 
-public class DeleteSubCategoryCommand : IRequest<Unit>
+public class DeleteSubCategoryCommand(Guid subCategoryId) : IRequest<Unit>
 {
-    public DeleteSubCategoryCommand(Guid subCategoryId)
-    {
-        SubCategoryId = subCategoryId;
-    }
-
-    public Guid SubCategoryId { get; set; }
+    public Guid SubCategoryId { get; set; } = subCategoryId;
 }
 
-public class DeleteSubCategoryCommandHandler : IRequestHandler<DeleteSubCategoryCommand, Unit>
+public class DeleteSubCategoryCommandHandler(CollegeDbContext db, IMediator mediator) : IRequestHandler<DeleteSubCategoryCommand, Unit>
 {
-    private readonly CollegeDbContext _db;
-    private readonly IMediator _mediator;
-
-    public DeleteSubCategoryCommandHandler(CollegeDbContext db, IMediator mediator)
-    {
-        _mediator = mediator.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMediator _mediator = mediator.ThrowIfNull();
 
     public async Task<Unit> Handle(DeleteSubCategoryCommand request, CancellationToken cancellationToken)
     {
         var subCategory = await _db.SubCategories
             .Include(s => s.Pages)
-            .SingleOrDefaultAsync(s => s.Id == request.SubCategoryId, cancellationToken);
-
-        if (subCategory is null)
-        {
-            throw new EntityNotFoundException(nameof(SubCategory), request.SubCategoryId);
-        }
+            .SingleOrDefaultAsync(s => s.Id == request.SubCategoryId, cancellationToken)
+            ?? throw new EntityNotFoundException(nameof(SubCategory), request.SubCategoryId);
 
         // If SubCategory have some pages. We delete this pages!
         if (subCategory.Pages.Any())

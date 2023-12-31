@@ -15,18 +15,12 @@ public class GetPagesQuery : IRequest<List<PageDto>>
     }
 }
 
-public class GetPagesQueryHandler : IRequestHandler<GetPagesQuery, List<PageDto>>
+public class GetPagesQueryHandler(CollegeDbContext db, IMapper mapper, ILogger<GetPagesQueryHandler> logger)
+    : IRequestHandler<GetPagesQuery, List<PageDto>>
 {
-    private readonly CollegeDbContext _db;
-    private readonly IMapper _mapper;
-    private readonly ILogger<GetPagesQueryHandler> _logger;
-
-    public GetPagesQueryHandler(CollegeDbContext db, IMapper mapper, ILogger<GetPagesQueryHandler> logger)
-    {
-        _logger = logger;
-        _mapper = mapper.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
+    private readonly ILogger<GetPagesQueryHandler> _logger = logger;
 
     public async Task<List<PageDto>> Handle(GetPagesQuery request, CancellationToken cancellationToken)
     {

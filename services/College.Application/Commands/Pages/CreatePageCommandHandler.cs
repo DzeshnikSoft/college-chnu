@@ -8,40 +8,25 @@ using MediatR;
 
 namespace College.Application.Commands.Pages;
 
-public class CreatePageCommand : IRequest<PageDto>
+public class CreatePageCommand(string title, string content, string url, Guid? subCategoryId, TemplateDto template) : IRequest<PageDto>
 {
-    public CreatePageCommand(string title, string content, string url, Guid? subCategoryId, TemplateDto template)
-    {
-        Title = title;
-        Content = content;
-        Url = url;
-        SubCategoryId = subCategoryId;
-        Template = template;
-    }
+    public string Title { get; set; } = title;
 
-    public string Title { get; set; }
+    public string Content { get; set; } = content;
 
-    public string Content { get; set; }
+    public string Url { get; set; } = url;
 
-    public string Url { get; set; }
+    public Guid? SubCategoryId { get; set; } = subCategoryId;
 
-    public Guid? SubCategoryId { get; set; }
-
-    public TemplateDto Template { get; set; }
+    public TemplateDto Template { get; set; } = template;
 }
 
-public class CreatePageCommandHandler : IRequestHandler<CreatePageCommand, PageDto>
+public class CreatePageCommandHandler(CollegeDbContext db, IMapper mapper, ITemplateFactory templateFactory)
+    : IRequestHandler<CreatePageCommand, PageDto>
 {
-    private readonly CollegeDbContext _db;
-    private readonly IMapper _mapper;
-    private readonly ITemplateFactory _templateFactory;
-
-    public CreatePageCommandHandler(CollegeDbContext db, IMapper mapper, ITemplateFactory templateFactory)
-    {
-        _templateFactory = templateFactory.ThrowIfNull();
-        _mapper = mapper.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
+    private readonly ITemplateFactory _templateFactory = templateFactory.ThrowIfNull();
 
     public async Task<PageDto> Handle(CreatePageCommand request, CancellationToken cancellationToken)
     {

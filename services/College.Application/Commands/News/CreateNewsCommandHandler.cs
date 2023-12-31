@@ -7,28 +7,16 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.News;
 
-public class CreateNewsCommand : IRequest<Guid>
+public class CreateNewsCommand(NewsDto newsDto) : IRequest<Guid>
 {
-    public CreateNewsCommand(NewsDto newsDto)
-    {
-        NewsDto = newsDto;
-    }
-
-    public NewsDto NewsDto { get; set; }
+    public NewsDto NewsDto { get; set; } = newsDto;
 }
 
-public class CreateNewsCommandHandler : IRequestHandler<CreateNewsCommand, Guid>
+public class CreateNewsCommandHandler(CollegeDbContext db, ILogger<CreateNewsCommandHandler> logger, IMapper mapper) : IRequestHandler<CreateNewsCommand, Guid>
 {
-    private readonly CollegeDbContext _db;
-    private readonly ILogger<CreateNewsCommandHandler> _logger;
-    private readonly IMapper _mapper;
-
-    public CreateNewsCommandHandler(CollegeDbContext db, ILogger<CreateNewsCommandHandler> logger, IMapper mapper)
-    {
-        _mapper = mapper.ThrowIfNull();
-        _logger = logger.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly ILogger<CreateNewsCommandHandler> _logger = logger.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     public async Task<Guid> Handle(CreateNewsCommand request, CancellationToken cancellationToken)
     {

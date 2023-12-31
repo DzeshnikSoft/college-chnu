@@ -9,33 +9,21 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.Categories;
 
-public class UpdateCategoryCommand : IRequest<CategoryDto>
+public class UpdateCategoryCommand(Guid categoryId, string? url, string? title) : IRequest<CategoryDto>
 {
-    public UpdateCategoryCommand(Guid categoryId, string? url, string? title)
-    {
-        Url = url;
-        Title = title;
-        CategoryId = categoryId;
-    }
+    public Guid CategoryId { get; set; } = categoryId;
 
-    public Guid CategoryId { get; set; }
+    public string? Url { get; set; } = url;
 
-    public string? Url { get; set; }
-
-    public string? Title { get; set; }
+    public string? Title { get; set; } = title;
 }
 
 
-public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, CategoryDto>
+public class UpdateCategoryCommandHandler(ILogger<UpdateCategoryCommandHandler> logger, CollegeDbContext db)
+    : IRequestHandler<UpdateCategoryCommand, CategoryDto>
 {
-    private readonly ILogger<UpdateCategoryCommandHandler> _logger;
-    private readonly CollegeDbContext _db;
-
-    public UpdateCategoryCommandHandler(ILogger<UpdateCategoryCommandHandler> logger, CollegeDbContext db)
-    {
-        _logger = logger.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly ILogger<UpdateCategoryCommandHandler> _logger = logger.ThrowIfNull();
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
 
     public async Task<CategoryDto> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {

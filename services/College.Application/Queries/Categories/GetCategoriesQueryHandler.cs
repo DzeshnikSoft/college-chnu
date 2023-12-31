@@ -11,16 +11,10 @@ public class GetCategoriesQuery : IRequest<IList<CategoryDto>>
 {
 }
 
-public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, IList<CategoryDto>>
+public class GetCategoriesQueryHandler(CollegeDbContext db, IMapper mapper) : IRequestHandler<GetCategoriesQuery, IList<CategoryDto>>
 {
-    private readonly CollegeDbContext _db;
-    private readonly IMapper _mapper;
-
-    public GetCategoriesQueryHandler(CollegeDbContext db, IMapper mapper)
-    {
-        _mapper = mapper.ThrowIfNull();
-        _db = db.ThrowIfNull();
-    }
+    private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     public async Task<IList<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
     {
@@ -28,7 +22,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ILi
             .AsSplitQuery()
             .Include(c => c.SubCategories)
             .ThenInclude(x => x.Pages)
-            .ThenInclude(x =>x.Template)
+            .ThenInclude(x => x.Template)
             .ThenInclude(x => x.Image)
             .ToListAsync(cancellationToken: cancellationToken);
 

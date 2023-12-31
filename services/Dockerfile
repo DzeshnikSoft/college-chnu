@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS builder
 WORKDIR /services
 
 COPY . /services/
@@ -9,7 +9,7 @@ RUN dotnet restore "./College.Api/College.API.csproj"
 RUN dotnet publish "./College.Api/College.API.csproj" -c Release -o /app --no-restore
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=builder /app .
 
