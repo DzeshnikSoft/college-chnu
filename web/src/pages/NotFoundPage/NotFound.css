@@ -1,17 +1,16 @@
-.notFound .container{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    place-items: center;
-    width: 60%;
+.notFound .container {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	place-items: center;
+	width: 60%;
 }
 
-.notFound .container img{
-   height: 50vh;
+.notFound .container img {
+	height: 100%;
 }
 
-.notFound .container .cool{
-    display: flex;
-    flex-direction: column;
-    text-align: right;
+.notFound .container .cool {
+	display: flex;
+	flex-direction: column;
+	text-align: right;
 }
-
