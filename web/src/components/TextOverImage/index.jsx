@@ -1,15 +1,14 @@
-import React from "react"
+import React from 'react';
 
-export default function TextOverImage({children, src, alt}){
-	return(
+export default function TextOverImage({ children, src }) {
+	return (
 		<div className='h-full w-full relative'>
-			<img 
-				src={src} 
+			<img
+				src={src}
 				className='w-full h-full object-cover z-20'
-				alt={alt}
-				loading="lazy"
+				loading='lazy'
 			/>
 			{children}
 		</div>
-	)
+	);
 }
