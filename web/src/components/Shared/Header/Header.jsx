@@ -1,19 +1,12 @@
-import React, { useEffect } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
-import {
-	fetchCategoriesData,
-	getNavMenuData,
-} from '../../../app/features/navMenu/navMenuSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { getNavMenuData } from '../../../app/features/navMenu/navMenuSlice';
+import { useSelector } from 'react-redux';
 import SubMenu from '../../SubMenu';
 import './Header.css';
 
 function Header() {
-	const dispatch = useDispatch();
 	const navMenuData = useSelector(getNavMenuData);
-	const params = useParams();
-
-	useEffect(() => {}, []);
 
 	return (
 		<header className='header z-50 w-full flex sticky top-0 bg-backgroundHeaderColor text-colorTextColor shadow-bottomShadow'>

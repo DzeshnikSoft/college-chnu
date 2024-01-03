@@ -8,6 +8,9 @@ const extraReducersConfigNavMenu = (builder) => {
 	builder.addCase(fetchCategoriesData.pending, (state) => {
 		state.loading = true;
 	});
+	builder.addCase(fetchCategoriesData.rejected, (state) => {
+		state.loading = false;
+	});
 };
 
 export default extraReducersConfigNavMenu;
