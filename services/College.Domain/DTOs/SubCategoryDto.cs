@@ -8,5 +8,7 @@ public class SubCategoryDto
 
     public string Title { get; set; }
 
+    public Guid? CategoryId { get; set; }
+
     public IList<PageDto> Pages { get; set; }
 }
