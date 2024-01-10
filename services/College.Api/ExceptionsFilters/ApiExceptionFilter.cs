@@ -78,7 +78,7 @@ public class ApiExceptionFilter(ILogger<ApiExceptionFilter> logger) : IException
 
         var error = new ApiError
         {
-            ReasonCode = "college_api_internal_server_error",
+            ReasonCode = ApiReasonCodes.InternalServerError,
             RequestId = context.HttpContext.TraceIdentifier,
             Message = context.Exception.Message,
         };
