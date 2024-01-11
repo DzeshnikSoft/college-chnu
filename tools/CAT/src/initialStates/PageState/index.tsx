@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const useInitialPageState = ({ id, subCategoryId }: Props) => {
-	const [pageData, setPageData] = useState<PageDto>({
+	const [pageDataState, setPageDataState] = useState<PageDto>({
 		id: id,
 		title: '',
 		url: '',
@@ -23,5 +23,5 @@ export const useInitialPageState = ({ id, subCategoryId }: Props) => {
 		content: '',
 	});
 
-	return { pageData, setPageData };
+	return { pageDataState, setPageDataState };
 };

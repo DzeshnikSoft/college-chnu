@@ -6,11 +6,11 @@ import Edit from '@/components/Edit';
 import DeleteButton from '@/components/DeleteButton';
 import DialogCreateSubCategories from '../DialogCreateSubcategories';
 import { CategoryDto } from '@/models/api';
+import { useAppDispatch } from '@/app/hooks';
 import {
-	useDeleteCategoryMutation,
-	useUpdateCategoryMutation,
-} from '@/store/apis/categories';
-
+	deleteCategory,
+	updateCategory,
+} from '@/app/features/categories/categoryThunks';
 interface StatePage {
 	categoryId: string;
 	title: string;
@@ -23,20 +23,17 @@ export default function Page({ title, subCategories, id, url }: CategoryDto) {
 		title: title,
 		url: url,
 	});
-
+	const dispatch = useAppDispatch();
 	const [urlForChild, setUrlForChild] = useState<string>(url);
 
 	const [isOpenPopupForSubCategoties, setIsOpenPopupForSubCategoties] =
 		useState<boolean>(false);
-	const [deleteCategory] = useDeleteCategoryMutation();
-	const [updateCategory] = useUpdateCategoryMutation();
-
 	const handleChangeTitle = ({ target }) => {
-		setPage({ categoryId: id, url, title: target.value });
+		setPage({ ...page, title: target.value });
 	};
 
 	const handleChangeUrl = ({ target }) => {
-		setPage({ categoryId: id, title, url: target.value });
+		setPage({ ...page, url: target.value });
 	};
 
 	const handleClosePopupSubCategoties = () => {
@@ -48,11 +45,12 @@ export default function Page({ title, subCategories, id, url }: CategoryDto) {
 	};
 
 	const handleUpdate = () => {
-		updateCategory(page);
+		console.log(page);
+		dispatch(updateCategory(page));
 	};
 
 	const handleDelete = () => {
-		deleteCategory(id);
+		dispatch(deleteCategory(id));
 	};
 
 	return (
@@ -81,12 +79,13 @@ export default function Page({ title, subCategories, id, url }: CategoryDto) {
 				</DeleteButton>
 			</div>
 			<div className='grid grid-cols-2 gap-10 w-11/12 mx-auto place-items-center'>
-				{subCategories.map(({ title, pages, id, url }) => (
+				{subCategories?.map(({ title, pages, id, url }) => (
 					<SubCategories
 						url={url}
 						pages={pages}
 						title={title}
 						id={id}
+						categoryId={page.categoryId}
 						parentUrl={urlForChild}
 						key={id}
 					/>

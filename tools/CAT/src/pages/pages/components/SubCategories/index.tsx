@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { Card } from "@chakra-ui/react";
-import { defaultUrl } from "@/utils/defaultUrl";
-import Edit from "@/components/Edit";
-import DeleteButton from "@/components/DeleteButton";
-import { SubCategoryDto } from "@/models/api";
+import { useState } from 'react';
+import { Card } from '@chakra-ui/react';
+import { defaultUrl } from '@/utils/defaultUrl';
+import Edit from '@/components/Edit';
+import DeleteButton from '@/components/DeleteButton';
+import { SubCategoryDto } from '@/models/api';
+import { useAppDispatch } from '@/app/hooks';
 import {
-	useDeleteSubCategoryMutation,
-	useUpdateSubCategoryMutation,
-} from "@/store/apis/categories";
-import List from "../List";
+	updateSubCategory,
+	deleteSubCategory,
+} from '@/app/features/subCategories/subCategoriesThunks';
+import List from '../List';
 
 interface SubCategories {
 	subCategoryId: string;
@@ -21,29 +22,40 @@ export default function SubCategories({
 	pages,
 	id,
 	parentUrl,
-}: SubCategoryDto & { parentUrl: string }) {
+	categoryId,
+}: SubCategoryDto & { parentUrl: string } & { categoryId: string }) {
 	const [subCategory, setSubCategory] = useState<SubCategories>({
 		subCategoryId: id,
 		title: title,
 		url: url,
 	});
-	const [deleteSubCategory] = useDeleteSubCategoryMutation();
-	const [updateSubCategory] = useUpdateSubCategoryMutation();
+
+	const dispatch = useAppDispatch();
 
 	const handleChangeTitle = ({ target }) => {
-		setSubCategory({ subCategoryId: id, url, title: target.value });
+		setSubCategory({
+			...subCategory,
+			subCategoryId: id,
+			title: target.value,
+		});
 	};
 
 	const handleChangeUrl = ({ target }) => {
-		setSubCategory({ subCategoryId: id, title, url: target.value });
+		setSubCategory({
+			...subCategory,
+			subCategoryId: id,
+			url: target.value,
+		});
 	};
+
 	const handleClick = () => {
-		updateSubCategory(subCategory);
+		dispatch(updateSubCategory(subCategory));
 	};
 
 	const handleDelete = () => {
-		deleteSubCategory(id);
+		dispatch(deleteSubCategory(id));
 	};
+
 	return (
 		<Card className='h-full w-full p-3'>
 			<div className='w-full flex items-center justify-between mb-5'>

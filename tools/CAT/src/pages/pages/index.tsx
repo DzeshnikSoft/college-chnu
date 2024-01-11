@@ -1,17 +1,28 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import Page from './components/Page';
 import DialogCreateCategory from './components/DialogCreateCategory';
-import { useGetCategoriesQuery } from '@/store/apis/categories';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { defaultUrl } from '@/utils/defaultUrl';
 import AddButton from '@/components/AddButton';
 import { CategoryDto } from '@/models/api';
 import SpinnerWrapper from '@/components/Spinner';
+import {
+	getСategoryData,
+	getСategoryLoading,
+} from '@/app/features/categories/categorySlice';
+import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 const Pages = () => {
 	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
 		useState<boolean>(false);
-	const { data, isFetching } = useGetCategoriesQuery(undefined, {});
+	const dispatch = useAppDispatch();
+	const categories = useAppSelector(getСategoryData);
+	const isLoading = useAppSelector(getСategoryLoading);
+
+	useEffect(() => {
+		dispatch(fetchCategoriesData());
+	}, []);
 
 	const handleClickOnAddButton = () => {
 		setIsOpenPopupForCategoties(true);
@@ -22,10 +33,10 @@ const Pages = () => {
 
 	return (
 		<div className='h-full w-full'>
-			{!isFetching ? (
+			{!isLoading ? (
 				<Tabs isFitted>
 					<TabList>
-						{(data as CategoryDto[])?.map(
+						{(categories as CategoryDto[])?.map(
 							({ title, id }: CategoryDto) => (
 								<Tab key={id}>{title}</Tab>
 							)
@@ -37,7 +48,7 @@ const Pages = () => {
 						</AddButton>
 					</TabList>
 					<TabPanels>
-						{(data as CategoryDto[])?.map(
+						{(categories as CategoryDto[])?.map(
 							({
 								title,
 								subCategories,

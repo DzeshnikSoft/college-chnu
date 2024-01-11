@@ -17,6 +17,7 @@
 		"@emotion/styled": "^11.11.0",
 		"@reduxjs/toolkit": "^1.9.6",
 		"@tinymce/tinymce-react": "^4.3.0",
+		"axios": "^1.6.5",
 		"csharp-models-to-typescript": "^0.23.0",
 		"formik": "^2.4.5",
 		"framer-motion": "^10.16.4",

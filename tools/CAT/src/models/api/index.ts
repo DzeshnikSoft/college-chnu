@@ -19,7 +19,7 @@ export interface NewsDto {
 
 // ..\..\services\College.Domain\DTOs\PageDto.cs
 export interface PageDto {
-	id: string;
+	id?: string;
 	url: string;
 	title: string;
 	content: string;

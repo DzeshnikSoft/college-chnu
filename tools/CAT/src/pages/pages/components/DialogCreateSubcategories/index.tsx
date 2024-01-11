@@ -1,8 +1,9 @@
-import { useState } from "react";
-import Dialog from "@/components/Dialog";
-import Edit from "@/components/Edit";
-import Button from "@/components/Button";
-import { useAddSubCategoryMutation } from "@/store/apis/categories";
+import { useState } from 'react';
+import Dialog from '@/components/Dialog';
+import Edit from '@/components/Edit';
+import Button from '@/components/Button';
+import { addSubCategory } from '@/app/features/subCategories/subCategoriesThunks';
+import { useAppDispatch } from '@/app/hooks';
 
 interface CategoryState {
 	categoryId: string;
@@ -22,10 +23,10 @@ export default function DialogCreateSubCategories({
 }: SubCategoryProps) {
 	const [createSubCategory, setCreateSubCategory] = useState<CategoryState>({
 		categoryId: categoryId,
-		title: "",
-		url: "",
+		title: '',
+		url: '',
 	});
-	const [addSubCategory] = useAddSubCategoryMutation();
+	const dispatch = useAppDispatch();
 	const handleChangeTitleSubCategory = ({ target }) => {
 		setCreateSubCategory({ ...createSubCategory, title: target.value });
 	};
@@ -33,7 +34,7 @@ export default function DialogCreateSubCategories({
 		setCreateSubCategory({ ...createSubCategory, url: target.value });
 	};
 	const handleClick = () => {
-		addSubCategory(createSubCategory);
+		dispatch(addSubCategory(createSubCategory));
 		handleClose();
 	};
 

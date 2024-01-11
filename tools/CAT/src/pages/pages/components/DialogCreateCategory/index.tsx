@@ -1,8 +1,9 @@
-import { useState } from "react";
-import Dialog from "@/components/Dialog";
-import Button from "@/components/Button";
-import { useAddCategoryMutation } from "@/store/apis/categories";
-import Edit from "@/components/Edit";
+import { useState } from 'react';
+import Dialog from '@/components/Dialog';
+import Button from '@/components/Button';
+import Edit from '@/components/Edit';
+import { addCategory } from '@/app/features/categories/categoryThunks';
+import { useAppDispatch } from '@/app/hooks';
 
 interface CategoryState {
 	title: string;
@@ -17,10 +18,10 @@ export default function DialogCreateCategory({
 	parentUrl,
 }: CategoryProps) {
 	const [createCategory, setCreateCategory] = useState<CategoryState>({
-		title: "",
-		url: "",
+		title: '',
+		url: '',
 	});
-	const [addCategory] = useAddCategoryMutation();
+	const dispatch = useAppDispatch();
 
 	const handleChangeTitleCategory = ({ target }) => {
 		setCreateCategory({ ...createCategory, title: target.value });
@@ -29,7 +30,7 @@ export default function DialogCreateCategory({
 		setCreateCategory({ ...createCategory, url: target.value });
 	};
 	const handleClick = () => {
-		addCategory(createCategory);
+		dispatch(addCategory(createCategory));
 		handleClose();
 	};
 
