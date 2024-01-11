@@ -69,8 +69,7 @@ public class UpdatePageCommandHandler(
 
             if (request.Template.Type == TemplateType.Default)
             {
-                page.Template.Image.Url = null;
-                page.Template.Image.Alt = null;
+                page.Template.Image = null;
                 page.Template.Title = null;
             }
             else
