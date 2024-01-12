@@ -99,7 +99,7 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
     {
         if (string.IsNullOrWhiteSpace(path))
         {
-            return NotFound();
+            throw new ApiException("Path should be correct", ApiReasonCodes.EntityNotFound, HttpStatusCode.NotFound);
         }
 
         try
