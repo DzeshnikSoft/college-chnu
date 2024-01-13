@@ -1,6 +1,7 @@
 using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.Pages;
+using College.Application.Exceptions;
 using College.Application.Queries.Pages;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
@@ -32,15 +33,22 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
     {
         _logger.LogInformation("Received request to Create page");
 
-        var command = new CreatePageCommand(
+        try
+        {
+            var command = new CreatePageCommand(
             pageViewModel.Title,
             pageViewModel.Content,
             pageViewModel.Url,
             pageViewModel.SubCategoryId,
             new TemplateDto { Type = pageViewModel.Template.Type, Image = pageViewModel.Template.Image, Label = pageViewModel.Template.Label });
 
-        return Ok(
-            await _mediator.Send(command));
+            return Ok(
+                await _mediator.Send(command));
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+        }
     }
 
     [HttpPut]

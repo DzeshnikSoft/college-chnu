@@ -1,10 +1,13 @@
 using AutoMapper;
+using College.Application.Exceptions;
 using College.Data.Context;
 using College.Domain.DTOs;
+using College.Domain.Exceptions;
 using College.Domain.Models;
 using College.Domain.Services;
 using College.Shared.Extensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace College.Application.Commands.Pages;
 
@@ -30,6 +33,13 @@ public class CreatePageCommandHandler(CollegeDbContext db, IMapper mapper, ITemp
 
     public async Task<PageDto> Handle(CreatePageCommand request, CancellationToken cancellationToken)
     {
+        if (await _db.Pages.AnyAsync(p =>
+            p.SubCategoryId == request.SubCategoryId &&
+            string.Equals(p.Url, request.Url, StringComparison.OrdinalIgnoreCase), cancellationToken))
+        {
+            throw new UrlConflictException(nameof(Page), request.Url);
+        }
+
         var page = new Page
         {
             Title = request.Title,
@@ -40,12 +50,8 @@ public class CreatePageCommandHandler(CollegeDbContext db, IMapper mapper, ITemp
 
         if (request.SubCategoryId.HasValue)
         {
-            var subCategory = _db.SubCategories.FirstOrDefault(x => x.Id == request.SubCategoryId.Value);
-
-            if (subCategory is null)
-            {
-                throw new Exception("SubCategory with this Id is not exist");
-            }
+            var subCategory = _db.SubCategories.FirstOrDefault(x => x.Id == request.SubCategoryId.Value)
+                ?? throw new EntityNotFoundException(nameof(SubCategory), request.SubCategoryId.Value);
 
             page.SubCategoryId = request.SubCategoryId.Value;
         }

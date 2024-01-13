@@ -1,12 +1,14 @@
 using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.SubCategories;
+using College.Application.Exceptions;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace College.API.Controllers;
 
@@ -27,6 +29,10 @@ public class SubCategoryController(IMediator mediator, ILogger<SubCategoryContro
             return Ok(
                 await _mediator.Send(new CreateSubCategoryCommand(subCategoryViewModel.Title, subCategoryViewModel.Url, subCategoryViewModel.CategoryId)));
         }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+        }
         catch (EntityNotFoundException ex)
         {
             throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, System.Net.HttpStatusCode.NotFound);
@@ -42,6 +48,10 @@ public class SubCategoryController(IMediator mediator, ILogger<SubCategoryContro
         {
             return Ok(
                 await _mediator.Send(new UpdateSubCategoryCommand(subCategoryViewModel.SubCategoryId, subCategoryViewModel.Title, subCategoryViewModel.Url)));
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
         }
         catch (EntityNotFoundException ex)
         {

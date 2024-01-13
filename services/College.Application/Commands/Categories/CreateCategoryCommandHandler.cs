@@ -23,10 +23,15 @@ public class CreateCategoryCommandHandler(CollegeDbContext db, ILogger<CreateCat
 
     public async Task<CategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        if (await _db.Categories.AnyAsync(
-                c => c.Title == request.Title, cancellationToken))
+        if (await _db.Categories.AnyAsync(c => string.Equals(c.Title, request.Title, StringComparison.OrdinalIgnoreCase), cancellationToken))
         {
             throw new CategoryAlreadyExistExceptions($"Category with title = {request.Title} already exist");
+        }
+
+        if (request.Url != null && await _db.Categories.AnyAsync(p =>
+            string.Equals(p.Url, request.Url, StringComparison.OrdinalIgnoreCase), cancellationToken))
+        {
+            throw new UrlConflictException(nameof(Page), request.Url);
         }
 
         var entityEntry = await _db.Categories.AddAsync(new Category
