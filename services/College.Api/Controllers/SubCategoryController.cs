@@ -1,17 +1,22 @@
+using College.API.Authentication;
 using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.SubCategories;
+using College.Application.Exceptions;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace College.API.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
+[Authorize(AuthenticationSchemes = ApiKeyAuthenticationExtensions.AuthenticationSchemeName)]
 public class SubCategoryController(IMediator mediator, ILogger<SubCategoryController> logger) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
@@ -26,6 +31,10 @@ public class SubCategoryController(IMediator mediator, ILogger<SubCategoryContro
         {
             return Ok(
                 await _mediator.Send(new CreateSubCategoryCommand(subCategoryViewModel.Title, subCategoryViewModel.Url, subCategoryViewModel.CategoryId)));
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
         }
         catch (EntityNotFoundException ex)
         {
@@ -42,6 +51,10 @@ public class SubCategoryController(IMediator mediator, ILogger<SubCategoryContro
         {
             return Ok(
                 await _mediator.Send(new UpdateSubCategoryCommand(subCategoryViewModel.SubCategoryId, subCategoryViewModel.Title, subCategoryViewModel.Url)));
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
         }
         catch (EntityNotFoundException ex)
         {

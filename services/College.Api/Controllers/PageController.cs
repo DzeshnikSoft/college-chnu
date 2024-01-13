@@ -1,12 +1,15 @@
+using College.API.Authentication;
 using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.Pages;
+using College.Application.Exceptions;
 using College.Application.Queries.Pages;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -14,6 +17,7 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = ApiKeyAuthenticationExtensions.AuthenticationSchemeName)]
 public class PageController(IMediator mediator, ILogger<PageController> logger) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
@@ -32,15 +36,22 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
     {
         _logger.LogInformation("Received request to Create page");
 
-        var command = new CreatePageCommand(
+        try
+        {
+            var command = new CreatePageCommand(
             pageViewModel.Title,
             pageViewModel.Content,
             pageViewModel.Url,
             pageViewModel.SubCategoryId,
             new TemplateDto { Type = pageViewModel.Template.Type, Image = pageViewModel.Template.Image, Label = pageViewModel.Template.Label });
 
-        return Ok(
-            await _mediator.Send(command));
+            return Ok(
+                await _mediator.Send(command));
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+        }
     }
 
     [HttpPut]

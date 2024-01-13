@@ -8,6 +8,8 @@ export const getErrorMessage = (error: ApiError, status: number = null): string 
             return 'Не знайдено';
         case BadRequestReasonCode.IncorrectLoginOrPassword:
             return 'Не правильний адмін логін або пароль!';
+        case BadRequestReasonCode.UrlAlreadyExist:
+            return 'Така URL вже існує, спробуйте інший варіант!';
 
         // 500...
         case ServerErrorReasonCode.InternalServerError:

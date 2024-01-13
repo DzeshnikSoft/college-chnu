@@ -13,7 +13,7 @@ public class CreateCategoryCommand(string title, string url) : IRequest<Category
 {
     public string Title { get; } = title;
 
-    public string? Url { get; } = url;
+    public string? Url { get; } = url.ToLower();
 }
 
 public class CreateCategoryCommandHandler(CollegeDbContext db, ILogger<CreateCategoryCommandHandler> logger) : IRequestHandler<CreateCategoryCommand, CategoryDto>
@@ -23,10 +23,14 @@ public class CreateCategoryCommandHandler(CollegeDbContext db, ILogger<CreateCat
 
     public async Task<CategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        if (await _db.Categories.AnyAsync(
-                c => c.Title == request.Title, cancellationToken))
+        if (await _db.Categories.AnyAsync(c => c.Title == request.Title, cancellationToken))
         {
             throw new CategoryAlreadyExistExceptions($"Category with title = {request.Title} already exist");
+        }
+
+        if (request.Url != null && await _db.Categories.AnyAsync(p => p.Url == request.Url, cancellationToken))
+        {
+            throw new UrlConflictException(nameof(Category), request.Url);
         }
 
         var entityEntry = await _db.Categories.AddAsync(new Category
