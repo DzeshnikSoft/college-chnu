@@ -18,8 +18,8 @@ function App() {
 	const navMenuData = useSelector(getNavMenuData);
 
 	useEffect(() => {
-		navMenuData.length === 0 && dispatch(fetchCategoriesData());
-	}, []);
+        navMenuData.length === 0 && dispatch(fetchCategoriesData());
+    }, []);
 
 	return loadingNavMenuData ? (
 		<div className='w-full h-screen'>
