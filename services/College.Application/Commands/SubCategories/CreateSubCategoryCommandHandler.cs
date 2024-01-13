@@ -14,7 +14,7 @@ public class CreateSubCategoryCommand(string title, string url, Guid categoryId)
 {
     public string Title { get; } = title;
 
-    public string Url { get; } = url;
+    public string Url { get; } = url.ToLower();
 
     public Guid CategoryId { get; } = categoryId;
 }
@@ -31,9 +31,7 @@ public class CreateSubCategoryCommandHandler(CollegeDbContext db, ILogger<Create
             throw new EntityNotFoundException(nameof(Category), request.CategoryId);
         }
 
-        if (await _db.SubCategories.AnyAsync(p =>
-            p.CategoryId == request.CategoryId &&
-            string.Equals(p.Url, request.Url, StringComparison.OrdinalIgnoreCase), cancellationToken))
+        if (await _db.SubCategories.AnyAsync(p => p.CategoryId == request.CategoryId && p.Url == request.Url, cancellationToken))
         {
             throw new UrlConflictException(nameof(SubCategory), request.Url);
         }

@@ -17,7 +17,7 @@ public class CreatePageCommand(string title, string content, string url, Guid? s
 
     public string Content { get; set; } = content;
 
-    public string Url { get; set; } = url;
+    public string Url { get; set; } = url.ToLower();
 
     public Guid? SubCategoryId { get; set; } = subCategoryId;
 
@@ -33,9 +33,7 @@ public class CreatePageCommandHandler(CollegeDbContext db, IMapper mapper, ITemp
 
     public async Task<PageDto> Handle(CreatePageCommand request, CancellationToken cancellationToken)
     {
-        if (await _db.Pages.AnyAsync(p =>
-            p.SubCategoryId == request.SubCategoryId &&
-            string.Equals(p.Url, request.Url, StringComparison.OrdinalIgnoreCase), cancellationToken))
+        if (await _db.Pages.AnyAsync(p => p.SubCategoryId == request.SubCategoryId && p.Url == request.Url, cancellationToken))
         {
             throw new UrlConflictException(nameof(Page), request.Url);
         }

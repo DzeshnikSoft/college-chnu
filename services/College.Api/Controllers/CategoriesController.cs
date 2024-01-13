@@ -1,3 +1,4 @@
+using College.API.Authentication;
 using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.Categories;
@@ -8,6 +9,7 @@ using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -15,6 +17,7 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
+[Authorize(AuthenticationSchemes = ApiKeyAuthenticationExtensions.AuthenticationSchemeName)]
 public class CategoriesController(ILogger<CategoriesController> logger, IMediator mediator) : ControllerBase
 {
     private readonly ILogger<CategoriesController> _logger = logger.ThrowIfNull();

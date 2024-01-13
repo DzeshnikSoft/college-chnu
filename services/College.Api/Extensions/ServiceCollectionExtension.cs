@@ -1,4 +1,5 @@
 ﻿using College.API.Mappers;
+using College.API.Swagger;
 using College.Application.Queries.Pages;
 using College.Data.Context;
 using College.Domain.Configuration;
@@ -54,5 +55,15 @@ public static class ServiceCollectionExtension
         services.AddScoped<IFileStorage, FileStorage>();
         services.AddScoped<IFilePathFilter, FilePathFilter>();
         services.AddScoped<ITemplateFactory, TemplateFactory>();
+    }
+
+    public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(sa =>
+        {
+            sa.OperationFilter<ApiKeyOperationFilter>();
+        });
+
+        return services;
     }
 }
