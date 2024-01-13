@@ -36,6 +36,7 @@ jobs:
         npm install
     - name: Build React app
       run: |
+        cd ./web
         npm run build
 
   cat-build:
@@ -49,5 +50,5 @@ jobs:
 
     - name: Build College Admin Panel
       run: |
-        cd ./web
+        cd ./tools/CAT
         npm run build
