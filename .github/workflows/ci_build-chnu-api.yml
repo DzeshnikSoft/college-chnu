@@ -1,14 +1,12 @@
-name: .NET Build
+name: CI Build (services, web, CAT)
 
 on:
   pull_request:
     branches: [ "development" ]
 
 jobs:
-  build:
-
+  dotNet-build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -19,7 +17,38 @@ jobs:
       run: |
         cd ./services
         dotnet restore
-    - name: Build
+    - name: Build .NET
       run: |
         cd ./services
         dotnet build --no-restore
+
+  web-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install dependencies
+      run: |
+        cd ./web
+        npm install
+    - name: Build React app
+      run: |
+        cd ./web
+        npm run build
+
+  cat-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: |
+        cd ./tools/CAT
+        npm install
+
+    - name: Build College Admin Panel
+      run: |
+        cd ./web
+        npm run build
