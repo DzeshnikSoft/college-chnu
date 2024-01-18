@@ -18,10 +18,13 @@ public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequest
 
     public async Task<IList<NewsDto>> Handle(GetNewsQuery request, CancellationToken cancellationToken)
     {
-        var news = await _db.News.ToListAsync(cancellationToken);
+        var news = await _db.News
+            .AsNoTracking()
+            .Include(n => n.Image)
+            .OrderByDescending(n => n.Pinned)
+            .ThenByDescending(n => n.Date)
+            .ToListAsync(cancellationToken);
 
-        return news.Count == 0
-            ? new List<NewsDto>()
-            : _mapper.Map<IList<NewsDto>>(news);
+        return _mapper.Map<IList<NewsDto>>(news);
     }
 }

@@ -10,6 +10,8 @@ public class NewsMapperProfile : Profile
     public NewsMapperProfile()
     {
         CreateMap<News, NewsDto>().ReverseMap();
-        CreateMap<NewsDto, NewsViewModel>().ReverseMap();
+        CreateMap<NewsViewModel, NewsDto>()
+            .ForMember(dto => dto.Image, src => src.MapFrom(vm => vm.Image))
+            .ReverseMap();
     }
 }

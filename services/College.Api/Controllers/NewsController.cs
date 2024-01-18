@@ -42,12 +42,23 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
         return Ok(newsId);
     }
 
-    // TODO: Implement in future
+    /// <summary>
+    /// Update News Endpoint
+    /// </summary>
+    /// <param name="newsDto">News update model</param>
     [HttpPut]
     public async Task<ActionResult<NewsDto>> UpdateNews(NewsDto newsDto)
     {
         _logger.LogInformation("[NewsController] Received request to update news with ID = {NewsId}", newsDto.Id);
 
+        await _mediator.Send(new UpdateNewsCommand(newsDto));
+        return Ok();
+    }
+
+    [HttpDelete("{newsId}")]
+    public async Task<IActionResult> DeleteNewsAsync(Guid newsId)
+    {
+        await _mediator.Send(new DeleteNewsCommand(newsId));
         return Ok();
     }
 }
