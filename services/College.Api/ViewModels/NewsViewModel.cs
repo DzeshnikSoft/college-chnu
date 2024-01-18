@@ -1,3 +1,5 @@
+using College.Domain.DTOs;
+
 namespace College.API.ViewModels;
 
 public class NewsViewModel
@@ -6,9 +8,11 @@ public class NewsViewModel
 
     public string Description { get; set; }
 
-    public string MainImage { get; set; }
+    public ImageDto Image { get; set; }
 
-    public string PageInfo { get; set; }
+    public string Content { get; set; }
 
     public DateTime Date { get; set; }
+
+    public bool Pinned { get; set; } = false;
 }

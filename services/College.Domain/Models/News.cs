@@ -6,7 +6,7 @@ public class News
 
     public string Title { get; set; }
 
-    public string MainImage { get; set; }
+    public Image Image { get; set; }
 
     public string Description { get; set; }
 
