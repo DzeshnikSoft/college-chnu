@@ -1,7 +1,6 @@
 ﻿using College.Data.Context;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
-using College.Domain.Models;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -46,7 +45,7 @@ public class UpdateNewsCommandHandler(CollegeDbContext db) : IRequestHandler<Upd
         }
         if (request.News.Image is not null)
         {
-            news.Image ??= new Image();
+            news.Image ??= new Domain.Models.Image();
 
             if (request.News.Image.Alt is not null)
                 news.Image.Alt = request.News.Image.Alt;
