@@ -1,53 +1,30 @@
 import { Input } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
-import SaveButton from '../SaveButton';
-
+import { Field } from 'formik';
 interface EditDefaultInputProps {
 	className?: string;
-	value: string;
+	name: string;
+	id: string;
 	placeholder?: string;
-	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	value: string;
 }
 
 export default function EditDefaultInput({
-	onChange,
-	value,
-	onClick,
+	name,
+	id,
 	placeholder,
 	className = '',
+	value,
 }: EditDefaultInputProps) {
-	const [editValue, setEditValue] = useState<string>(value);
-	const [isShowButton, setIsShowButton] = useState<boolean>(false);
-	const [initialValue, setInitialValue] = useState<string>(value);
-
-	useEffect(() => {
-		if (editValue === initialValue) {
-			setIsShowButton(false);
-		} else {
-			setIsShowButton(true);
-		}
-	}, [editValue, initialValue]);
-
-	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEditValue(event.target.value);
-		onChange(event);
-	};
-	const handleClick = (e) => {
-		onClick(e);
-		setIsShowButton(false);
-	};
 	return (
 		<div className={`flex w-fit max-w-fit h-fit ${className}`}>
-			<Input
+			<Field
 				placeholder={placeholder}
-				onChange={handleInputChange}
-				value={editValue}
+				name={name}
+				id={id}
+				value={value}
 				className='!border-white !bg-textColorTitlePage min-w-60 w-fit text-4xl text-white font-medium p-2'
+				as={Input}
 			/>
-			{isShowButton && (
-				<SaveButton onClick={handleClick} className='ml-4' />
-			)}
 		</div>
 	);
 }

@@ -24,11 +24,11 @@ export const routes: RouteObject[] = [
 				path: 'settings',
 				element: <Settings />,
 			},
-			{
-				path: '/:category/:subcategory/:page',
-				element: <EditPage />,
-			},
 		],
+	},
+	{
+		path: '/:category/:subcategory/:page',
+		element: <EditPage />,
 	},
 	{
 		path: '/authenticate',

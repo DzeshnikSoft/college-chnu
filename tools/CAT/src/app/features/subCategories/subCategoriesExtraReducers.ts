@@ -3,8 +3,7 @@ import {
 	updateSubCategory,
 	deleteSubCategory,
 } from './subCategoriesThunks';
-import { CategoryDto } from '@/models/api';
-import { SubCategoryResState } from '@/models/subCategories';
+import { CategoryDto, SubCategoryDto } from '@/models/api';
 
 const extraReducersConfigSubCategories = (builder) => {
 	//add
@@ -55,7 +54,7 @@ const extraReducersConfigSubCategories = (builder) => {
 		const updatedCategories = state.categories?.map(
 			(category: CategoryDto) => {
 				const updatedSubCategories = category.subCategories.map(
-					(subCategory: SubCategoryResState) =>
+					(subCategory: SubCategoryDto) =>
 						subCategory.id === id ? action.payload : subCategory
 				);
 
@@ -88,7 +87,7 @@ const extraReducersConfigSubCategories = (builder) => {
 		const updatedCategories = state.categories?.map((category) => ({
 			...category,
 			subCategories: category.subCategories.filter(
-				(subCategory: SubCategoryResState) =>
+				(subCategory: SubCategoryDto) =>
 					subCategory.id !== action.payload
 			),
 		}));

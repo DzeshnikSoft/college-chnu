@@ -1,5 +1,4 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
-import Page from './components/Page';
 import DialogCreateCategory from './components/DialogCreateCategory';
 import { useEffect, useState } from 'react';
 import { defaultUrl } from '@/utils/defaultUrl';
@@ -12,6 +11,7 @@ import {
 } from '@/app/features/categories/categorySlice';
 import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import Category from './components/Category';
 
 const Pages = () => {
 	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
@@ -56,7 +56,7 @@ const Pages = () => {
 								url,
 							}: CategoryDto) => (
 								<TabPanel key={id}>
-									<Page
+									<Category
 										title={title}
 										id={id}
 										url={url}
