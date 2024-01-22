@@ -1,18 +1,23 @@
+using College.API.Authentication;
 using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.Categories;
+using College.Application.Exceptions;
 using College.Application.Queries.Categories;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace College.API.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
+[Authorize(AuthenticationSchemes = ApiKeyAuthenticationExtensions.AuthenticationSchemeName)]
 public class CategoriesController(ILogger<CategoriesController> logger, IMediator mediator) : ControllerBase
 {
     private readonly ILogger<CategoriesController> _logger = logger.ThrowIfNull();
@@ -35,9 +40,15 @@ public class CategoriesController(ILogger<CategoriesController> logger, IMediato
         {
             throw new ValidationException(nameof(CreateCategory), nameof(categoryViewModel.Title), $"Invalid Title. Please input valid value!");
         }
-
-        return Ok(await _mediator.Send(
-            new CreateCategoryCommand(categoryViewModel.Title, categoryViewModel.Url)));
+        try
+        {
+            return Ok(await _mediator.Send(
+                new CreateCategoryCommand(categoryViewModel.Title, categoryViewModel.Url)));
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+        }
     }
 
     [HttpPut]
@@ -49,6 +60,10 @@ public class CategoriesController(ILogger<CategoriesController> logger, IMediato
         {
             return Ok(
                 await _mediator.Send(new UpdateCategoryCommand(categoryViewModel.CategoryId, categoryViewModel.Url, categoryViewModel.Title)));
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
         }
         catch (EntityNotFoundException ex)
         {

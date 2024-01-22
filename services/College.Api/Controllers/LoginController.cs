@@ -1,3 +1,4 @@
+using College.API.Authentication;
 using College.API.Exceptions;
 using College.API.Extensions;
 using College.API.ViewModels;
@@ -6,6 +7,7 @@ using College.Domain.Exceptions;
 using College.Domain.Services;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -13,6 +15,7 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = ApiKeyAuthenticationExtensions.AuthenticationSchemeName)]
 public class LoginController(
       ILogger<LoginController> logger,
       IAdminService adminService) : ControllerBase

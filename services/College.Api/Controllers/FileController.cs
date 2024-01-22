@@ -4,12 +4,14 @@ using College.Application.Queries.Files;
 using College.Domain.Settings;
 using College.Shared.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace College.API.Controllers;
 
 [ApiController]
 [Route("files")]
+[Authorize(AuthenticationSchemes = "College Api Key Scheme")]
 public class FileController(IMediator mediator, ILogger<FileController> logger, FileStorageSettings fileStorageSettings) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();

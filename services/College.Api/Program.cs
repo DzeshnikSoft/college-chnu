@@ -1,3 +1,4 @@
+using College.API.Authentication;
 using College.API.ExceptionsFilters;
 using College.API.Extensions;
 
@@ -9,7 +10,7 @@ builder.Services.AddControllers(config =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerConfiguration();
 builder.Services.AddMvc()
     .AddControllersAsServices();
 
@@ -25,7 +26,15 @@ builder.Services.AddCors(o => o.AddPolicy("CollegeApiPolicy", policyBuilder =>
 // *************************
 builder.Services.ConfigureServices(builder.Configuration);
 
+// *************************
+// Authentication
+// *************************
+builder.Services.AddApiKeyAuthorization(builder.Configuration);
+
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Swagger always enabled
 app.UseSwagger();
@@ -33,7 +42,6 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseCors("CollegeApiPolicy");
 app.MapControllers();
 
