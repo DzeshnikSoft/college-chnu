@@ -12,23 +12,30 @@ const extraReducersConfigPages = (builder) => {
 
 		const updatedCategories = state.categories?.map(
 			(category: CategoryDto) => {
-				const updatedSubCategories = category.subCategories?.map(
-					(subCategory) => {
-						if (subCategory.id === subCategoryId) {
-							return {
-								...subCategory,
-								pages: [...subCategory.pages, action.payload],
-							};
-						} else {
-							return subCategory;
-						}
-					}
+				const subCategoryIndex = category.subCategories?.findIndex(
+					(subCategory) => subCategory.id === subCategoryId
 				);
 
-				return {
-					...category,
-					subCategories: updatedSubCategories,
-				};
+				if (subCategoryIndex !== -1) {
+					const updatedSubCategories = [
+						...(category.subCategories || []),
+					];
+					updatedSubCategories[subCategoryIndex] = {
+						...updatedSubCategories[subCategoryIndex],
+						pages: [
+							...(updatedSubCategories[subCategoryIndex].pages ||
+								[]),
+							action.payload,
+						],
+					};
+
+					return {
+						...category,
+						subCategories: updatedSubCategories,
+					};
+				} else {
+					return category;
+				}
 			}
 		);
 
@@ -55,24 +62,35 @@ const extraReducersConfigPages = (builder) => {
 
 		const updatedCategories = state.categories?.map(
 			(category: CategoryDto) => {
-				const updatedSubCategories = category.subCategories.map(
-					(subCategory: SubCategoryDto) => {
-						const updatedPages = subCategory.pages.map(
-							(page: PageDto) =>
-								page.id === id ? action.payload : page
-						);
-
-						return {
-							...subCategory,
-							pages: updatedPages,
-						};
-					}
+				const subCategoryIndex = category.subCategories.findIndex(
+					(subCategory: SubCategoryDto) =>
+						subCategory.pages.findIndex(
+							(page: PageDto) => page.id === id
+						) !== -1
 				);
 
-				return {
-					...category,
-					subCategories: updatedSubCategories,
-				};
+				if (subCategoryIndex !== -1) {
+					const updatedSubCategories = [
+						...(category.subCategories || []),
+					];
+					const updatedPages = updatedSubCategories[
+						subCategoryIndex
+					].pages.map((page: PageDto) =>
+						page.id === id ? action.payload : page
+					);
+
+					updatedSubCategories[subCategoryIndex] = {
+						...updatedSubCategories[subCategoryIndex],
+						pages: updatedPages,
+					};
+
+					return {
+						...category,
+						subCategories: updatedSubCategories,
+					};
+				} else {
+					return category;
+				}
 			}
 		);
 

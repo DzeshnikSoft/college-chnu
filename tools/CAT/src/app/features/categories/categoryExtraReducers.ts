@@ -46,6 +46,8 @@ const extraReducersConfigCategories = (builder) => {
 		const updatedCategories = state.categories?.map((category) =>
 			category.id === action.payload.id ? action.payload : category
 		);
+		if (state.categories[action.payload.id])
+			state.categories[action.payload.id] = action.payload;
 
 		return {
 			...state,
@@ -65,13 +67,10 @@ const extraReducersConfigCategories = (builder) => {
 	});
 
 	builder.addCase(deleteCategory.fulfilled, (state, action) => {
-		const updatedCategories = state.categories?.filter(
-			(category: CategoryDto) => {
-				return category.id !== action.payload;
-			}
-		);
+		state.categories = state.categories?.filter((category: CategoryDto) => {
+			return category.id !== action.payload;
+		});
 
-		state.categories = updatedCategories;
 		state.loading = false;
 		state.error = null;
 	});

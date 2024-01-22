@@ -53,15 +53,9 @@ const extraReducersConfigSubCategories = (builder) => {
 
 		const updatedCategories = state.categories?.map(
 			(category: CategoryDto) => {
-				const updatedSubCategories = category.subCategories.map(
-					(subCategory: SubCategoryDto) =>
-						subCategory.id === id ? action.payload : subCategory
-				);
-
-				return {
-					...category,
-					subCategories: updatedSubCategories,
-				};
+				if (category.subCategories[id])
+					category.subCategories[id] = action.payload;
+				return category;
 			}
 		);
 

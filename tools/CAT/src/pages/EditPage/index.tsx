@@ -36,19 +36,13 @@ export default function EditPage() {
 	const isLoading = useAppSelector(getPageLoading);
 	const categoriesData = useAppSelector(getСategoryData);
 	const categoriesLoading = useAppSelector(getСategoryLoading);
-	const initialPage: PageDto = { ...pageData };
+	const initialPage: PageDto = pageData;
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		categoriesData.length === 0 && dispatch(fetchCategoriesData());
-		dispatch(
-			fetchPageByPath(
-				`${category ? `${category}/` : ''}${
-					subcategory ? `${subcategory}/` : ''
-				}${page ?? ''}`
-			)
-		);
+		dispatch(fetchPageByPath(`${category}/${subcategory}/${page}`));
 	}, []);
 
 	const handleDelete = () => {

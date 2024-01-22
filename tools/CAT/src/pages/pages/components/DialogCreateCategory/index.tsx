@@ -7,14 +7,17 @@ import { Formik, ErrorMessage, Form } from 'formik';
 import { createCategoriesSchema } from '@/validation/create.category.schema';
 import { Button } from '@chakra-ui/react';
 import { getСategoryData } from '@/app/features/categories/categorySlice';
+
 interface CategoryState {
 	title: string;
 	url: string;
 }
+
 interface CategoryProps {
 	handleClose: () => void;
 	parentUrl: string;
 }
+
 export default function DialogCreateCategory({
 	handleClose,
 	parentUrl,

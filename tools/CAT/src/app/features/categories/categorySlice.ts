@@ -3,7 +3,7 @@ import extraReducersConfigCategories from './categoryExtraReducers';
 import { CategoryDto } from '../../../models/api/index';
 import { RootState } from '@/app/store';
 import extraReducersConfigSubCategories from '../subCategories/subCategoriesExtraReducers';
-import extraReducersConfigPages from '../pages/pageExtraRecuders';
+import extraReducersConfigPages from '../pages/pageExtraReduders';
 
 interface CategoryInitialState {
 	categories: CategoryDto[];
