@@ -57,7 +57,6 @@ export default function EditPage() {
 			navigate('/pages');
 			showErrorNotif(errorPage);
 		}
-		console.log(errorPage);
 	}, [errorPage]);
 
 	const handleDelete = () => {

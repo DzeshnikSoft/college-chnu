@@ -53,7 +53,7 @@ const extraReducersConfigCategories = (builder) => {
 				};
 			} else return category;
 		});
-		console.log(updatedCategories);
+
 		return {
 			...state,
 			categories: updatedCategories,
