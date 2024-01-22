@@ -29,9 +29,9 @@ const pageSlice = createSlice({
 			state.pageData = action.payload;
 			state.loading = false;
 		});
-		builder.addCase(fetchPageByPath.rejected, (state, action) => {
+		builder.addCase(fetchPageByPath.rejected, (state, { payload }) => {
 			state.loading = false;
-			state.error = (action.payload as string) || 'Something went wrong';
+			state.error = (payload as string) || 'Something went wrong';
 		});
 		//update
 		builder.addCase(updatePage.pending, (state) => {
@@ -42,15 +42,17 @@ const pageSlice = createSlice({
 			state.pageData = action.payload;
 			state.loading = false;
 		});
-		builder.addCase(updatePage.rejected, (state, action) => {
+		builder.addCase(updatePage.rejected, (state, { payload }) => {
 			state.loading = false;
-			state.error = (action.payload as string) || 'Something went wrong';
+			state.error = (payload as string) || 'Something went wrong';
 		});
 	},
 });
 
-export const getPageData = (state: RootState) => state.page.pageData;
+export const getPageDataSelector = (state: RootState) => state.page.pageData;
 
-export const getPageLoading = (state: RootState) => state.page.loading;
+export const getPageLoadingSelector = (state: RootState) => state.page.loading;
+
+export const getPageErrorSelector = (state: RootState) => state.page.error;
 
 export default pageSlice.reducer;

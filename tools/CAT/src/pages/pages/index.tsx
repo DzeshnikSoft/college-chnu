@@ -6,8 +6,9 @@ import AddButton from '@/components/AddButton';
 import { CategoryDto } from '@/models/api';
 import SpinnerWrapper from '@/components/Spinner';
 import {
-	getСategoryData,
-	getСategoryLoading,
+	getСategoryDataSelector,
+	getСategoryLoadingSelector,
+	getСategoryStatusCodeSelector,
 } from '@/app/features/categories/categorySlice';
 import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
@@ -17,8 +18,9 @@ const Pages = () => {
 	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
 		useState<boolean>(false);
 	const dispatch = useAppDispatch();
-	const categories = useAppSelector(getСategoryData);
-	const isLoading = useAppSelector(getСategoryLoading);
+	const categories = useAppSelector(getСategoryDataSelector);
+	const isLoading = useAppSelector(getСategoryLoadingSelector);
+	const statusCode = useAppSelector(getСategoryStatusCodeSelector);
 
 	useEffect(() => {
 		dispatch(fetchCategoriesData());

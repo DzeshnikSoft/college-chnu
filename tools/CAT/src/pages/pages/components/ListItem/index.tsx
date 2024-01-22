@@ -41,7 +41,7 @@ export default function ListItem({
 	}, [parentUrl]);
 
 	return (
-		<Link to={`${relativeUrl}${url}`}>
+		<Link to={`/edit-page${relativeUrl}${url}`}>
 			<li
 				className='p-2 cursor-pointer relative border-b last:border-b-0 hover:bg-activeItems'
 				onMouseOver={handleMouseOver}

@@ -11,7 +11,7 @@ import {
 import List from '../List';
 import { Formik, ErrorMessage, Form } from 'formik';
 import { updateSubCategoriesSchema } from '@/validation/update.subCategory.schema';
-import { getСategoryData } from '@/app/features/categories/categorySlice';
+import { getСategoryDataSelector } from '@/app/features/categories/categorySlice';
 
 interface SubCategoryState {
 	subCategoryId: string;
@@ -27,7 +27,7 @@ export default function SubCategories({
 	parentUrl,
 	categoryId,
 }: SubCategoryDto & { parentUrl: string } & { categoryId: string }) {
-	const categoriesData = useAppSelector(getСategoryData);
+	const categoriesData = useAppSelector(getСategoryDataSelector);
 	const dispatch = useAppDispatch();
 	const initialSubCategory: SubCategoryState = {
 		subCategoryId: id,

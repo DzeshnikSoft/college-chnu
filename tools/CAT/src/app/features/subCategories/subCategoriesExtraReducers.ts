@@ -38,9 +38,9 @@ const extraReducersConfigSubCategories = (builder) => {
 		};
 	});
 
-	builder.addCase(addSubCategory.rejected, (state, action) => {
+	builder.addCase(addSubCategory.rejected, (state, { payload }) => {
 		state.loading = false;
-		state.error = (action.payload as string) || 'Something went wrong';
+		state.error = (payload as string) || 'Something went wrong';
 	});
 	//update
 	builder.addCase(updateSubCategory.pending, (state) => {
@@ -53,9 +53,15 @@ const extraReducersConfigSubCategories = (builder) => {
 
 		const updatedCategories = state.categories?.map(
 			(category: CategoryDto) => {
-				if (category.subCategories[id])
-					category.subCategories[id] = action.payload;
-				return category;
+				const updatedSubCategories = category.subCategories.map(
+					(subCategory: SubCategoryDto) =>
+						subCategory.id === id ? action.payload : subCategory
+				);
+
+				return {
+					...category,
+					subCategories: updatedSubCategories,
+				};
 			}
 		);
 
@@ -67,9 +73,9 @@ const extraReducersConfigSubCategories = (builder) => {
 		};
 	});
 
-	builder.addCase(updateSubCategory.rejected, (state, action) => {
+	builder.addCase(updateSubCategory.rejected, (state, { payload }) => {
 		state.loading = false;
-		state.error = (action.payload as string) || 'Something went wrong';
+		state.error = (payload as string) || 'Something went wrong';
 	});
 	//delete
 	builder.addCase(deleteSubCategory.pending, (state) => {
@@ -94,9 +100,9 @@ const extraReducersConfigSubCategories = (builder) => {
 		};
 	});
 
-	builder.addCase(deleteSubCategory.rejected, (state, action) => {
+	builder.addCase(deleteSubCategory.rejected, (state, { payload }) => {
 		state.loading = false;
-		state.error = (action.payload as string) || 'Something went wrong';
+		state.error = (payload as string) || 'Something went wrong';
 	});
 };
 

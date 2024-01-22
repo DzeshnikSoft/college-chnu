@@ -1,16 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/app/apiClient';
 import { CategoriesStateApi } from '@/models/categories';
+import { getErrorMessage } from '@/factories/errorMessage.factory';
 const url = 'api/Categories';
 
 export const fetchCategoriesData = createAsyncThunk(
 	'categories/get',
 	async (_, thunkAPI) => {
 		try {
-			const { data } = await apiClient.get(url);
-			return data;
+			const response = await apiClient.get(url);
+			const { data } = response;
+			return { data };
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to fetch categories');
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
 		}
 	}
 );
@@ -19,10 +22,12 @@ export const addCategory = createAsyncThunk(
 	'categories/add',
 	async (postData: CategoriesStateApi, thunkAPI) => {
 		try {
-			const { data } = await apiClient.post(url, postData);
-			return data;
+			const response = await apiClient.post(url, postData);
+			const { data } = response;
+			return { data };
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to add categories');
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
 		}
 	}
 );
@@ -31,10 +36,12 @@ export const updateCategory = createAsyncThunk(
 	'categories/update',
 	async (postData: CategoriesStateApi, thunkAPI) => {
 		try {
-			const { data } = await apiClient.put(url, postData);
-			return data;
+			const response = await apiClient.put(url, postData);
+			const { data } = response;
+			return { data };
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to update categories');
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
 		}
 	}
 );
@@ -43,10 +50,12 @@ export const deleteCategory = createAsyncThunk(
 	'categories/delete',
 	async (categoryId: string, thunkAPI) => {
 		try {
-			const { data } = await apiClient.delete(`${url}/${categoryId}`);
-			return categoryId;
+			const response = await apiClient.delete(`${url}/${categoryId}`);
+			const { data, status } = response;
+			return { data };
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to delete categories');
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
 		}
 	}
 );

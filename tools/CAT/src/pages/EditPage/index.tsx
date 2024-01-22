@@ -14,16 +14,21 @@ import {
 	fetchPageByPath,
 } from '@/app/features/pages/pageThunks';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { getPageData, getPageLoading } from '@/app/features/pages/pageSlice';
+import {
+	getPageDataSelector,
+	getPageLoadingSelector,
+	getPageErrorSelector,
+} from '@/app/features/pages/pageSlice';
 import { useNavigate } from 'react-router-dom';
 import { PageDto } from '@/models/api';
 import { Formik, ErrorMessage, Form } from 'formik';
 import { updatePageSchema } from '@/validation/update.page.schema';
 import {
-	getСategoryData,
-	getСategoryLoading,
+	getСategoryDataSelector,
+	getСategoryLoadingSelector,
 } from '@/app/features/categories/categorySlice';
 import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
+import { showErrorNotif } from '@/providers/notify';
 
 export default function EditPage() {
 	const { category, subcategory, page } = useParams();
@@ -32,10 +37,12 @@ export default function EditPage() {
 	}/${category}/${subcategory}`;
 
 	const dispatch = useAppDispatch();
-	const pageData = useAppSelector(getPageData);
-	const isLoading = useAppSelector(getPageLoading);
-	const categoriesData = useAppSelector(getСategoryData);
-	const categoriesLoading = useAppSelector(getСategoryLoading);
+	const pageData = useAppSelector(getPageDataSelector);
+	const isLoading = useAppSelector(getPageLoadingSelector);
+	const errorPage = useAppSelector(getPageErrorSelector);
+	const categoriesData = useAppSelector(getСategoryDataSelector);
+	const categoriesLoading = useAppSelector(getСategoryLoadingSelector);
+
 	const initialPage: PageDto = pageData;
 
 	const navigate = useNavigate();
@@ -44,6 +51,14 @@ export default function EditPage() {
 		categoriesData.length === 0 && dispatch(fetchCategoriesData());
 		dispatch(fetchPageByPath(`${category}/${subcategory}/${page}`));
 	}, []);
+
+	useEffect(() => {
+		if (errorPage) {
+			navigate('/pages');
+			showErrorNotif(errorPage);
+		}
+		console.log(errorPage);
+	}, [errorPage]);
 
 	const handleDelete = () => {
 		navigate('/pages');

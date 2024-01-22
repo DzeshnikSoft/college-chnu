@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { defaultUrl } from '@/utils/defaultUrl';
 import SubCategories from '../SubCategories';
 import AddButton from '../../../../components/AddButton';
@@ -11,10 +11,13 @@ import {
 	deleteCategory,
 	updateCategory,
 } from '@/app/features/categories/categoryThunks';
-import { getСategoryData } from '@/app/features/categories/categorySlice';
+import {
+	getСategoryDataSelector,
+	getCategoryErrorSelector,
+} from '@/app/features/categories/categorySlice';
 import { Formik, ErrorMessage, Form } from 'formik';
 import { updateCategoriesSchema } from '@/validation/update.category.schema';
-
+import { showErrorNotif } from '@/providers/notify';
 interface StatePage {
 	categoryId: string;
 	title: string;
@@ -29,16 +32,22 @@ export default function Category({
 }: CategoryDto) {
 	const dispatch = useAppDispatch();
 	const [urlForChild, setUrlForChild] = useState<string>(url);
-
+	const error = useAppSelector(getCategoryErrorSelector);
 	const initialCategory: StatePage = {
 		categoryId: id,
 		title: title,
 		url: url,
 	};
 
-	const categoriesData = useAppSelector(getСategoryData);
+	const categoriesData = useAppSelector(getСategoryDataSelector);
 	const [isOpenPopupForSubCategoties, setIsOpenPopupForSubCategoties] =
 		useState<boolean>(false);
+
+	useEffect(() => {
+		if (error) {
+			showErrorNotif(error);
+		}
+	}, [error]);
 
 	const handleClosePopupSubCategoties = () => {
 		setIsOpenPopupForSubCategoties(false);

@@ -7,7 +7,7 @@ import { addPage } from '@/app/features/pages/pageThunks';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { PageDto } from '@/models/api';
 import { Formik, ErrorMessage, Form, Field, useFormikContext } from 'formik';
-import { getСategoryData } from '@/app/features/categories/categorySlice';
+import { getСategoryDataSelector } from '@/app/features/categories/categorySlice';
 import { createPageSchema } from '@/validation/create.page.schema';
 import { initialPageState } from '@/initialStates/PageState';
 
@@ -23,7 +23,7 @@ export default function DialogCreatePage({
 	subCategoryId,
 }: PageProps) {
 	const dispatch = useAppDispatch();
-	const categoriesData = useAppSelector(getСategoryData);
+	const categoriesData = useAppSelector(getСategoryDataSelector);
 	const initialPage: PageDto = { ...initialPageState };
 
 	const handleAdd = (values: PageDto) => {

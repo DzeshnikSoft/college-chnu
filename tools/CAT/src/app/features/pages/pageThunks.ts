@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/app/apiClient';
 import { PageDto } from '@/models/api';
+import { getErrorMessage } from '@/factories/errorMessage.factory';
 
 const url = 'api/Page';
 
@@ -11,43 +12,44 @@ export const fetchPageByPath = createAsyncThunk(
 			const { data } = await apiClient.get(`${url}/by-path?path=${path}`);
 			return data;
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to fetch page');
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
 		}
 	}
 );
 
 export const addPage = createAsyncThunk(
 	'Page/add',
-	async (postData: PageDto, thunkAPI) => {
+	async (postData: PageDto) => {
 		try {
 			const { data } = await apiClient.post(url, postData);
 			return data;
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to fetch categories');
+			return getErrorMessage(error.reasonCode);
 		}
 	}
 );
 
 export const updatePage = createAsyncThunk(
 	'Page/update',
-	async (postData: PageDto, thunkAPI) => {
+	async (postData: PageDto) => {
 		try {
 			const { data } = await apiClient.put(url, postData);
 			return data;
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to fetch categories');
+			return getErrorMessage(error.reasonCode);
 		}
 	}
 );
 
 export const deletePage = createAsyncThunk(
 	'Page/delete',
-	async (id: string, thunkAPI) => {
+	async (id: string) => {
 		try {
 			const { data } = await apiClient.delete(`${url}/${id}`);
 			return id;
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to fetch categories');
+			return getErrorMessage(error.reasonCode);
 		}
 	}
 );

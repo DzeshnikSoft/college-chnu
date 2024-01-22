@@ -47,9 +47,9 @@ const extraReducersConfigPages = (builder) => {
 		};
 	});
 
-	builder.addCase(addPage.rejected, (state, action) => {
+	builder.addCase(addPage.rejected, (state, { payload }) => {
 		state.loading = false;
-		state.error = action.payload || 'Something went wrong';
+		state.error = (payload as string) || 'Something went wrong';
 	});
 	//update
 	builder.addCase(updatePage.pending, (state) => {
@@ -102,9 +102,9 @@ const extraReducersConfigPages = (builder) => {
 		};
 	});
 
-	builder.addCase(updatePage.rejected, (state, action) => {
+	builder.addCase(updatePage.rejected, (state, { payload }) => {
 		state.loading = false;
-		state.error = action.payload || 'Something went wrong';
+		state.error = (payload as string) || 'Something went wrong';
 	});
 	//delete
 	builder.addCase(deletePage.pending, (state) => {
@@ -143,9 +143,9 @@ const extraReducersConfigPages = (builder) => {
 		};
 	});
 
-	builder.addCase(deletePage.rejected, (state, action) => {
+	builder.addCase(deletePage.rejected, (state, { payload }) => {
 		state.loading = false;
-		state.error = action.payload || 'Something went wrong';
+		state.error = (payload as string) || 'Something went wrong';
 	});
 };
 export default extraReducersConfigPages;

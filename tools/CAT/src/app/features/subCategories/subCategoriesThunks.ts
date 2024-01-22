@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/app/apiClient';
 import { SubCategoriesStateApi } from '@/models/subCategories';
+import { getErrorMessage } from '@/factories/errorMessage.factory';
+
 const url = 'api/SubCategory';
 
 export const addSubCategory = createAsyncThunk(
@@ -10,7 +12,8 @@ export const addSubCategory = createAsyncThunk(
 			const { data } = await apiClient.post(url, postData);
 			return { ...data, categoryId: postData.categoryId };
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to fetch categories');
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
 		}
 	}
 );
@@ -22,7 +25,8 @@ export const updateSubCategory = createAsyncThunk(
 			const { data } = await apiClient.put(url, postData);
 			return data;
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to fetch categories');
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
 		}
 	}
 );
@@ -34,7 +38,8 @@ export const deleteSubCategory = createAsyncThunk(
 			const { data } = await apiClient.delete(`${url}/${subCategoryId}`);
 			return subCategoryId;
 		} catch (error) {
-			return thunkAPI.rejectWithValue('Failed to fetch categories');
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
 		}
 	}
 );

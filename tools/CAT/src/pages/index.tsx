@@ -27,7 +27,7 @@ export const routes: RouteObject[] = [
 		],
 	},
 	{
-		path: '/:category/:subcategory/:page',
+		path: '/edit-page/:category/:subcategory/:page',
 		element: <EditPage />,
 	},
 	{

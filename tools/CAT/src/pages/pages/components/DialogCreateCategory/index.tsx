@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Dialog from '@/components/Dialog';
 import Edit from '@/components/Edit';
 import { addCategory } from '@/app/features/categories/categoryThunks';
@@ -6,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Formik, ErrorMessage, Form } from 'formik';
 import { createCategoriesSchema } from '@/validation/create.category.schema';
 import { Button } from '@chakra-ui/react';
-import { getСategoryData } from '@/app/features/categories/categorySlice';
+import { getСategoryDataSelector } from '@/app/features/categories/categorySlice';
 
 interface CategoryState {
 	title: string;
@@ -22,7 +21,8 @@ export default function DialogCreateCategory({
 	handleClose,
 	parentUrl,
 }: CategoryProps) {
-	const categoriesData = useAppSelector(getСategoryData);
+	const categoriesData = useAppSelector(getСategoryDataSelector);
+
 	const initialCategory: CategoryState = {
 		title: '',
 		url: '',

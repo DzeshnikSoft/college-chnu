@@ -6,7 +6,7 @@ import { addSubCategory } from '@/app/features/subCategories/subCategoriesThunks
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Formik, ErrorMessage, Form } from 'formik';
 import { createSubCategoriesSchema } from '@/validation/create.subCategory.schema';
-import { getСategoryData } from '@/app/features/categories/categorySlice';
+import { getСategoryDataSelector } from '@/app/features/categories/categorySlice';
 
 interface SubCategoryState {
 	categoryId: string;
@@ -24,7 +24,7 @@ export default function DialogCreateSubCategories({
 	handleClose,
 	parentUrl,
 }: SubCategoryProps) {
-	const categoriesData = useAppSelector(getСategoryData);
+	const categoriesData = useAppSelector(getСategoryDataSelector);
 	const dispatch = useAppDispatch();
 
 	const initialSubCategory: SubCategoryState = {

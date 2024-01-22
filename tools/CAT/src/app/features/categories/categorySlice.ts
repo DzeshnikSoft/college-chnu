@@ -9,12 +9,14 @@ interface CategoryInitialState {
 	categories: CategoryDto[];
 	error: string | null;
 	loading: boolean;
+	statusCode: number;
 }
 
 const initialState: CategoryInitialState = {
 	categories: [],
 	error: null,
 	loading: true,
+	statusCode: 0,
 };
 
 const categorySlice = createSlice({
@@ -28,8 +30,16 @@ const categorySlice = createSlice({
 	},
 });
 
-export const getСategoryData = (state: RootState) => state.category.categories;
+export const getСategoryDataSelector = (state: RootState) =>
+	state.category.categories;
 
-export const getСategoryLoading = (state: RootState) => state.category.loading;
+export const getСategoryLoadingSelector = (state: RootState) =>
+	state.category.loading;
+
+export const getСategoryStatusCodeSelector = (state: RootState) =>
+	state.category.statusCode;
+
+export const getCategoryErrorSelector = (state: RootState) =>
+	state.category.error;
 
 export default categorySlice.reducer;
