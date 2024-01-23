@@ -20,9 +20,7 @@ function DynamicPage() {
 			(async () => {
 				try {
 					const { data } = await apiClient.get(
-						`/api/Page/by-path?path=${
-							category ? `${category}/` : ''
-						}${subcategory ? `${subcategory}/` : ''}${page ?? ''}`
+						`/api/Page/by-path?path=${category}/${subcategory}${page}`
 					);
 					setPageData(data);
 				} catch (error) {

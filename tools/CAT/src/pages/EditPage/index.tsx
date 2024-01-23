@@ -1,115 +1,84 @@
 import { useEffect } from 'react';
-import EditPageDefault from './EditPageDefault';
-import EditPageWithTitle from './EditPageWithTitle';
+import EditPageDefault from './editPageDefault';
+import EditPageWithTitle from './editPageWithTitle';
 import Edit from '@/components/Edit';
-import Dialog from '@/components/Dialog';
+import { Link } from 'react-router-dom';
 import UploadFileWrapper from '@/components/UploadFileWrapper';
 import SpinnerWrapper from '@/components/Spinner';
 import { Button } from '@chakra-ui/react';
-import { useUpdatePageMutation } from '@/store/apis/categories';
-import { useGetPageQuery } from '@/store/apis/categories';
 import DeleteButton from '@/components/DeleteButton';
-import { useDeletePageMutation } from '@/store/apis/categories';
-import { useInitialPageState } from '@/initialStates/PageState';
+import { useParams } from 'react-router-dom';
+import {
+	deletePage,
+	updatePage,
+	fetchPageByPath,
+} from '@/app/features/pages/pageThunks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import {
+	getPageDataSelector,
+	getPageLoadingSelector,
+	getPageErrorSelector,
+} from '@/app/features/pages/pageSlice';
+import { useNavigate } from 'react-router-dom';
+import { PageDto } from '@/models/api';
+import { Formik, ErrorMessage, Form } from 'formik';
+import { updatePageSchema } from '@/validation/update.page.schema';
+import {
+	getСategoryDataSelector,
+	getСategoryLoadingSelector,
+} from '@/app/features/categories/categorySlice';
+import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
+import { showErrorNotif } from '@/providers/notify';
 
-interface EditPageProps {
-	handleClose: () => void;
-	parentUrl: string;
-	id: string;
-	subCategoryId: string;
-}
+export default function EditPage() {
+	const { category, subcategory, page } = useParams();
+	const viewUrl = `${
+		import.meta.env.VITE_API_URL
+	}/${category}/${subcategory}`;
 
-export default function EditPage({
-	handleClose,
-	parentUrl,
-	id,
-	subCategoryId,
-}: EditPageProps) {
-	const { pageData, setPageData } = useInitialPageState({
-		id,
-		subCategoryId,
-	});
-	const [deletePage] = useDeletePageMutation();
-	const { data, isLoading } = useGetPageQuery(id);
+	const dispatch = useAppDispatch();
+	const pageData = useAppSelector(getPageDataSelector);
+	const isLoading = useAppSelector(getPageLoadingSelector);
+	const errorPage = useAppSelector(getPageErrorSelector);
+	const categoriesData = useAppSelector(getСategoryDataSelector);
+	const categoriesLoading = useAppSelector(getСategoryLoadingSelector);
 
-	const [updatePage] = useUpdatePageMutation();
+	const initialPage: PageDto = pageData;
 
-	const handleChangeTitle = ({ target }) => {
-		const { value } = target;
-		setPageData({ ...pageData, title: value });
-	};
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		setPageData({
-			...pageData,
-			id: (data as { id: string })?.id ?? pageData.id,
-			title: (data as { title: string })?.title ?? pageData.title,
-			url: (data as { url: string })?.url ?? pageData.url,
-			content: (data as { content: string })?.content ?? pageData.content,
-			template: {
-				...pageData.template,
-				label:
-					(data as { template?: { label?: string } })?.template
-						?.label ?? pageData.template.label,
-				type:
-					(data as { template?: { type?: number } })?.template
-						?.type ?? pageData.template.type,
-				image: {
-					...pageData.template.image,
-					url:
-						(data as { template?: { image?: { url?: string } } })
-							?.template?.image?.url ??
-						pageData.template.image.url,
-				},
-			},
-		});
-	}, [data]);
+		if (categoriesData.length === 0) dispatch(fetchCategoriesData());
+		dispatch(fetchPageByPath(`${category}/${subcategory}/${page}`));
+	}, []);
 
-	const handleChangeUrlPage = ({ target }) => {
-		const { value } = target;
-		setPageData({ ...pageData, url: value });
-	};
-
-	const handleChangeContent = (value) => {
-		setPageData({ ...pageData, content: value });
-	};
-
-	const handleChangeTemplateData = ({ url, label }) => {
-		setPageData({
-			...pageData,
-			template: {
-				...pageData.template,
-				label: label,
-				image: { ...pageData.template.image, url: url },
-			},
-		});
-	};
+	useEffect(() => {
+		if (errorPage) {
+			navigate('/pages');
+			showErrorNotif(errorPage);
+		}
+	}, [errorPage]);
 
 	const handleDelete = () => {
-		deletePage(id);
+		navigate('/pages');
+		dispatch(deletePage(pageData.id));
 	};
-	const handleUpdate = () => {
-		updatePage(pageData);
+	const handleUpdate = (values: PageDto) => {
+		dispatch(updatePage(values));
+		navigate(`/pages`);
 	};
 
 	const selectTemplate = (data) => {
 		if (data) {
 			switch (data.template.type) {
 				case 0:
-					return (
-						<EditPageDefault
-							handleChangeContent={handleChangeContent}
-							content={data?.content}
-						/>
-					);
+					return <EditPageDefault content={data.content} />;
 				case 1:
 					return (
 						<EditPageWithTitle
-							handleChangeContent={handleChangeContent}
-							handleChangeTemplateData={handleChangeTemplateData}
-							content={data?.content}
-							img={data?.template?.image?.url}
-							title={data?.template?.label}
+							content={data.content}
+							img={data.template.image.url}
+							title={data.template.label}
 						/>
 					);
 				default:
@@ -119,68 +88,88 @@ export default function EditPage({
 	};
 
 	return (
-		<Dialog
-			onClick={handleClose}
-			className='w-full h-full overflow-y-auto flex-col !p-0 rounded-none'
-			withoutCloseButton={true}>
-			{isLoading ? (
+		<div className='w-full h-full overflow-y-auto flex-col !p-0 rounded-none'>
+			{categoriesLoading || isLoading ? (
 				<SpinnerWrapper />
 			) : (
-				<>
-					<div className='flex flex-col'>
-						<div className='flex mt-3'>
-							<div className=''>
-								<Button onClick={handleClose} className='mx-4'>
-									<i className='fa-solid fa-left-long mr-2'></i>
-									Назад
-								</Button>
+				<Formik
+					initialValues={initialPage}
+					validationSchema={updatePageSchema(
+						categoriesData,
+						pageData.subCategoryId,
+						pageData.id
+					)}
+					onSubmit={handleUpdate}>
+					{({ values, isValid }) => (
+						<Form>
+							<div className='flex flex-col'>
+								<div className='flex mt-3'>
+									<div className='flex justify-between w-full'>
+										<Link to='/pages'>
+											<Button className='mx-4'>
+												<i className='fa-solid fa-left-long mr-2'></i>
+												Назад
+											</Button>
+										</Link>
+										<Button
+											type='submit'
+											disabled={!isValid}
+											colorScheme='green'
+											className='w-fit px-10 py-4'>
+											Оновити дані
+										</Button>
+										<div className=''>
+											<DeleteButton
+												onClick={handleDelete}
+												className='mx-4'>
+												Видалити
+											</DeleteButton>
+										</div>
+									</div>
+								</div>
+								<div className='flex flex-col ml-10 gap-5 my-5'>
+									<div className='w-8/12'>
+										<Edit
+											value={values.title}
+											id='title'
+											name='title'
+											nameInput='Назва сторінки'
+											type='text'
+											withoutButtonSave={true}
+										/>
+										<ErrorMessage
+											className='text-red mb-2 text-xs'
+											name='title'
+											component='span'
+										/>
+									</div>
+									<div className='w-8/12'>
+										<Edit
+											value={values.url}
+											id='url'
+											nameInput={viewUrl}
+											name='url'
+											type='link'
+											withoutButtonSave={true}
+										/>
+										<ErrorMessage
+											className='text-red mb-2 text-xs'
+											name='url'
+											component='span'
+										/>
+									</div>
+								</div>
+								<div className='ml-10 my-5 flex'>
+									<UploadFileWrapper />
+								</div>
 							</div>
-							<div className='w-5/12 mx-10'>
-								<Edit
-									value={
-										(data as { title: string })?.title ??
-										pageData.title
-									}
-									name='Назва'
-									type='text'
-									onChange={handleChangeTitle}
-									withoutButtonSave={true}
-								/>
+							<div className='w-full mx-auto'>
+								{selectTemplate(values)}
 							</div>
-							<div className='w-5/12'>
-								<Edit
-									value={
-										(data as { url: string })?.url ??
-										pageData.url
-									}
-									name={parentUrl}
-									type='link'
-									onChange={handleChangeUrlPage}
-									withoutButtonSave={true}
-								/>
-							</div>
-							<div className=''>
-								<DeleteButton
-									onClick={handleDelete}
-									className='mx-4'>
-									Видалити
-								</DeleteButton>
-							</div>
-						</div>
-						<div className='ml-10 my-5 flex'>
-							<UploadFileWrapper />
-						</div>
-					</div>
-					<div className='w-full mx-auto'>
-						{selectTemplate(pageData)}
-					</div>
-					<Button
-						className='w-fit px-10 py-4 my-10 mx-auto'
-						onClick={handleUpdate}>
-						Оновити дані всієї сторінки
-					</Button>
-				</>
+						</Form>
+					)}
+				</Formik>
 			)}
-		</Dialog>
+		</div>
 	);
 }

@@ -6,56 +6,60 @@ import {
 	Input,
 	InputRightAddon,
 } from '@chakra-ui/react';
+import { Field } from 'formik';
 
 interface EditProps {
 	name: string;
+	nameInput: string;
+	id: string;
 	value: string;
 	placeholder?: string;
 	type: string;
 	withoutButtonSave?: boolean;
+	disabled?: boolean;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	formValues?: { [key: string]: any };
 }
 
 export default function Edit({
 	name,
-	onChange,
 	onClick,
 	value = '',
+	id,
+	nameInput,
 	placeholder = '',
 	type = '',
 	withoutButtonSave = false,
+	disabled,
+	formValues = null,
 }: EditProps) {
-	const [editValue, setEditValue] = useState<string>(value);
 	const [isShowButton, setIsShowButton] = useState<boolean>(false);
-	const [initialValue, setInitialValue] = useState<string>(value);
 
 	useEffect(() => {
-		if (editValue === initialValue) {
-			setIsShowButton(false);
-		} else {
-			setIsShowButton(true);
-		}
-	}, [editValue, initialValue]);
-
-	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEditValue(event.target.value);
-		onChange(event);
-	};
+		!withoutButtonSave && setIsShowButton(formValues[name] !== value);
+	}, [formValues, name]);
 
 	return (
 		<div className='w-full flex flex-col'>
 			<InputGroup>
-				<InputLeftAddon children={name} />
-				<Input
+				<InputLeftAddon children={nameInput} />
+				<Field
+					type='text'
+					name={name}
+					className='!rounded-none'
 					placeholder={placeholder}
-					onChange={handleInputChange}
-					value={editValue}
+					id={id}
+					as={Input}
 				/>
+
 				{type === 'link' && <InputRightAddon children='.com' />}
 
 				{!withoutButtonSave && isShowButton && (
-					<SaveButton onClick={onClick} className='ml-4' />
+					<SaveButton
+						onClick={onClick}
+						className='ml-4'
+						disabled={disabled}
+					/>
 				)}
 			</InputGroup>
 		</div>
