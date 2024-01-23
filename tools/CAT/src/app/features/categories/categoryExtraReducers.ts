@@ -49,7 +49,7 @@ const extraReducersConfigCategories = (builder) => {
 			if (category.id === data.id) {
 				return {
 					...data,
-					subCategories: [...category.subCategories],
+					subCategories: category.subCategories,
 				};
 			} else return category;
 		});

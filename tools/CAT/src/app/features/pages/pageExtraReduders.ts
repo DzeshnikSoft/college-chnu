@@ -18,8 +18,9 @@ const extraReducersConfigPages = (builder) => {
 
 				if (subCategoryIndex !== -1) {
 					const updatedSubCategories = [
-						...(category.subCategories || []),
+						...(category.subCategories ?? []),
 					];
+
 					updatedSubCategories[subCategoryIndex] = {
 						...updatedSubCategories[subCategoryIndex],
 						pages: [
@@ -58,39 +59,40 @@ const extraReducersConfigPages = (builder) => {
 	});
 
 	builder.addCase(updatePage.fulfilled, (state, action) => {
-		const { id } = action.payload;
+		const { id, subCategoryId } = action.payload;
 
 		const updatedCategories = state.categories?.map(
 			(category: CategoryDto) => {
 				const subCategoryIndex = category.subCategories.findIndex(
 					(subCategory: SubCategoryDto) =>
-						subCategory.pages.findIndex(
-							(page: PageDto) => page.id === id
-						) !== -1
+						subCategory.id === subCategoryId
 				);
 
 				if (subCategoryIndex !== -1) {
-					const updatedSubCategories = [
-						...(category.subCategories || []),
-					];
-					const updatedPages = updatedSubCategories[
-						subCategoryIndex
-					].pages.map((page: PageDto) =>
-						page.id === id ? action.payload : page
+					const updatedSubCategories = [...category.subCategories];
+					const subCategory = updatedSubCategories[subCategoryIndex];
+
+					const pageIndex = subCategory.pages.findIndex(
+						(page: PageDto) => page.id === id
 					);
 
-					updatedSubCategories[subCategoryIndex] = {
-						...updatedSubCategories[subCategoryIndex],
-						pages: updatedPages,
-					};
+					if (pageIndex !== -1) {
+						const updatedPages = [...subCategory.pages];
+						updatedPages[pageIndex] = action.payload;
 
-					return {
-						...category,
-						subCategories: updatedSubCategories,
-					};
-				} else {
-					return category;
+						updatedSubCategories[subCategoryIndex] = {
+							...subCategory,
+							pages: updatedPages,
+						};
+
+						return {
+							...category,
+							subCategories: updatedSubCategories,
+						};
+					}
 				}
+
+				return category;
 			}
 		);
 

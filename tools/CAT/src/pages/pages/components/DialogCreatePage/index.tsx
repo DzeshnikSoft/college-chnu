@@ -24,7 +24,6 @@ export default function DialogCreatePage({
 }: PageProps) {
 	const dispatch = useAppDispatch();
 	const categoriesData = useAppSelector(getСategoryDataSelector);
-	const initialPage: PageDto = { ...initialPageState };
 
 	const handleAdd = (values: PageDto) => {
 		const { title, url, subCategoryId, template, content } = values;
@@ -41,7 +40,7 @@ export default function DialogCreatePage({
 	return (
 		<Dialog onClick={handleClose} className='h-5/6 w-10/12 px-20'>
 			<Formik
-				initialValues={initialPage}
+				initialValues={initialPageState}
 				validationSchema={createPageSchema(
 					categoriesData,
 					subCategoryId

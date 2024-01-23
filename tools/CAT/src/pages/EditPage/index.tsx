@@ -48,7 +48,7 @@ export default function EditPage() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		categoriesData.length === 0 && dispatch(fetchCategoriesData());
+		if (categoriesData.length === 0) dispatch(fetchCategoriesData());
 		dispatch(fetchPageByPath(`${category}/${subcategory}/${page}`));
 	}, []);
 

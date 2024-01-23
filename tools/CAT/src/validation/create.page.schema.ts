@@ -44,8 +44,7 @@ export const createPageSchema = (reduxState, subCategoryId) => {
 		template: Yup.object().shape({
 			type: Yup.number()
 				.notOneOf([-1], ({ value }) => {
-				
-					return 'Оберіть шаблон для сторінки, а не ';
+					return 'Оберіть шаблон для сторінки';
 				})
 				.required('Оберіть шаблон для сторінки'),
 		}),
