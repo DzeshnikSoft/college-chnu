@@ -10,7 +10,7 @@ function Header() {
 
 	return (
 		<header className='header z-50 w-full flex sticky top-0 bg-backgroundHeaderColor text-colorTextColor shadow-bottomShadow'>
-			<div className='w-4/5 flex items-center mx-auto'>
+			<div className='w-4/5 flex items-center mx-auto justify-between'>
 				<div className='w-2/5 h-full'>
 					<img
 						src='./logo-header.png'
@@ -19,7 +19,7 @@ function Header() {
 					/>
 				</div>
 
-				<div className='menu w-fit h-full mr-0 ml-auto items-center text-textColor'>
+				<div className='menu w-fit h-full mr-0 ml-auto items-center justify-end text-textColor'>
 					<ul className='topmenu flex h-full items-center text-xl'>
 						<li className='mx-5 hover:text-accentTextColor flex cursor-pointer h-full font-medium'>
 							<NavLink
