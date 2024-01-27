@@ -8,6 +8,8 @@ export interface ButtonProps {
 	className?: string;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	children?: ReactNode;
+	type?: string;
+	disabled?: boolean;
 }
 
 export interface TextFieldProps {

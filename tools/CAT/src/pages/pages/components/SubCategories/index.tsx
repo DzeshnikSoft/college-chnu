@@ -1,70 +1,100 @@
-import { useState } from "react";
-import { Card } from "@chakra-ui/react";
-import { defaultUrl } from "@/utils/defaultUrl";
-import Edit from "@/components/Edit";
-import DeleteButton from "@/components/DeleteButton";
-import { SubCategoryDto } from "@/models/api";
+import { Card } from '@chakra-ui/react';
+import { defaultUrl } from '@/utils/defaultUrl';
+import Edit from '@/components/Edit';
+import DeleteButton from '@/components/DeleteButton';
+import { SubCategoryDto } from '@/models/api';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import {
-	useDeleteSubCategoryMutation,
-	useUpdateSubCategoryMutation,
-} from "@/store/apis/categories";
-import List from "../List";
+	updateSubCategory,
+	deleteSubCategory,
+} from '@/app/features/subCategories/subCategoriesThunks';
+import List from '../List';
+import { Formik, ErrorMessage, Form } from 'formik';
+import { updateSubCategoriesSchema } from '@/validation/update.subCategory.schema';
+import { getСategoryDataSelector } from '@/app/features/categories/categorySlice';
 
-interface SubCategories {
+interface SubCategoryState {
 	subCategoryId: string;
 	title: string;
 	url: string;
 }
+
 export default function SubCategories({
 	title,
 	url,
 	pages,
 	id,
 	parentUrl,
-}: SubCategoryDto & { parentUrl: string }) {
-	const [subCategory, setSubCategory] = useState<SubCategories>({
+	categoryId,
+}: SubCategoryDto & { parentUrl: string } & { categoryId: string }) {
+	const categoriesData = useAppSelector(getСategoryDataSelector);
+	const dispatch = useAppDispatch();
+	const initialSubCategory: SubCategoryState = {
 		subCategoryId: id,
 		title: title,
 		url: url,
-	});
-	const [deleteSubCategory] = useDeleteSubCategoryMutation();
-	const [updateSubCategory] = useUpdateSubCategoryMutation();
-
-	const handleChangeTitle = ({ target }) => {
-		setSubCategory({ subCategoryId: id, url, title: target.value });
 	};
 
-	const handleChangeUrl = ({ target }) => {
-		setSubCategory({ subCategoryId: id, title, url: target.value });
-	};
-	const handleClick = () => {
-		updateSubCategory(subCategory);
+	const handleUpdate = (values: SubCategoryState) => {
+		dispatch(updateSubCategory(values));
 	};
 
 	const handleDelete = () => {
-		deleteSubCategory(id);
+		dispatch(deleteSubCategory(id));
 	};
+
 	return (
 		<Card className='h-full w-full p-3'>
 			<div className='w-full flex items-center justify-between mb-5'>
-				<div className='flex flex-col'>
-					<Edit
-						name='Назва підкатегорії'
-						onChange={handleChangeTitle}
-						onClick={handleClick}
-						value={subCategory.title}
-						type='text'
-					/>
-					<div className='mt-5'>
-						<Edit
-							value={subCategory.url}
-							name={`${defaultUrl}${parentUrl}/`}
-							onChange={handleChangeUrl}
-							onClick={handleClick}
-							type='link'
-						/>
-					</div>
-				</div>
+				<Formik
+					initialValues={initialSubCategory}
+					validationSchema={updateSubCategoriesSchema(
+						categoriesData,
+						categoryId,
+						id
+					)}
+					onSubmit={handleUpdate}>
+					{({ isValid, values, setFieldValue }) => (
+						<Form>
+							<div className='flex flex-col'>
+								<div className=''>
+									<Edit
+										value={title}
+										id='title'
+										name='title'
+										nameInput='Назва'
+										type='text'
+										withoutButtonSave={false}
+										disabled={isValid}
+										formValues={values}
+									/>
+									<ErrorMessage
+										className='text-red mb-2 text-xs'
+										name='title'
+										component='span'
+									/>
+								</div>
+								<div className='mt-6'>
+									<Edit
+										value={url}
+										id='url'
+										nameInput={`${defaultUrl}${parentUrl}/`}
+										name='url'
+										type='link'
+										withoutButtonSave={false}
+										formValues={values}
+										disabled={isValid}
+									/>
+									<ErrorMessage
+										className='text-red mb-2 text-xs'
+										name='url'
+										component='span'
+									/>
+								</div>
+							</div>
+						</Form>
+					)}
+				</Formik>
 				<DeleteButton
 					className='mr-auto ml-2 mb-auto ml-auto'
 					onClick={handleDelete}
@@ -72,8 +102,8 @@ export default function SubCategories({
 			</div>
 			<List
 				pages={pages}
-				subCategoryId={subCategory.subCategoryId}
-				parentUrl={`${defaultUrl}${parentUrl}/${subCategory.url}/`}
+				subCategoryId={initialSubCategory.subCategoryId}
+				parentUrl={`${defaultUrl}${parentUrl}/${initialSubCategory.url}/`}
 			/>
 		</Card>
 	);

@@ -1,10 +1,14 @@
-import { useState } from "react";
-import Dialog from "@/components/Dialog";
-import Edit from "@/components/Edit";
-import Button from "@/components/Button";
-import { useAddSubCategoryMutation } from "@/store/apis/categories";
+import { useState } from 'react';
+import Dialog from '@/components/Dialog';
+import Edit from '@/components/Edit';
+import { Button } from '@chakra-ui/react';
+import { addSubCategory } from '@/app/features/subCategories/subCategoriesThunks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { Formik, ErrorMessage, Form } from 'formik';
+import { createSubCategoriesSchema } from '@/validation/create.subCategory.schema';
+import { getСategoryDataSelector } from '@/app/features/categories/categorySlice';
 
-interface CategoryState {
+interface SubCategoryState {
 	categoryId: string;
 	title: string;
 	url: string;
@@ -20,46 +24,70 @@ export default function DialogCreateSubCategories({
 	handleClose,
 	parentUrl,
 }: SubCategoryProps) {
-	const [createSubCategory, setCreateSubCategory] = useState<CategoryState>({
+	const categoriesData = useAppSelector(getСategoryDataSelector);
+	const dispatch = useAppDispatch();
+
+	const initialSubCategory: SubCategoryState = {
 		categoryId: categoryId,
-		title: "",
-		url: "",
-	});
-	const [addSubCategory] = useAddSubCategoryMutation();
-	const handleChangeTitleSubCategory = ({ target }) => {
-		setCreateSubCategory({ ...createSubCategory, title: target.value });
+		title: '',
+		url: '',
 	};
-	const handleChangeUrlSubCategory = ({ target }) => {
-		setCreateSubCategory({ ...createSubCategory, url: target.value });
-	};
-	const handleClick = () => {
-		addSubCategory(createSubCategory);
+
+	const handleClick = (values: SubCategoryState) => {
+		dispatch(addSubCategory(values));
 		handleClose();
 	};
 
 	return (
 		<Dialog onClick={handleClose} className='w-80 h-72'>
-			<div className='flex flex-col gap-3'>
-				<Edit
-					value=''
-					name='Назва'
-					type='text'
-					onChange={handleChangeTitleSubCategory}
-					withoutButtonSave={true}
-				/>
-				<div className='mt-6'>
-					<Edit
-						value=''
-						name={parentUrl}
-						type='link'
-						onChange={handleChangeUrlSubCategory}
-						withoutButtonSave={true}
-					/>
-				</div>
-				<Button onClick={handleClick} className='mx-auto'>
-					Створити
-				</Button>
-			</div>
+			<Formik
+				initialValues={initialSubCategory}
+				validationSchema={createSubCategoriesSchema(
+					categoriesData,
+					categoryId
+				)}
+				onSubmit={handleClick}>
+				{(formik) => (
+					<Form>
+						<div className='flex flex-col gap-3'>
+							<Edit
+								value=''
+								id='title'
+								name='title'
+								nameInput='Назва підкатегорії'
+								type='text'
+								withoutButtonSave={true}
+							/>
+							<ErrorMessage
+								className='text-red mb-2 text-xs'
+								name='title'
+								component='span'
+							/>
+							<div className='mt-6'>
+								<Edit
+									value=''
+									id='url'
+									nameInput={parentUrl}
+									name='url'
+									type='link'
+									withoutButtonSave={true}
+								/>
+								<ErrorMessage
+									className='text-red mb-2 text-xs'
+									name='url'
+									component='span'
+								/>
+							</div>
+							<Button
+								className='text-xl rounded-sm bg-activeItems cursor-pointer p-2 mx-auto'
+								type='submit'
+								disabled={!formik.isValid}>
+								Створити
+							</Button>
+						</div>
+					</Form>
+				)}
+			</Formik>
 		</Dialog>
 	);
 }

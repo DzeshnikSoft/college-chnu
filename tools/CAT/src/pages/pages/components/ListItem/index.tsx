@@ -1,63 +1,59 @@
-import { ReactNode, useState } from 'react';
-import { useDeletePageMutation } from '@/store/apis/categories';
+import { ReactNode, useState, useEffect } from 'react';
 import DeleteButton from '@/components/DeleteButton';
-import EditPage from '@/pages/EditPage';
+import { useAppDispatch } from '@/app/hooks';
+import { deletePage } from '@/app/features/pages/pageThunks';
+import { Link } from 'react-router-dom';
 
 interface ListItemProps {
 	children?: ReactNode;
 	id: string;
 	subCategoryId: string;
-	parentUrl;
+	url: string;
+	parentUrl: string;
 }
 
 export default function ListItem({
 	children,
 	id,
 	parentUrl,
-	subCategoryId,
+	url,
 }: ListItemProps) {
 	const [isHovering, setIsHovering] = useState<boolean>(false);
-	const [isOpenEditorPage, setIsOpenEditorPage] = useState<boolean>(false);
-	const [deletePage] = useDeletePageMutation();
-
+	const [relativeUrl, setRelativeUrl] = useState<string>('');
 	const handleMouseOver = () => {
 		setIsHovering(true);
 	};
+	const dispatch = useAppDispatch();
 
 	const handleMouseOut = () => {
 		setIsHovering(false);
 	};
+
 	const handleDelete = (e) => {
+		e.preventDefault();
 		e.stopPropagation();
-		deletePage(id);
+		dispatch(deletePage(id));
 	};
-	const handleOpen = () => {
-		setIsOpenEditorPage(true);
-	};
-	const handleCloseEditDialog = () => {
-		setIsOpenEditorPage(false);
-	};
+
+	useEffect(() => {
+		const relativePath = parentUrl.replace('https://college-chnu', '');
+		setRelativeUrl(relativePath);
+	}, [parentUrl]);
+
 	return (
-		<li
-			className='p-2 cursor-pointer relative border-b last:border-b-0 hover:bg-activeItems'
-			onMouseOver={handleMouseOver}
-			onMouseOut={handleMouseOut}
-			onClick={handleOpen}>
-			{children}
-			{isHovering === true && (
-				<DeleteButton
-					onClick={handleDelete}
-					className='!w-5 !h-7 !text-sm !pl-0 !pr-0 top-1/2 right-0 !absolute transform -translate-x-1/2 -translate-y-1/2'
-				/>
-			)}
-			{isOpenEditorPage && (
-				<EditPage
-					handleClose={handleCloseEditDialog}
-					parentUrl={parentUrl}
-					id={id}
-					subCategoryId={subCategoryId}
-				/>
-			)}
-		</li>
+		<Link to={`/edit-page${relativeUrl}${url}`}>
+			<li
+				className='p-2 cursor-pointer relative border-b last:border-b-0 hover:bg-activeItems'
+				onMouseOver={handleMouseOver}
+				onMouseOut={handleMouseOut}>
+				{children}
+				{isHovering === true && (
+					<DeleteButton
+						onClick={handleDelete}
+						className='!w-5 !h-7 !text-sm !pl-0 !pr-0 top-1/2 right-0 !absolute transform -translate-x-1/2 -translate-y-1/2'
+					/>
+				)}
+			</li>
+		</Link>
 	);
 }

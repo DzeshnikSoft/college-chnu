@@ -2,24 +2,23 @@ import { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { itemsEditor } from '../../utils/editorProps';
 import { Button } from '@chakra-ui/react';
+import { useFormikContext } from 'formik';
+
 interface EditorWrapperProps {
 	content: string;
-	handleChangeContent: (e) => void;
 }
-export default function EditorWrapper({
-	content,
-	handleChangeContent,
-}: EditorWrapperProps) {
+export default function EditorWrapper({ content }: EditorWrapperProps) {
+	const { setFieldValue } = useFormikContext();
 	const editorRef = useRef(null);
 
 	const handleClick = () => {
 		if (editorRef.current) {
-			handleChangeContent(editorRef.current.getContent());
+			setFieldValue('content', editorRef.current.getContent());
 		}
 	};
 
 	return (
-		<div className='w-10/12 mx-auto flex flex-col'>
+		<div className='w-10/12 mx-auto flex flex-col relative'>
 			<Editor
 				apiKey={import.meta.env.VITE_KEY_TINY}
 				onInit={(evt, editor) => (editorRef.current = editor)}
@@ -39,7 +38,9 @@ export default function EditorWrapper({
 						'body { font-family:Roboto,sans-serif; font-size:14px;}',
 				}}
 			/>
-			<Button className='ml-auto mr-3 mt-2' onClick={handleClick}>
+			<Button
+				className='!absolute !z-50 top-0 right-0 ml-auto mr-3 mt-2'
+				onClick={handleClick}>
 				Зберегти дані в редакторі
 			</Button>
 		</div>

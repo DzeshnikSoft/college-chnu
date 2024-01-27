@@ -25,11 +25,12 @@ export default function List({
 	};
 	return (
 		<ul className='flex flex-col overflow-hidden'>
-			{pages.map(({ title, id, subCategoryId }, index) => (
+			{pages?.map(({ title, id, subCategoryId, url }, index) => (
 				<ListItem
 					id={id}
 					parentUrl={parentUrl}
 					key={index}
+					url={url}
 					subCategoryId={subCategoryId}>
 					{' '}
 					{title}{' '}

@@ -71,8 +71,8 @@ namespace College.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MainImage")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("ImageId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("Pinned")
                         .HasColumnType("bit");
@@ -81,6 +81,8 @@ namespace College.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("News");
                 });
@@ -161,6 +163,16 @@ namespace College.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Templates");
+                });
+
+            modelBuilder.Entity("College.Domain.Models.News", b =>
+                {
+                    b.HasOne("College.Domain.Models.Image", "Image")
+                        .WithMany()
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("College.Domain.Models.Page", b =>

@@ -2,28 +2,32 @@ import { useState } from 'react';
 import ItemWrapper from './ItemWrapper';
 import PartItemText from './PartItemText';
 interface SelectTemplates {
-	handleChangeTemplateType: () => void;
-	selectedType: string;
+	selectedType: number;
 }
-export default function SelectTemplates({
-	handleChangeTemplateType,
-	selectedType,
-}) {
+
+export default function SelectTemplates({ selectedType }) {
+	const [selectedTypeState, setSelectedTypeState] =
+		useState<number>(selectedType);
+
+	const handleChangeType = (value: number) => {
+		setSelectedTypeState(value);
+	};
+
 	return (
 		<div className='h-fit flex gap-8 mb-20 justify-center w-full'>
 			<ItemWrapper
-				type={1}
-				selectedType={selectedType}
-				handleChangeTemplateType={handleChangeTemplateType}>
+				selectedTypeState={selectedTypeState}
+				handleChangeType={handleChangeType}
+				type={1}>
 				<PartItemText className='!h-2/6 w-full text-white bg-hoverActiveItems'>
 					Заголовок
 				</PartItemText>
 				<PartItemText>Редактор</PartItemText>
 			</ItemWrapper>
 			<ItemWrapper
-				type={0}
-				selectedType={selectedType}
-				handleChangeTemplateType={handleChangeTemplateType}>
+				selectedTypeState={selectedTypeState}
+				handleChangeType={handleChangeType}
+				type={0}>
 				<PartItemText>Редактор</PartItemText>
 			</ItemWrapper>
 		</div>
