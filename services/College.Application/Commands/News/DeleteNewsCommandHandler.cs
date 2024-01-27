@@ -22,13 +22,22 @@ public class DeleteNewsCommandHandler(CollegeDbContext db, ILogger<DeleteCategor
 
     public async Task Handle(DeleteNewsCommand request, CancellationToken cancellationToken)
     {
-        var news = await _db.News.Include(x => x.Image).SingleOrDefaultAsync(n => n.Id == request.NewsId, cancellationToken)
+        var news = await _db.News
+            .Include(n => n.Image)
+            .Include(n => n.TitleBackgroundImage)
+            .SingleOrDefaultAsync(n => n.Id == request.NewsId, cancellationToken)
             ?? throw new EntityNotFoundException(nameof(News), request.NewsId);
 
+        var deleteTasks = new List<Task>();
         if (news.Image != null)
         {
-            await _mediator.Send(new DeleteImageCommand(news.Image), cancellationToken);
+            deleteTasks.Add(_mediator.Send(new DeleteImageCommand(news.Image), cancellationToken));
         }
+        if (news.TitleBackgroundImage != null)
+        {
+            deleteTasks.Add(_mediator.Send(new DeleteImageCommand(news.TitleBackgroundImage), cancellationToken));
+        }
+        await Task.WhenAll(deleteTasks);
 
         _db.News.Remove(news);
         await _db.SaveChangesAsync(cancellationToken);

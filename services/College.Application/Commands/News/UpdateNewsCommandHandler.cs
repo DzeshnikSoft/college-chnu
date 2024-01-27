@@ -52,6 +52,19 @@ public class UpdateNewsCommandHandler(CollegeDbContext db) : IRequestHandler<Upd
             if (request.News.Image.Url is not null)
                 news.Image.Url = request.News.Image.Url;
         }
+        if (request.News.TitleBackgroundImage is not null)
+        {
+            news.TitleBackgroundImage ??= new Domain.Models.Image();
+
+            if (request.News.TitleBackgroundImage.Alt is not null)
+                news.TitleBackgroundImage.Alt = request.News.TitleBackgroundImage.Alt;
+            if (request.News.TitleBackgroundImage.Url is not null)
+                news.TitleBackgroundImage.Url = request.News.TitleBackgroundImage.Url;
+        }
+        if (news.Url is not null)
+        {
+            news.Url = request.News.Url;
+        }
 
         _db.News.Update(news);
         await _db.SaveChangesAsync(cancellationToken);

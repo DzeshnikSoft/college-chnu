@@ -14,5 +14,13 @@ public class NewsDto
 
     public ImageDto Image { get; set; }
 
+    /// <summary>
+    /// News url.
+    /// </summary>
+    /// <example>/news/some-news-url</example>
+    public string Url { get; set; }
+
     public DateTime? Date { get; set; }
+
+    public ImageDto TitleBackgroundImage { get; set; }
 }
