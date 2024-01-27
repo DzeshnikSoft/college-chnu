@@ -5,7 +5,7 @@ import Authenticate from './authenticate';
 import News from './news';
 import Pages from './pages';
 import Settings from './settings';
-import EditPage from './editPage';
+import EditPage from './EditPage';
 
 export const routes: RouteObject[] = [
 	{
