@@ -1,4 +1,3 @@
-using College.Application.Commands.Pages;
 using College.Data.Context;
 using College.Domain.Exceptions;
 using College.Domain.Models;
@@ -25,15 +24,7 @@ public class DeleteSubCategoryCommandHandler(CollegeDbContext db, IMediator medi
             .SingleOrDefaultAsync(s => s.Id == request.SubCategoryId, cancellationToken)
             ?? throw new EntityNotFoundException(nameof(SubCategory), request.SubCategoryId);
 
-        // If SubCategory have some pages. We delete this pages!
-        if (subCategory.Pages.Any())
-        {
-            foreach (var pageId in subCategory.Pages.Select(p => p.Id))
-            {
-                await _mediator.Send(new DeletePageCommand(pageId), cancellationToken);
-            }
-        }
-
+        _db.Pages.RemoveRange(subCategory.Pages);
         _db.SubCategories.Remove(subCategory);
         await _db.SaveChangesAsync(cancellationToken);
         return Unit.Value;

@@ -4,6 +4,7 @@ using College.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace College.Data.Migrations
 {
     [DbContext(typeof(CollegeDbContext))]
-    partial class CollegeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240127110844_Add_URL_To_News")]
+    partial class Add_URL_To_News
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,17 +82,12 @@ namespace College.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TitleBackgroundImageId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ImageId");
-
-                    b.HasIndex("TitleBackgroundImageId");
 
                     b.ToTable("News");
                 });
@@ -179,13 +176,7 @@ namespace College.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ImageId");
 
-                    b.HasOne("College.Domain.Models.Image", "TitleBackgroundImage")
-                        .WithMany()
-                        .HasForeignKey("TitleBackgroundImageId");
-
                     b.Navigation("Image");
-
-                    b.Navigation("TitleBackgroundImage");
                 });
 
             modelBuilder.Entity("College.Domain.Models.Page", b =>

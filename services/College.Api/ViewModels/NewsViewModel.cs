@@ -14,5 +14,9 @@ public class NewsViewModel
 
     public DateTime Date { get; set; }
 
+    public ImageDto TitleBackgroundImage { get; set; }
+
+    public string Url { get; set; }
+
     public bool Pinned { get; set; } = false;
 }

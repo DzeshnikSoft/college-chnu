@@ -18,12 +18,20 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
     private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     [HttpGet]
-    public async Task<ActionResult<IList<NewsDto>>> GetNews()
+    public async Task<ActionResult<PaginationModel<NewsDto>>> GetNews([FromQuery] QueryFilterModel queryFilter)
     {
         _logger.LogInformation("[NewsController] Received request to get all news");
-        var news = await _mediator.Send(new GetNewsQuery());
+        var news = await _mediator.Send(new GetNewsQuery(queryFilter));
 
         return Ok(news);
+    }
+
+    [HttpGet("{newsId:guid}")]
+    public async Task<ActionResult<NewsDto>> GetNewsById(Guid newsId)
+    {
+        _logger.LogInformation("[NewsController] Received request to get news by id = {NewsId}", newsId);
+
+        return Ok(await _mediator.Send(new GetNewsByIdQuery(newsId)));
     }
 
     /// <summary>
