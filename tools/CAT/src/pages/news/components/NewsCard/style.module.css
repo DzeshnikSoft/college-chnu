@@ -1,0 +1,14 @@
+.newsCard {
+	position: relative;
+}
+.newsCard:hover .cardPanel {
+	height: 40px;
+	border: 1px solid #e2e8f0;
+}
+.cardPanel {
+	height: 0px;
+	overflow: hidden;
+	position: absolute;
+	cursor: pointer;
+	top: -20px !important;
+}

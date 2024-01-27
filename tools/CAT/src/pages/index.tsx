@@ -6,7 +6,7 @@ import News from './news';
 import Pages from './pages';
 import Settings from './settings';
 import EditPage from './editPage';
-
+import EditNews from './editNews';
 export const routes: RouteObject[] = [
 	{
 		path: '/',
@@ -29,6 +29,10 @@ export const routes: RouteObject[] = [
 	{
 		path: '/edit-page/:category/:subcategory/:page',
 		element: <EditPage />,
+	},
+	{
+		path: '/edit-news/:id',
+		element: <EditNews />,
 	},
 	{
 		path: '/authenticate',
