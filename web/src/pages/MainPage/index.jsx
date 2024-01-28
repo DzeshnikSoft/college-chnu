@@ -7,8 +7,8 @@ import NewsMainPage from './components/NewsMainPage';
 import Director from './components/Director';
 // import AboutInfo from './components/aboutInfo'
 // import Courses from './components/Courses'
-import VideoPreview from './components/VideoPreview';
-import Location from './components/Location';
+// import VideoPreview from './components/VideoPreview';
+// import Location from './components/Location';
 
 const MainPage = () => {
 	return (

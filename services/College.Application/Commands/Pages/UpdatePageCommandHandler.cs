@@ -50,7 +50,7 @@ public class UpdatePageCommandHandler(
         if (request.SubCategoryId.HasValue)
         {
             var subCategory = _db.SubCategories.FirstOrDefault(x => x.Id == request.SubCategoryId.Value)
-                ?? throw new Exception("SubCategory with this Id is not exist");
+                ?? throw new EntityNotFoundException(nameof(SubCategory), request.SubCategoryId.Value);
 
             page.SubCategoryId = request.SubCategoryId.Value;
         }

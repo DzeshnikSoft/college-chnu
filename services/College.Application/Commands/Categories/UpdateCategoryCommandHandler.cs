@@ -1,4 +1,5 @@
-﻿using College.Data.Context;
+﻿using AutoMapper;
+using College.Data.Context;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
 using College.Domain.Models;
@@ -19,11 +20,12 @@ public class UpdateCategoryCommand(Guid categoryId, string? url, string? title) 
 }
 
 
-public class UpdateCategoryCommandHandler(ILogger<UpdateCategoryCommandHandler> logger, CollegeDbContext db)
+public class UpdateCategoryCommandHandler(ILogger<UpdateCategoryCommandHandler> logger, CollegeDbContext db, IMapper mapper)
     : IRequestHandler<UpdateCategoryCommand, CategoryDto>
 {
     private readonly ILogger<UpdateCategoryCommandHandler> _logger = logger.ThrowIfNull();
     private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     public async Task<CategoryDto> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {

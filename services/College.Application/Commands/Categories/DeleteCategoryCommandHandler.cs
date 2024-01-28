@@ -30,7 +30,10 @@ public class DeleteCategoryCommandHandler(CollegeDbContext db, ILogger<DeleteCat
             return Unit.Value;
         }
 
-        var category = await _db.Categories.SingleOrDefaultAsync(x => x.Id == request.CategoryId, cancellationToken);
+        var category = await _db.Categories
+            .Include(c => c.SubCategories)
+            .ThenInclude(s => s.Pages)
+            .SingleOrDefaultAsync(x => x.Id == request.CategoryId, cancellationToken);
 
         if (category is null)
         {
@@ -38,7 +41,10 @@ public class DeleteCategoryCommandHandler(CollegeDbContext db, ILogger<DeleteCat
             throw new EntityNotFoundException(nameof(Category), request.CategoryId);
         }
 
+        _db.Pages.RemoveRange(category.SubCategories.SelectMany(s => s.Pages));
+        _db.SubCategories.RemoveRange(category.SubCategories);
         _db.Categories.Remove(category);
+
         await _db.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

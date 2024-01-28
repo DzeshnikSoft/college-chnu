@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import EditPageDefault from './editPageDefault';
-import EditPageWithTitle from './editPageWithTitle';
+import EditPageDefault from './EditPageDefault';
+import EditPageWithTitle from './EditPageWithTitle';
 import Edit from '@/components/Edit';
 import { Link } from 'react-router-dom';
 import UploadFileWrapper from '@/components/UploadFileWrapper';

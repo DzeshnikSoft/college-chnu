@@ -24,6 +24,8 @@ public class CreateNewsCommandHandler(CollegeDbContext db, ILogger<CreateNewsCom
         {
             var news = _mapper.Map<Domain.Models.News>(request.NewsDto);
 
+            news.Url ??= Guid.NewGuid().ToString("N");
+
             var newsEntityEntry = await _db.News.AddAsync(news, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);
 
