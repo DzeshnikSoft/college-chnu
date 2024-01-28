@@ -1,0 +1,24 @@
+.iconWrapper {
+}
+.iconWrapper:hover .iconText {
+	width: fit-content;
+	padding-right: 10px;
+}
+.iconWrapper:hover {
+	color: white;
+}
+.iconWrapper:nth-child(3):hover {
+	background: #e53e3e;
+}
+.iconWrapper:nth-child(2):hover {
+	background: #38a169;
+	color: white;
+}
+.iconWrapper:nth-child(1):hover {
+	background: #ffff00;
+	color: black;
+}
+.iconText {
+	width: 0px;
+	overflow: hidden;
+}
