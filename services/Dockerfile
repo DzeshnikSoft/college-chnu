@@ -13,5 +13,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=builder /app .
 
-EXPOSE 5005
+EXPOSE 5001
 ENTRYPOINT ["dotnet", "College.API.dll"]
