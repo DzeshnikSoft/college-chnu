@@ -1,3 +1,4 @@
+using College.Application.Caches;
 using College.Application.Exceptions;
 using College.Data.Context;
 using College.Domain.DTOs;
@@ -19,10 +20,11 @@ public class CreateSubCategoryCommand(string title, string url, Guid categoryId)
     public Guid CategoryId { get; } = categoryId;
 }
 
-public class CreateSubCategoryCommandHandler(CollegeDbContext db, ILogger<CreateSubCategoryCommandHandler> logger) : IRequestHandler<CreateSubCategoryCommand, SubCategoryDto>
+public class CreateSubCategoryCommandHandler(CollegeDbContext db, ILogger<CreateSubCategoryCommandHandler> logger, ICategoryCacheService categoryCacheService) : IRequestHandler<CreateSubCategoryCommand, SubCategoryDto>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly ILogger<CreateSubCategoryCommandHandler> _logger = logger.ThrowIfNull();
+    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<SubCategoryDto> Handle(CreateSubCategoryCommand request, CancellationToken cancellationToken)
     {
@@ -47,6 +49,9 @@ public class CreateSubCategoryCommandHandler(CollegeDbContext db, ILogger<Create
         await _db.SaveChangesAsync(cancellationToken);
 
         _logger.LogInformation("Successfully created new SubCategory with id = {SubCategoryId}", id);
+
+        await _categoryCacheService.RefreshCategoriesCacheAsync(cancellationToken);
+
         return new SubCategoryDto
         {
             Id = id,

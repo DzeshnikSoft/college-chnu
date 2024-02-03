@@ -1,4 +1,5 @@
 using AutoMapper;
+using College.Application.Caches;
 using College.Data.Context;
 using College.Domain.DTOs;
 using College.Domain.Exceptions;
@@ -18,10 +19,11 @@ public class UpdateSubCategoryCommand(Guid subCategoryId, string title, string u
     public string? Url { get; set; } = url;
 }
 
-public class UpdateSubCategoryCommandHandler(CollegeDbContext db, IMapper mapper) : IRequestHandler<UpdateSubCategoryCommand, SubCategoryDto>
+public class UpdateSubCategoryCommandHandler(CollegeDbContext db, IMapper mapper, ICategoryCacheService categoryCacheService) : IRequestHandler<UpdateSubCategoryCommand, SubCategoryDto>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly IMapper _mapper = mapper.ThrowIfNull();
+    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<SubCategoryDto> Handle(UpdateSubCategoryCommand request, CancellationToken cancellationToken)
     {
@@ -45,6 +47,8 @@ public class UpdateSubCategoryCommandHandler(CollegeDbContext db, IMapper mapper
 
         _db.SubCategories.Update(subCategory);
         await _db.SaveChangesAsync(cancellationToken);
+
+        await _categoryCacheService.RefreshCategoriesCacheAsync(cancellationToken);
 
         return new SubCategoryDto
         {

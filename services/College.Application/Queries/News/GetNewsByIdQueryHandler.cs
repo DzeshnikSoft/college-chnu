@@ -21,6 +21,7 @@ public class GetNewsByIdQueryHandler(CollegeDbContext db, IMapper mapper) : IReq
     public async Task<NewsDto> Handle(GetNewsByIdQuery request, CancellationToken cancellationToken)
     {
         var news = await _db.News
+            .AsNoTracking()
             .Include(n => n.Image)
             .Include(n => n.TitleBackgroundImage)
             .SingleOrDefaultAsync(n => n.Id == request.NewsId, cancellationToken)

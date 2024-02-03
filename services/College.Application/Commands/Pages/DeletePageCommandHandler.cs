@@ -1,3 +1,4 @@
+using College.Application.Caches;
 using College.Data.Context;
 using College.Domain.Exceptions;
 using College.Domain.Models;
@@ -12,9 +13,10 @@ public class DeletePageCommand(Guid pageId) : IRequest<Unit>
     public Guid PageId { get; set; } = pageId;
 }
 
-public class DeletePageCommandHandler(CollegeDbContext db) : IRequestHandler<DeletePageCommand, Unit>
+public class DeletePageCommandHandler(CollegeDbContext db, ICategoryCacheService categoryCacheService) : IRequestHandler<DeletePageCommand, Unit>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<Unit> Handle(DeletePageCommand request, CancellationToken cancellationToken)
     {
@@ -23,6 +25,8 @@ public class DeletePageCommandHandler(CollegeDbContext db) : IRequestHandler<Del
 
         _db.Pages.Remove(page);
         await _db.SaveChangesAsync(cancellationToken);
+
+        await _categoryCacheService.RefreshCategoriesCacheAsync(cancellationToken);
 
         return Unit.Value;
     }
