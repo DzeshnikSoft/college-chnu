@@ -10,7 +10,7 @@ services:
         build:
             context: ./services
         ports:
-            - '5001:80'
+            - '5001:5001'
         volumes:
             - /Users/mac/Desktop/storage:/root/storage
     cat:

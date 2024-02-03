@@ -3,7 +3,8 @@ param(
     [string]$ApiKey,
     [string]$AdminLogin,
     [string]$AdminPassword,
-    [string]$BaseServerUrl
+    [string]$BaseServerUrl,
+    [string]$DbPassword
 )
 
 if (-not $ApiKey -or -not $AdminLogin -or -not $AdminPassword) {
@@ -37,6 +38,7 @@ function Update-Config {
     $jsonContent.CollegeAdmin.Login = $NewAdminLogin
     $jsonContent.CollegeAdmin.Password = $NewAdminPassword
     $jsonContent.FileStorageSettings.BaseServerUrl = $BaseServerUrl
+    $jsonContent.ConnectionStrings.CollegeDb = "Server=sql.bsite.net\\MSSQL2016;Database=maksmaryanchuk_CollegeDb;user id = maksmaryanchuk_CollegeDb; password = $DbPassword;MultipleActiveResultSets=true"
     $jsonContent | ConvertTo-Json | Set-Content $JsonFilePath -Force
 }
 
