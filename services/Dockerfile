@@ -5,13 +5,9 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /services
 
-COPY ["College.Api/College.API.csproj", "/College.Api/"]
-COPY ["College.Application/College.Application.csproj", "/College.Application/"]
-COPY ["College.Domain/College.Domain.csproj", "/College.Domain/"]
-COPY ["College.Data/College.Data.csproj", "/College.Data/"]
-COPY ["College.Shared/College.Shared.csproj", "/College.Shared/"]
+COPY . .
 
-RUN dotnet restore "/College.Api/College.API.csproj"
+RUN dotnet restore "./College.Api/College.API.csproj"
 COPY . .
 WORKDIR "/services/College.Api"
 RUN dotnet build "College.API.csproj" -c Release -o /app
