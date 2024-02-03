@@ -1,9 +1,8 @@
 using AutoMapper;
-using College.Data.Context;
+using College.Application.Caches;
 using College.Domain.DTOs;
 using College.Shared.Extensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace College.Application.Queries.Categories;
 
@@ -11,20 +10,14 @@ public class GetCategoriesQuery : IRequest<IList<CategoryDto>>
 {
 }
 
-public class GetCategoriesQueryHandler(CollegeDbContext db, IMapper mapper) : IRequestHandler<GetCategoriesQuery, IList<CategoryDto>>
+public class GetCategoriesQueryHandler(IMapper mapper, ICategoryCacheService categoryCachedService) : IRequestHandler<GetCategoriesQuery, IList<CategoryDto>>
 {
-    private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly IMapper _mapper = mapper.ThrowIfNull();
+    private readonly ICategoryCacheService _categoryCachedService = categoryCachedService.ThrowIfNull();
 
     public async Task<IList<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var categories = await _db.Categories
-            .AsSplitQuery()
-            .Include(c => c.SubCategories)
-            .ThenInclude(x => x.Pages)
-            .ThenInclude(x => x.Template)
-            .ThenInclude(x => x.Image)
-            .ToListAsync(cancellationToken: cancellationToken);
+        var categories = await _categoryCachedService.GetCategoriesAsync(cancellationToken);
 
         return _mapper.Map<IList<CategoryDto>>(categories);
     }

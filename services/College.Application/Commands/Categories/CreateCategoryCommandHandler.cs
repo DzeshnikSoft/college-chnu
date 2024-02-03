@@ -1,3 +1,4 @@
+using College.Application.Caches;
 using College.Application.Exceptions;
 using College.Data.Context;
 using College.Domain.DTOs;
@@ -16,9 +17,14 @@ public class CreateCategoryCommand(string title, string url) : IRequest<Category
     public string? Url { get; } = url.ToLower();
 }
 
-public class CreateCategoryCommandHandler(CollegeDbContext db, ILogger<CreateCategoryCommandHandler> logger) : IRequestHandler<CreateCategoryCommand, CategoryDto>
+public class CreateCategoryCommandHandler(
+    CollegeDbContext db,
+    ILogger<CreateCategoryCommandHandler> logger,
+    ICategoryCacheService categoryCacheService)
+    : IRequestHandler<CreateCategoryCommand, CategoryDto>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
+    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
     private readonly ILogger<CreateCategoryCommandHandler> _logger = logger.ThrowIfNull();
 
     public async Task<CategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
@@ -41,6 +47,9 @@ public class CreateCategoryCommandHandler(CollegeDbContext db, ILogger<CreateCat
         _logger.LogInformation("Successfully created category with ID = {CategoryId}", entityEntry.Entity.Id);
 
         await _db.SaveChangesAsync(cancellationToken);
+
+        await _categoryCacheService.RefreshCategoriesCacheAsync(cancellationToken);
+
         return new CategoryDto
         {
             Title = entityEntry.Entity.Title,
