@@ -1,3 +1,4 @@
+using College.Application.Caches;
 using College.Data.Context;
 using College.Domain.Exceptions;
 using College.Domain.Models;
@@ -12,10 +13,11 @@ public class DeleteSubCategoryCommand(Guid subCategoryId) : IRequest<Unit>
     public Guid SubCategoryId { get; set; } = subCategoryId;
 }
 
-public class DeleteSubCategoryCommandHandler(CollegeDbContext db, IMediator mediator) : IRequestHandler<DeleteSubCategoryCommand, Unit>
+public class DeleteSubCategoryCommandHandler(CollegeDbContext db, IMediator mediator, ICategoryCacheService categoryCacheService) : IRequestHandler<DeleteSubCategoryCommand, Unit>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly IMediator _mediator = mediator.ThrowIfNull();
+    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<Unit> Handle(DeleteSubCategoryCommand request, CancellationToken cancellationToken)
     {
@@ -27,6 +29,8 @@ public class DeleteSubCategoryCommandHandler(CollegeDbContext db, IMediator medi
         _db.Pages.RemoveRange(subCategory.Pages);
         _db.SubCategories.Remove(subCategory);
         await _db.SaveChangesAsync(cancellationToken);
+
+        await _categoryCacheService.RefreshCategoriesCacheAsync(cancellationToken);
         return Unit.Value;
     }
 }

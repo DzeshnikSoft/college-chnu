@@ -1,5 +1,4 @@
-﻿#nullable enable
-namespace College.Domain.Models;
+﻿namespace College.Domain.Models;
 
 public class Page
 {
