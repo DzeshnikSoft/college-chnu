@@ -1,5 +1,5 @@
 import EditorWrapper from '@/components/EditorWrapper';
-import EditTitlePage from './components/EditTitlePage';
+import EditTitlePage from '@/components/EditTitlePage';
 
 interface EditPageDefaultProps {
 	content: string;
