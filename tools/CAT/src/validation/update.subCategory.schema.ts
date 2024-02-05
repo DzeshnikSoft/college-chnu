@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { REQUIRED_FIELD } from '@/utils/schemaValues';
 
 export const updateSubCategoriesSchema = (
 	reduxState,
@@ -11,7 +12,7 @@ export const updateSubCategoriesSchema = (
 
 	return Yup.object().shape({
 		title: Yup.string()
-			.required("Поле обов'язкове для заповнення")
+			.required(REQUIRED_FIELD)
 			.test(
 				'unique-title',
 				'Така назва для підкатегорії в даній категорії вже існує',
@@ -27,7 +28,7 @@ export const updateSubCategoriesSchema = (
 				/^[a-z]+(-[a-z]+)*$/,
 				'Усі літери мають бути малими та з алфавіту латині. "-" може бути тільки між буквами.'
 			)
-			.required("Поле обов'язкове для заповнення")
+			.required(REQUIRED_FIELD)
 			.test(
 				'unique-url',
 				'Такий шлях до підкатегорії в даній категорії вже існує',

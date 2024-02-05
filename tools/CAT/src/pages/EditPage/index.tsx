@@ -90,7 +90,9 @@ export default function EditPage() {
 	return (
 		<div className='w-full h-full overflow-y-auto flex-col !p-0 rounded-none'>
 			{categoriesLoading || isLoading ? (
-				<SpinnerWrapper />
+				<div className='h-screen w-full'>
+					<SpinnerWrapper />
+				</div>
 			) : (
 				<Formik
 					initialValues={initialPage}
@@ -158,9 +160,6 @@ export default function EditPage() {
 											component='span'
 										/>
 									</div>
-								</div>
-								<div className='ml-10 my-5 flex'>
-									<UploadFileWrapper />
 								</div>
 							</div>
 							<div className='w-full mx-auto'>

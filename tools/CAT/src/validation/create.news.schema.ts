@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { REQUIRED_FIELD } from '@/utils/schemaValues';
 
-export const updateNewsSchema = (data) => {
+export const createNewsSchema = (data) => {
 	return Yup.object().shape({
 		title: Yup.string().required(REQUIRED_FIELD),
 		image: Yup.object().shape({

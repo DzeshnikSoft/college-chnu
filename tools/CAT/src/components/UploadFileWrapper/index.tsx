@@ -1,14 +1,27 @@
-import { useState, useEffect, ChangeEvent } from 'react';
-import { useRef } from 'react';
+import { useState, ChangeEvent, useRef, useEffect } from 'react';
+import { InputGroup, InputLeftAddon } from '@chakra-ui/react';
+
 import { Button } from '@chakra-ui/react';
 import SpinnerWrapper from '../Spinner';
 import uploadFile from '@/store/apis/uploadFile';
+import { useFormikContext } from 'formik';
 
-export default function UploadFileWrapper() {
+interface UploadFileWrapperProps {
+	nameInput: string;
+	name: string;
+	value: string;
+}
+
+export default function UploadFileWrapper({
+	name,
+	nameInput,
+	value,
+}: UploadFileWrapperProps) {
+	const { setFieldValue } = useFormikContext();
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
-	const [fileUrl, setFileUrl] = useState<string>('');
-	const [fileName, setFileName] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(false);
+	const [url, setUrl] = useState<string>(value);
+	const [fileName, setFileName] = useState<string>('');
 	const urlRef = useRef<HTMLInputElement | null>(null);
 	const fileInputRef = useRef(null);
 
@@ -24,57 +37,49 @@ export default function UploadFileWrapper() {
 		}
 	};
 
-	const handleCopyClick = () => {
-		if (urlRef.current) {
-			navigator.clipboard.writeText(urlRef.current.textContent);
-		}
+	useEffect(() => {
+		if (selectedFile) handleUpload();
+	}, [selectedFile]);
+
+	const handleUpload = async () => {
+		setUrl(await uploadFile(selectedFile, setLoading));
 	};
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		await uploadFile(selectedFile, setLoading, setFileUrl);
-	};
+	useEffect(() => {
+		setFieldValue(`${name}`, url);
+	}, [url]);
 
 	return (
-		<form onSubmit={handleSubmit} className='flex '>
+		<div className='flex'>
 			<div className='flex flex-col justify-between'>
-				<div className=''>
-					<label>
-						Виберіть файл:
-						<input
-							ref={fileInputRef}
-							className='ml-2 hidden'
-							type='file'
-							onChange={handleFileChange}
-						/>
-					</label>
-					<Button
-						onClick={handleButtonClick}
-						className='!w-fit !h-fit !p-[1px] ml-3'>
-						<i className='fa-solid fa-file-arrow-up text-2xl'></i>
-					</Button>
-				</div>
-				<span>{fileName ? fileName : 'Файл не вибрано'}</span>
-				<Button className='w-fit mt-1' type='submit'>
-					Завантажити та отримати посилання
-				</Button>
-			</div>
-			{loading ? (
-				<SpinnerWrapper />
-			) : (
-				fileUrl && (
-					<span
-						className='border rounded-md relative w-6/12 ml-8 h-fit my-auto p-2'
-						ref={urlRef}>
-						{fileUrl}
+				<div className='flex'>
+					<InputGroup>
+						<InputLeftAddon children={nameInput} />
+						<label>
+							<input
+								ref={fileInputRef}
+								className='hidden'
+								type='file'
+								onChange={handleFileChange}
+							/>
+						</label>
+						{loading ? (
+							<SpinnerWrapper />
+						) : (
+							<span
+								className='border whitespace-nowrap bg-white overflow-x-auto rounded-md relative w-72 overflow-hidden rounded-l-none flex justify-center items-center px-3 pl-5 my-auto h-10'
+								ref={urlRef}>
+								{url ? url : 'Виберіть файл'}
+							</span>
+						)}
 						<Button
-							onClick={handleCopyClick}
-							className='!absolute top-2 right-2'>
-							<i className='fa-solid fa-copy text-2xl'></i>
+							onClick={handleButtonClick}
+							className='!w-fit !h-full m-auto ml-3'>
+							<i className='fa-solid fa-file-arrow-up text-2xl'></i>
 						</Button>
-					</span>
-				)
-			)}
-		</form>
+					</InputGroup>
+				</div>
+			</div>
+		</div>
 	);
 }

@@ -15,8 +15,7 @@
 	color: white;
 }
 .iconWrapper:nth-child(1):hover {
-	background: #ffff00;
-	color: black;
+	background: #390972;
 }
 .iconText {
 	width: 0px;

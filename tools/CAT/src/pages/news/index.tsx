@@ -1,17 +1,43 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import AddButton from '@/components/AddButton';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { TEST_NEWS } from '@/utils/testNewsData';
 import NewsCard from './components/NewsCard';
+import { Link } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '@/app/hooks';
+import { fetchNewsData } from '@/app/features/news/newsThunks';
+import {
+	getNewsDataSelector,
+	getNewsLoadingSelector,
+	getNewsErrorSelector,
+} from '@/app/features/news/newsSlice';
+import SpinnerWrapper from '@/components/Spinner';
+import { showErrorNotif } from '@/providers/notify';
 
 const News = () => {
+	useEffect(() => {
+		dispatch(fetchNewsData({ pageNumber: 1, pageSize: 4, searchTerm: '' }));
+	}, []);
+	const dispatch = useAppDispatch();
+	const data = useAppSelector(getNewsDataSelector);
+	const isNewsLoading = useAppSelector(getNewsLoadingSelector);
+	const error = useAppSelector(getNewsErrorSelector);
+
+	useEffect(() => {
+		if (error) {
+			showErrorNotif(error);
+		}
+	}, [error]);
+
 	return (
 		<div className='h-full w-full flex news-card'>
-			<div className=''></div>
 			<div className='w-11/12 h-full mx-auto flex flex-col'>
 				<div className='w-full h-1/6 flex items-center justify-between'>
-					<AddButton className='mx-0'>Додати новину</AddButton>
+					<Link to='/create-news'>
+						<AddButton className='mx-0'>Додати новину</AddButton>
+					</Link>
+
 					<div className='!w-5/12'>
 						<InputGroup>
 							<InputLeftElement>
@@ -21,16 +47,27 @@ const News = () => {
 						</InputGroup>
 					</div>
 				</div>
-				<div className='w-full h-4/6 grid grid-cols-2 gap-y-12 gap-x-5'>
-					{TEST_NEWS.map((item, index) => (
-						<NewsCard
-							image={item.image}
-							key={index}
-							description={item.description}
-							date={item.date}
-						/>
-					))}
-				</div>
+
+				{isNewsLoading ? (
+					<SpinnerWrapper />
+				) : (
+					<div className='h-5/6 flex flex-col justify-between'>
+						<div className='w-full h-5/6 grid grid-cols-2 gap-y-12 gap-x-5'>
+							{data.data.map((item) => (
+								<NewsCard
+									image={item?.image?.url}
+									key={item.id}
+									id={item.id}
+									title={item.title}
+									description={item.description}
+									date={item.date}
+									pinned={item.pinned}
+								/>
+							))}
+						</div>
+						<div className='h-1/6'>Pagination...</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

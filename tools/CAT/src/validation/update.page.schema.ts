@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { REQUIRED_FIELD } from '@/utils/schemaValues';
 
 function findSubCategoryById(mainArray, subCategoryId) {
 	const category = mainArray.find((category) =>
@@ -20,7 +21,7 @@ export const updatePageSchema = (reduxState, subCategoryId, pageId) => {
 
 	return Yup.object().shape({
 		title: Yup.string()
-			.required("Поле обов'язкове для заповнення")
+			.required(REQUIRED_FIELD)
 			.test(
 				'unique-title',
 				'Така назва для сторінки в даній підкатегорії вже існує',
@@ -35,7 +36,7 @@ export const updatePageSchema = (reduxState, subCategoryId, pageId) => {
 				/^[a-z]+(-[a-z]+)*$/,
 				'Усі літери мають бути малими та з алфавіту латині. "-" може бути тільки між буквами.'
 			)
-			.required("Поле обов'язкове для заповнення")
+			.required(REQUIRED_FIELD)
 			.test(
 				'unique-url',
 				'Такий шлях до сторінки в даній підкатегорії вже існує',
@@ -46,21 +47,18 @@ export const updatePageSchema = (reduxState, subCategoryId, pageId) => {
 				}
 			),
 		template: Yup.object().shape({
-			type: Yup.number().required("Поле обов'язкове для заповнення"),
+			type: Yup.number().required(REQUIRED_FIELD),
 			image: Yup.object().when('type', {
 				is: 1,
 				then: (schema) =>
 					Yup.object().shape({
-						url: Yup.string().required(
-							"Поле обов'язкове для заповнення"
-						),
+						url: Yup.string().required(REQUIRED_FIELD),
 					}),
 			}),
 
 			label: Yup.string().when('type', {
 				is: 1,
-				then: (schema) =>
-					schema.required("Поле обов'язкове для заповнення"),
+				then: (schema) => schema.required(REQUIRED_FIELD),
 			}),
 		}),
 	});
