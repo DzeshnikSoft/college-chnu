@@ -6,8 +6,8 @@ export interface Editor {
 export const itemsEditor: Editor = {
 	toolbar:
 		'undo redo | formatselect | ' +
-		'bold italic backcolor | alignleft aligncenter ' +
-		'alignright alignjustify | bullist numlist outdent indent | fontsizeselect forecolor' +
+		'bold fontsize italic backcolor | alignleft aligncenter ' +
+		'alignright alignjustify | bullist numlist outdent indent |  fontsizeselect forecolor' +
 		'removeformat | help | indent | fontsizeselect | image | link',
 	plugins: [
 		'advlist autolink lists link image charmap print preview anchor',

@@ -72,7 +72,8 @@ const extraReducersConfigCategories = (builder) => {
 	});
 
 	builder.addCase(deleteCategory.fulfilled, (state, { payload }) => {
-		const categoryId = payload.data;
+		const categoryId = payload;
+
 		state.categories = state.categories?.filter((category: CategoryDto) => {
 			return category.id !== categoryId;
 		});

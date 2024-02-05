@@ -7,6 +7,7 @@ import EditPage from './EditPage';
 import News from './news';
 import Pages from './pages';
 import Settings from './settings';
+import CreateNews from './createNews';
 
 export const routes: RouteObject[] = [
 	{
@@ -35,6 +36,11 @@ export const routes: RouteObject[] = [
 		path: '/edit-news/:id',
 		element: <EditNews />,
 	},
+	{
+		path: '/create-news',
+		element: <CreateNews />,
+	},
+
 	{
 		path: '/authenticate',
 		element: <Authenticate />,

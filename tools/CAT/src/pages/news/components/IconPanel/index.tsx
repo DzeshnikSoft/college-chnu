@@ -8,9 +8,16 @@ interface IconPanelProps {
 	classNameIcon?: string;
 }
 
-function IconPanel({ children, classNameIcon, className }: IconPanelProps) {
+function IconPanel({
+	children,
+	classNameIcon,
+	className = '',
+	onClick,
+}: IconPanelProps) {
 	return (
-		<div className={`border flex w-fit ${styles.iconWrapper} `}>
+		<div
+			onClick={onClick}
+			className={`border h-full flex w-fit ${styles.iconWrapper} `}>
 			<div className='w-10 h-full flex m-auto '>
 				<i className={`m-auto ${classNameIcon}`}></i>
 			</div>

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const updateNewsSchema = (data) => {
+export const createNewsSchema = (data) => {
 	return Yup.object().shape({
 		title: Yup.string().required("Поле обов'язкове для заповнення"),
 		image: Yup.object().shape({
