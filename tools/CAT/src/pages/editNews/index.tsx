@@ -45,7 +45,6 @@ function EditNews() {
 	}, []);
 
 	const handleSubmit = (values: NewsDto) => {
-		console.log(values);
 		navigate('/news');
 		dispatch(updateNews(values));
 	};
