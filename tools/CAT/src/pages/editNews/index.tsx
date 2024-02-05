@@ -20,7 +20,7 @@ import SpinnerWrapper from '@/components/Spinner';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { updateNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
-import EditTitlePage from '../editPage/editPageWithTitle/components/EditTitlePage';
+import EditTitlePage from '@/pages/editPage/editPageWithTitle/components/EditTitlePage';
 
 function EditNews() {
 	const dispatch = useAppDispatch();
