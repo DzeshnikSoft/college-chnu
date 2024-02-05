@@ -50,7 +50,7 @@ export default function UploadFileWrapper({
 	}, [url]);
 
 	return (
-		<div className='flex '>
+		<div className='flex'>
 			<div className='flex flex-col justify-between'>
 				<div className='flex'>
 					<InputGroup>
