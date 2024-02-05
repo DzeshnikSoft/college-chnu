@@ -15,7 +15,7 @@ import EditTextArea from '@/components/EditTextArea';
 import UploadFileWrapper from '@/components/UploadFileWrapper';
 import DatePicker from '@/components/DatePicker';
 import PinRadioToggle from '@/components/PinRadioToggle';
-import EditTitlePage from '../editPage/editPageWithTitle/components/EditTItlePage';
+import EditTitlePage from '../editPage/editPageWithTitle/components/EditTitlePage';
 import EditorWrapper from '@/components/EditorWrapper';
 import SpinnerWrapper from '@/components/Spinner';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
