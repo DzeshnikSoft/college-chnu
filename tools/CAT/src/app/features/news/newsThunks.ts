@@ -16,8 +16,7 @@ export const fetchNewsData = createAsyncThunk(
 			const responce = await apiClient.get(
 				`${url}?PageSize=${pageSize}&PageNumber=${pageNumber}&searchTerm=${searchTerm}`
 			);
-			const { data } = responce;
-			return data;
+			return responce.data;
 		} catch (error) {
 			const { data } = error.responce;
 			return thunkAPI.rejectWithValue(getErrorMessage(data));
