@@ -60,7 +60,7 @@ public class CategoriesCacheService(IMemoryCache memoryCache, CollegeDbContext d
                 {
                     Id = sc.Id,
                     Title = sc.Title,
-                    Url = c.Url,
+                    Url = sc.Url,
                     CategoryId = c.Id,
                     Pages = sc.Pages.Select(p => new Page
                     {
