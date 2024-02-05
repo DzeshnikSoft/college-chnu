@@ -10,17 +10,17 @@ import { useParams } from 'react-router-dom';
 import { apiClient } from '@/app/apiClient';
 import { getErrorMessage } from '@/factories/errorMessage.factory';
 import { showErrorNotif } from '@/providers/notify';
-import { getDate } from '@/helpers/date';
+import { formatUkrainianDateTime } from '@/helpers/date';
 import EditTextArea from '@/components/EditTextArea';
 import UploadFileWrapper from '@/components/UploadFileWrapper';
 import DatePicker from '@/components/DatePicker';
 import PinRadioToggle from '@/components/PinRadioToggle';
-import EditTitlePage from '../editPage/editPageWithTitle/components/EditTitlePage';
 import EditorWrapper from '@/components/EditorWrapper';
 import SpinnerWrapper from '@/components/Spinner';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { updateNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
+import EditTitlePage from '../editPage/EditPageWithTitle/components/EditTitlePage';
 
 function EditNews() {
 	const dispatch = useAppDispatch();
@@ -162,7 +162,9 @@ function EditNews() {
 														{values.description}
 													</p>
 													<p className='text-sm mt-2 text-[#999999]'>
-														{getDate(values.date)}
+														{formatUkrainianDateTime(
+															values.date
+														)}
 													</p>
 												</div>
 											</div>

@@ -8,9 +8,8 @@ export const extraReducersConfigNews = (builder) => {
 		state.error = null;
 	});
 	builder.addCase(fetchNewsData.fulfilled, (state, { payload }) => {
-		state.newsData = payload;
+		state.data = payload;
 		state.loading = false;
-		state.error = null;
 	});
 	builder.addCase(fetchNewsData.rejected, (state, { payload }) => {
 		state.loading = false;
@@ -22,13 +21,12 @@ export const extraReducersConfigNews = (builder) => {
 		state.error = null;
 	});
 	builder.addCase(addNews.fulfilled, (state, { payload }) => {
-		state.newsData = {
-			...state.newsData,
-			data: [...state.newsData?.data, payload],
+		state.data = {
+			...state.data,
+			data: [...state.data?.data, payload],
 		};
 		state.news.data = sortNewsArrayByPinnedAndDate(state.news.data);
 		state.loading = false;
-		state.error = null;
 	});
 
 	builder.addCase(addNews.rejected, (state, { payload }) => {
@@ -41,14 +39,14 @@ export const extraReducersConfigNews = (builder) => {
 		state.error = null;
 	});
 	builder.addCase(updateNews.fulfilled, (state, { payload }) => {
-		const indexToUpdate = state.newsData?.data.findIndex(
+		const indexToUpdate = state.data?.data.findIndex(
 			(news) => news.id === payload.id
 		);
 
 		if (indexToUpdate !== -1) {
-			state.newsData = {
-				...state.newsData,
-				data: state.newsData?.data.map((news, index) =>
+			state.data = {
+				...state.data,
+				data: state.data?.data.map((news, index) =>
 					index === indexToUpdate ? payload : news
 				),
 			};
@@ -57,7 +55,6 @@ export const extraReducersConfigNews = (builder) => {
 		}
 
 		state.loading = false;
-		state.error = null;
 	});
 
 	builder.addCase(updateNews.rejected, (state, { payload }) => {
@@ -70,14 +67,13 @@ export const extraReducersConfigNews = (builder) => {
 		state.error = null;
 	});
 	builder.addCase(deleteNews.fulfilled, (state, { payload }) => {
-		state.newsData = {
-			...state.newsData,
-			data: state.newsData?.data?.filter(
+		state.data = {
+			...state.data,
+			data: state.data?.data?.filter(
 				(news: NewsDto) => news.id !== payload
 			),
 		};
 		state.loading = false;
-		state.error = null;
 	});
 	builder.addCase(deleteNews.rejected, (state, { payload }) => {
 		state.loading = false;

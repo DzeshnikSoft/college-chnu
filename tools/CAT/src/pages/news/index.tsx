@@ -17,10 +17,10 @@ import { showErrorNotif } from '@/providers/notify';
 
 const News = () => {
 	useEffect(() => {
-		dispatch(fetchNewsData({ pageNumber: 1, pageSize: 4, SearchTerm: '' }));
+		dispatch(fetchNewsData({ pageNumber: 1, pageSize: 4, searchTerm: '' }));
 	}, []);
 	const dispatch = useAppDispatch();
-	const newsData = useAppSelector(getNewsDataSelector);
+	const data = useAppSelector(getNewsDataSelector);
 	const isNewsLoading = useAppSelector(getNewsLoadingSelector);
 	const error = useAppSelector(getNewsErrorSelector);
 
@@ -53,7 +53,7 @@ const News = () => {
 				) : (
 					<div className='h-5/6 flex flex-col justify-between'>
 						<div className='w-full h-5/6 grid grid-cols-2 gap-y-12 gap-x-5'>
-							{newsData.data.map((item) => (
+							{data.data.map((item) => (
 								<NewsCard
 									image={item?.image?.url}
 									key={item.id}

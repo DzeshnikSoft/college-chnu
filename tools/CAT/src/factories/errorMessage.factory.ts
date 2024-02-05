@@ -21,6 +21,6 @@ export const getErrorMessage = (
 		case ServerErrorReasonCode.InternalServerError:
 			return 'На сервері щось пішло не так!';
 		default:
-			return null;
+			return 'Упс... Щось пішло не так!';
 	}
 };

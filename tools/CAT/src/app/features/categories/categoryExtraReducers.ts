@@ -16,7 +16,6 @@ const extraReducersConfigCategories = (builder) => {
 	builder.addCase(fetchCategoriesData.fulfilled, (state, { payload }) => {
 		state.categories = payload.data;
 		state.loading = false;
-		state.error = null;
 	});
 	builder.addCase(fetchCategoriesData.rejected, (state, { payload }) => {
 		state.loading = false;
@@ -31,7 +30,6 @@ const extraReducersConfigCategories = (builder) => {
 		state.categories = [...state.categories, payload.data];
 		state.loading = false;
 		state.statusCode = payload.statusCode;
-		state.error = null;
 	});
 	builder.addCase(addCategory.rejected, (state, { payload }) => {
 		state.loading = false;
@@ -58,7 +56,6 @@ const extraReducersConfigCategories = (builder) => {
 			...state,
 			categories: updatedCategories,
 			loading: false,
-			error: null,
 		};
 	});
 	builder.addCase(updateCategory.rejected, (state, { payload }) => {
@@ -79,7 +76,6 @@ const extraReducersConfigCategories = (builder) => {
 		});
 
 		state.loading = false;
-		state.error = null;
 	});
 
 	builder.addCase(deleteCategory.rejected, (state, { payload }) => {

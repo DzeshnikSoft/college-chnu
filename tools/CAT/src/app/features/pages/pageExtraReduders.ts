@@ -44,7 +44,6 @@ const extraReducersConfigPages = (builder) => {
 			...state,
 			categories: updatedCategories,
 			loading: false,
-			error: null,
 		};
 	});
 
@@ -100,7 +99,6 @@ const extraReducersConfigPages = (builder) => {
 			...state,
 			categories: updatedCategories,
 			loading: false,
-			error: null,
 		};
 	});
 
@@ -141,7 +139,6 @@ const extraReducersConfigPages = (builder) => {
 			...state,
 			categories: updatedCategories,
 			loading: false,
-			error: null,
 		};
 	});
 

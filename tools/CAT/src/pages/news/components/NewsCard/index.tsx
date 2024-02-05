@@ -1,6 +1,6 @@
 import IconPanel from '../IconPanel';
 import styles from '../NewsCard/style.module.css';
-import { getDate } from '@/helpers/date';
+import { formatUkrainianDateTime } from '@/helpers/date';
 import { useAppDispatch } from '@/app/hooks';
 import { deleteNews } from '@/app/features/news/newsThunks';
 import { Link } from 'react-router-dom';
@@ -46,7 +46,7 @@ function NewsCard({
 						{description}
 					</p>
 					<p className='text-sm mt-2 text-[#999999]'>
-						{getDate(date)}
+						{formatUkrainianDateTime(date)}
 					</p>
 				</div>
 			</div>

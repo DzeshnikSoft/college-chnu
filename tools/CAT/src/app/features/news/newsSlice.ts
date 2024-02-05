@@ -5,14 +5,14 @@ import { PaginationResponse } from '@/models/api';
 import { extraReducersConfigNews } from './newsExtraReducers';
 
 interface NewsInitialState {
-	newsData: PaginationResponse<NewsDto>;
+	data: PaginationResponse<NewsDto>;
 	error: string;
 	news: NewsDto;
 	loading: boolean;
 }
 
 const initialState: NewsInitialState = {
-	newsData: null,
+	data: null,
 	error: null,
 	news: null,
 	loading: true,
@@ -27,7 +27,7 @@ const newsSlice = createSlice({
 	},
 });
 
-export const getNewsDataSelector = (state: RootState) => state.news.newsData;
+export const getNewsDataSelector = (state: RootState) => state.news.data;
 
 export const getNewsLoadingSelector = (state: RootState) => state.news.loading;
 

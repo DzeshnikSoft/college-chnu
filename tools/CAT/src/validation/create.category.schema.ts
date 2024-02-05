@@ -1,9 +1,10 @@
 import * as Yup from 'yup';
+import { REQUIRED_FIELD } from '@/utils/schemaValues';
 
 export const createCategoriesSchema = (data) => {
 	return Yup.object().shape({
 		title: Yup.string()
-			.required("Поле обов'язкове для заповнення")
+			.required(REQUIRED_FIELD)
 			.test(
 				'unique-title',
 				'Така назва для категорії вже існує',
@@ -21,7 +22,7 @@ export const createCategoriesSchema = (data) => {
 				/^[a-z]+(-[a-z]+)*$/,
 				'Усі літери мають бути малими та з алфавіту латині. "-" може бути тільки між буквами.'
 			)
-			.required("Поле обов'язкове для заповнення")
+			.required(REQUIRED_FIELD)
 			.test(
 				'unique-url',
 				'Такий шлях до категорії вже існує',

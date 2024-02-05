@@ -33,9 +33,9 @@ public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequest
 
         var news = new List<Domain.Models.News>();
 
-        if (!string.IsNullOrEmpty(request.QueryFilter.SearchTerm))
+        if (!string.IsNullOrEmpty(request.QueryFilter.searchTerm))
         {
-            news = await query.Where(n => n.Title.ToLower().Contains(request.QueryFilter.SearchTerm.ToLower()) || n.Description.ToLower().Contains(request.QueryFilter.SearchTerm.ToLower()))
+            news = await query.Where(n => n.Title.ToLower().Contains(request.QueryFilter.searchTerm.ToLower()) || n.Description.ToLower().Contains(request.QueryFilter.searchTerm.ToLower()))
                .Skip((pageNumber - 1) * pageSize)
                .Take(pageSize)
                .ToListAsync(cancellationToken);

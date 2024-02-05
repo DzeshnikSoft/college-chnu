@@ -10,5 +10,5 @@ public class QueryFilterModel
 
     public int PageNumber { get; set; }
 
-    public string SearchTerm { get; set; }
+    public string searchTerm { get; set; }
 }

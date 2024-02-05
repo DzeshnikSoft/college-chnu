@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { REQUIRED_FIELD } from '@/utils/schemaValues';
 
 function findSubCategoryById(mainArray, subCategoryId) {
 	const category = mainArray.find((category) =>
@@ -20,7 +21,7 @@ export const createPageSchema = (reduxState, subCategoryId) => {
 
 	return Yup.object().shape({
 		title: Yup.string()
-			.required("Поле обов'язкове для заповнення")
+			.required(REQUIRED_FIELD)
 			.test(
 				'unique-title',
 				'Така назва для сторінки в даній підкатегорії вже існує',
@@ -33,7 +34,7 @@ export const createPageSchema = (reduxState, subCategoryId) => {
 				/^[a-z]+(-[a-z]+)*$/,
 				'Усі літери мають бути малими та з алфавіту латині. "-" може бути тільки між буквами.'
 			)
-			.required("Поле обов'язкове для заповнення")
+			.required(REQUIRED_FIELD)
 			.test(
 				'unique-url',
 				'Такий шлях до сторінки в даній підкатегорії вже існує',

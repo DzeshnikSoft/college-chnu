@@ -42,8 +42,7 @@ export default function UploadFileWrapper({
 	}, [selectedFile]);
 
 	const handleUpload = async () => {
-		const responce = await uploadFile(selectedFile, setLoading);
-		setUrl(responce);
+		setUrl(await uploadFile(selectedFile, setLoading));
 	};
 
 	useEffect(() => {

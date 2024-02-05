@@ -2,19 +2,19 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/app/apiClient';
 import { getErrorMessage } from '@/factories/errorMessage.factory';
 import { PaginationFilterModel } from '@/models/pagination';
-import { NewsStateApi } from '@/models/news';
+import { NewsDto } from '@/models/api';
 
 const url = 'api/News';
 
 export const fetchNewsData = createAsyncThunk(
 	'news/get',
 	async (
-		{ pageNumber, pageSize, SearchTerm }: PaginationFilterModel,
+		{ pageNumber, pageSize, searchTerm }: PaginationFilterModel,
 		thunkAPI
 	) => {
 		try {
 			const responce = await apiClient.get(
-				`${url}?PageSize=${pageSize}&PageNumber=${pageNumber}&SearchTerm=${SearchTerm}`
+				`${url}?PageSize=${pageSize}&PageNumber=${pageNumber}&searchTerm=${searchTerm}`
 			);
 			const { data } = responce;
 			return data;
@@ -27,7 +27,7 @@ export const fetchNewsData = createAsyncThunk(
 
 export const addNews = createAsyncThunk(
 	'news/add',
-	async (postData: NewsStateApi, thunkAPI) => {
+	async (postData: NewsDto, thunkAPI) => {
 		try {
 			await apiClient.post(url, postData);
 			return postData;
@@ -40,7 +40,7 @@ export const addNews = createAsyncThunk(
 
 export const updateNews = createAsyncThunk(
 	'news/update',
-	async (putData: NewsStateApi, thunkAPI) => {
+	async (putData: NewsDto, thunkAPI) => {
 		try {
 			await apiClient.put(url, putData);
 			return putData;

@@ -11,7 +11,7 @@ import PinRadioToggle from '@/components/PinRadioToggle';
 import DatePicker from '@/components/DatePicker';
 import EditTitlePage from '../editPage/editPageWithTitle/components/EditTitlePage';
 import EditorWrapper from '@/components/EditorWrapper';
-import { getDate } from '@/helpers/date';
+import { formatUkrainianDateTime } from '@/helpers/date';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { addNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
@@ -165,7 +165,9 @@ function CreateNews() {
 													{values.description}
 												</p>
 												<p className='text-sm mt-2 text-[#999999]'>
-													{getDate(values.date)}
+													{formatUkrainianDateTime(
+														values.date
+													)}
 												</p>
 											</div>
 										</div>
