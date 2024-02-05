@@ -1,8 +1,12 @@
+using System.Net;
 using AutoMapper;
+using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.News;
+using College.Application.Exceptions;
 using College.Application.Queries.News;
 using College.Domain.DTOs;
+using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -42,12 +46,19 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
     [HttpPost]
     public async Task<ActionResult<Guid>> CreateNews(NewsViewModel newsViewModel)
     {
-        _logger.LogInformation("[NewsController] Received request to create news");
-        var newsDto = _mapper.Map<NewsDto>(newsViewModel);
+        try
+        {
+            _logger.LogInformation("[NewsController] Received request to create news");
+            var newsDto = _mapper.Map<NewsDto>(newsViewModel);
 
-        var newsId = await _mediator.Send(new CreateNewsCommand(newsDto));
+            var newsId = await _mediator.Send(new CreateNewsCommand(newsDto));
 
-        return Ok(newsId);
+            return Ok(newsId);
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
+        }
     }
 
     /// <summary>

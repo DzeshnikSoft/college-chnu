@@ -34,7 +34,7 @@ public class SubCategoryController(IMediator mediator, ILogger<SubCategoryContro
         }
         catch (UrlConflictException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
         }
         catch (EntityNotFoundException ex)
         {
@@ -54,7 +54,7 @@ public class SubCategoryController(IMediator mediator, ILogger<SubCategoryContro
         }
         catch (UrlConflictException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
         }
         catch (EntityNotFoundException ex)
         {
