@@ -10,7 +10,6 @@ import UploadFileWrapper from '@/components/UploadFileWrapper';
 import PinRadioToggle from '@/components/PinRadioToggle';
 import DatePicker from '@/components/DatePicker';
 import EditTitlePage from '@/pages/editPage/editPageWithTitle/components/EditTitlePage';
-//editPage/editPageWithTitle/components/EditTitlePage';
 import EditorWrapper from '@/components/EditorWrapper';
 import { formatUkrainianDateTime } from '@/helpers/date';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
