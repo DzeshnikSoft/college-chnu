@@ -21,6 +21,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { updateNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
 import EditTitlePage from '@/components/EditTitlePage';
+import { fetchNewsData } from '@/app/features/news/newsThunks';
 
 function EditNews() {
 	const dispatch = useAppDispatch();
@@ -46,8 +47,19 @@ function EditNews() {
 
 	const handleSubmit = (values: NewsDto) => {
 		navigate('/news');
-		dispatch(updateNews(values));
+		dispatch(updateNews(values))
+			.then(() => {
+				dispatch(
+					fetchNewsData({
+						pageNumber: 1,
+						pageSize: 4,
+						searchTerm: '',
+					})
+				);
+			})
+			.catch((error) => {});
 	};
+
 	return (
 		<div className='w-full h-full overflow-y-auto flex flex-col'>
 			{isLoading ? (

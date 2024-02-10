@@ -4,7 +4,7 @@ import { formatUkrainianDateTime } from '@/helpers/date';
 import { useAppDispatch } from '@/app/hooks';
 import { deleteNews } from '@/app/features/news/newsThunks';
 import { Link } from 'react-router-dom';
-
+import { fetchNewsData } from '@/app/features/news/newsThunks';
 interface NewsCardProps {
 	id: string;
 	image: string;
@@ -25,7 +25,17 @@ function NewsCard({
 	const dispatch = useAppDispatch();
 
 	const handleDelete = () => {
-		dispatch(deleteNews(id));
+		dispatch(deleteNews(id))
+			.then(() => {
+				dispatch(
+					fetchNewsData({
+						pageNumber: 1,
+						pageSize: 4,
+						searchTerm: '',
+					})
+				);
+			})
+			.catch((error) => {});
 	};
 
 	return (
@@ -53,23 +63,30 @@ function NewsCard({
 			<div
 				className={`left-1/2 flex w-fit -translate-x-2/4 duration-200 bg-white -translate-y-2/4 rounded-t-md ${styles.cardPanel}`}>
 				{pinned ? (
-					<IconPanel classNameIcon='fa-solid fa-bookmark-slash'>
+					<IconPanel
+						classNameIcon='fa-solid fa-bookmark-slash'
+						className='hover:bg-[#390972]'>
 						Відкріпити
 					</IconPanel>
 				) : (
-					<IconPanel classNameIcon='fa-solid fa-bookmark'>
+					<IconPanel
+						classNameIcon='fa-solid fa-bookmark'
+						className='hover:bg-[#390972]'>
 						Закріпити
 					</IconPanel>
 				)}
 				<Link className='h-full' to={`/edit-news/${id}`}>
-					<IconPanel classNameIcon='fa-solid fa-pencil'>
+					<IconPanel
+						classNameIcon='fa-solid fa-pencil '
+						className='hover:bg-[#38a169]'>
 						Оновити
 					</IconPanel>
 				</Link>
 
 				<IconPanel
 					onClick={handleDelete}
-					classNameIcon='fa-solid fa-trash'>
+					classNameIcon='fa-solid fa-trash'
+					className='hover:bg-[#e53e3e]'>
 					Видалити
 				</IconPanel>
 			</div>

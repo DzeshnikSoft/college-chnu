@@ -17,7 +17,7 @@ function IconPanel({
 	return (
 		<div
 			onClick={onClick}
-			className={`border h-full flex w-fit ${styles.iconWrapper} `}>
+			className={`border h-full flex w-fit ${styles.iconWrapper} ${className}`}>
 			<div className='w-10 h-full flex m-auto '>
 				<i className={`m-auto ${classNameIcon}`}></i>
 			</div>

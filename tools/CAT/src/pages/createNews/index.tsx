@@ -15,6 +15,7 @@ import { formatUkrainianDateTime } from '@/helpers/date';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { addNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
+import { fetchNewsData } from '@/app/features/news/newsThunks';
 
 function CreateNews() {
 	const dispatch = useAppDispatch();
@@ -37,10 +38,19 @@ function CreateNews() {
 	};
 
 	const navigate = useNavigate();
-
 	const handleSubmit = (values: NewsDto) => {
 		navigate('/news');
-		dispatch(addNews(values));
+		dispatch(addNews(values))
+			.then(() => {
+				dispatch(
+					fetchNewsData({
+						pageNumber: 1,
+						pageSize: 4,
+						searchTerm: '',
+					})
+				);
+			})
+			.catch((error) => {});
 	};
 
 	return (
