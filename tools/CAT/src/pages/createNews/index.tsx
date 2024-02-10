@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { addNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
 import { fetchNewsData } from '@/app/features/news/newsThunks';
+import { PAGINATION_PROPS } from '@/utils/pagination-props';
 
 function CreateNews() {
 	const dispatch = useAppDispatch();
@@ -39,18 +40,15 @@ function CreateNews() {
 
 	const navigate = useNavigate();
 	const handleSubmit = (values: NewsDto) => {
-		navigate('/news');
-		dispatch(addNews(values))
-			.then(() => {
-				dispatch(
-					fetchNewsData({
-						pageNumber: 1,
-						pageSize: 4,
-						searchTerm: '',
-					})
-				);
-			})
-			.catch((error) => {});
+		dispatch(addNews(values)).then(() => {
+			navigate('/news');
+			dispatch(
+				fetchNewsData({
+					...PAGINATION_PROPS,
+					searchTerm: '',
+				})
+			);
+		});
 	};
 
 	return (

@@ -14,8 +14,9 @@ import {
 import SpinnerWrapper from '@/components/Spinner';
 import { showErrorNotif } from '@/providers/notify';
 import ReactPaginate from 'react-paginate';
-import { PAGINATION_ITEM_STYLE } from '@/utils/repeat-styles';
+import { PAGINATION_ITEM_STYLE } from '@/utils/base-styles';
 import { throttle } from 'lodash';
+import { PAGINATION_PROPS } from '@/utils/pagination-props';
 
 const News = () => {
 	const [selectedPageIndex, setSelectedPageIndex] = useState<number>(0);
@@ -41,7 +42,7 @@ const News = () => {
 		dispatch(
 			fetchNewsData({
 				pageNumber: selected + 1,
-				pageSize: 4,
+				pageSize: PAGINATION_PROPS.pageSize,
 				searchTerm: '',
 			})
 		);

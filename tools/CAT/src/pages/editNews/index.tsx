@@ -22,6 +22,7 @@ import { updateNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
 import EditTitlePage from '@/components/EditTitlePage';
 import { fetchNewsData } from '@/app/features/news/newsThunks';
+import { PAGINATION_PROPS } from '@/utils/pagination-props';
 
 function EditNews() {
 	const dispatch = useAppDispatch();
@@ -47,17 +48,14 @@ function EditNews() {
 
 	const handleSubmit = (values: NewsDto) => {
 		navigate('/news');
-		dispatch(updateNews(values))
-			.then(() => {
-				dispatch(
-					fetchNewsData({
-						pageNumber: 1,
-						pageSize: 4,
-						searchTerm: '',
-					})
-				);
-			})
-			.catch((error) => {});
+		dispatch(updateNews(values)).then(() => {
+			dispatch(
+				fetchNewsData({
+					...PAGINATION_PROPS,
+					searchTerm: '',
+				})
+			);
+		});
 	};
 
 	return (

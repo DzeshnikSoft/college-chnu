@@ -5,6 +5,8 @@ import { useAppDispatch } from '@/app/hooks';
 import { deleteNews } from '@/app/features/news/newsThunks';
 import { Link } from 'react-router-dom';
 import { fetchNewsData } from '@/app/features/news/newsThunks';
+import { PAGINATION_PROPS } from '@/utils/pagination-props';
+
 interface NewsCardProps {
 	id: string;
 	image: string;
@@ -25,17 +27,14 @@ function NewsCard({
 	const dispatch = useAppDispatch();
 
 	const handleDelete = () => {
-		dispatch(deleteNews(id))
-			.then(() => {
-				dispatch(
-					fetchNewsData({
-						pageNumber: 1,
-						pageSize: 4,
-						searchTerm: '',
-					})
-				);
-			})
-			.catch((error) => {});
+		dispatch(deleteNews(id)).then(() => {
+			dispatch(
+				fetchNewsData({
+					...PAGINATION_PROPS,
+					searchTerm: '',
+				})
+			);
+		});
 	};
 
 	return (
