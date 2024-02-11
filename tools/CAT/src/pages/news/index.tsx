@@ -16,7 +16,7 @@ import { showErrorNotif } from '@/providers/notify';
 import ReactPaginate from 'react-paginate';
 import { PAGINATION_ITEM_STYLE } from '@/utils/base-styles';
 import { throttle } from 'lodash';
-import { PAGINATION_PROPS } from '@/utils/pagination-props';
+import { paginationSettings } from '@/utils/pagination';
 
 const News = () => {
 	const [selectedPageIndex, setSelectedPageIndex] = useState<number>(0);
@@ -42,7 +42,7 @@ const News = () => {
 		dispatch(
 			fetchNewsData({
 				pageNumber: selected + 1,
-				pageSize: PAGINATION_PROPS.pageSize,
+				pageSize: paginationSettings.pageSize,
 				searchTerm: '',
 			})
 		);

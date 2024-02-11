@@ -5,7 +5,7 @@ import { useAppDispatch } from '@/app/hooks';
 import { deleteNews } from '@/app/features/news/newsThunks';
 import { Link } from 'react-router-dom';
 import { fetchNewsData } from '@/app/features/news/newsThunks';
-import { PAGINATION_PROPS } from '@/utils/pagination-props';
+import { paginationSettings } from '@/utils/pagination';
 
 interface NewsCardProps {
 	id: string;
@@ -30,7 +30,7 @@ function NewsCard({
 		dispatch(deleteNews(id)).then(() => {
 			dispatch(
 				fetchNewsData({
-					...PAGINATION_PROPS,
+					...paginationSettings,
 					searchTerm: '',
 				})
 			);

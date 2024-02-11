@@ -22,7 +22,7 @@ import { updateNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
 import EditTitlePage from '@/components/EditTitlePage';
 import { fetchNewsData } from '@/app/features/news/newsThunks';
-import { PAGINATION_PROPS } from '@/utils/pagination-props';
+import { paginationSettings } from '@/utils/pagination';
 
 function EditNews() {
 	const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ function EditNews() {
 		dispatch(updateNews(values)).then(() => {
 			dispatch(
 				fetchNewsData({
-					...PAGINATION_PROPS,
+					...paginationSettings,
 					searchTerm: '',
 				})
 			);

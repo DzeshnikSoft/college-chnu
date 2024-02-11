@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { addNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
 import { fetchNewsData } from '@/app/features/news/newsThunks';
-import { PAGINATION_PROPS } from '@/utils/pagination-props';
+import { paginationSettings } from '@/utils/pagination';
 
 function CreateNews() {
 	const dispatch = useAppDispatch();
@@ -44,7 +44,7 @@ function CreateNews() {
 			navigate('/news');
 			dispatch(
 				fetchNewsData({
-					...PAGINATION_PROPS,
+					...paginationSettings,
 					searchTerm: '',
 				})
 			);
