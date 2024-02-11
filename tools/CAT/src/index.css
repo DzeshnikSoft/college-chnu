@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.previous-next > a {
+	width: 100% !important;
+	height: 100% !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
