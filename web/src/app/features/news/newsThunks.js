@@ -11,8 +11,6 @@ export const fetchNewsData = createAsyncThunk(
 				`${url}?PageSize=${pageSize}&PageNumber=${pageNumber}&searchTerm=${searchTerm}`
 			);
 			return responce.data;
-		} catch (error) {
-			const { data } = error.responce;
-		}
+		} catch (error) {}
 	}
 );
