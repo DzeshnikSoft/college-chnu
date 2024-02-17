@@ -8,8 +8,6 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
-        env:
-            DEPLOY_BRANCH: ${{ github.event.inputs.branch || 'main' }}
 
         steps:
             - name: Checkout code
@@ -28,10 +26,7 @@ jobs:
                       USERNAME: ${{ secrets.USERNAME }}
                       PASSWORD: ${{ secrets.PASSWORD }}
                       FILES_URL: ${{ secrets.FILES_URL }}
-                      DEPLOY_BRANCH: ${{ env.DEPLOY_BRANCH }}
                   script: |
                       cd /projects/college-chnu
                       git restore .
-                      git checkout $DEPLOY_BRANCH
-                      git pull
                       pwsh ./tools/scripts/prod-deploy.ps1 -apiUrl $API_URL -apiKey $API_KEY -username $USERNAME -password $PASSWORD -filesUrl $FILES_URL
