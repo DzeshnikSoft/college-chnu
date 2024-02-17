@@ -5,7 +5,9 @@ param(
     [string]$password,
     [string]$filesUrl
 )
-
+Write-Host "--------------------------------------------"
+Write-Host "🔥🔥🔥 Started deployment 🔥🔥🔥"
+Write-Host ""
 # Stop and remove all Docker containers
 docker-compose down
 
@@ -24,3 +26,8 @@ docker-compose build
 
 # Start all Docker containers in detached mode
 docker-compose up -d
+
+Write-Host ""
+Write-Host "--------------------------------------------"
+
+Write-Host "🔥🔥🔥 Finished deployment 🔥🔥🔥"
