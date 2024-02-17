@@ -11,7 +11,6 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("files")]
-[Authorize(AuthenticationSchemes = "College Api Key Scheme")]
 public class FileController(IMediator mediator, ILogger<FileController> logger, FileStorageSettings fileStorageSettings) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
@@ -52,6 +51,7 @@ public class FileController(IMediator mediator, ILogger<FileController> logger, 
     }
 
     [HttpPost]
+    [Authorize(AuthenticationSchemes = "College Api Key Scheme")]
     public async Task<string> UploadFileAsync(string? fileName, IFormFile file)
     {
         if (file is null || file.Length == 0)
