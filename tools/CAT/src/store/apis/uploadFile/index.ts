@@ -8,9 +8,12 @@ const uploadFile = async (selectedFile, setLoading) => {
 	formData.append('file', selectedFile);
 	formData.append('fileName', selectedFile.name);
 	try {
-		// const response = await apiClient.post('files', formData);
-		// const { data } = response;
-		return 'https://fmi.chnu.edu.ua/media/kcegr3ix/matfak-plusblack43.jpg?cc=0,0.072520908468213,0,0.16990333395602947&width=1920&height=832&quality=80';
+		const response = await apiClient.post(
+			'http://85.217.171.81/files',
+			formData
+		);
+
+		return response.data;
 	} catch (error) {
 		const { data } = error.response;
 		showErrorNotif(getErrorMessage(data) || 'Упс, щось пішло не так');

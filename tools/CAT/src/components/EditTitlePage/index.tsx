@@ -6,8 +6,8 @@ import { Field } from 'formik';
 interface EditTitlePageState {
 	label: string;
 	url: string;
-	nameLabel?: string;
-	nameUrl?: string;
+	nameLabel: string;
+	nameUrl: string;
 }
 
 export default function EditTitlePage({

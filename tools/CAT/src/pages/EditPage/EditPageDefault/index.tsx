@@ -7,7 +7,7 @@ interface EditPageDefaultProps {
 export default function EditPageDefault({ content }: EditPageDefaultProps) {
 	return (
 		<div className='w-full'>
-			<EditorWrapper content={content} />
+			<EditorWrapper name='content' content={content} />
 		</div>
 	);
 }

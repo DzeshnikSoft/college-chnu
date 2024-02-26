@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { itemsEditor } from '../../utils/editorProps';
 import { Button } from '@chakra-ui/react';

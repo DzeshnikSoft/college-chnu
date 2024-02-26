@@ -3,7 +3,6 @@ import EditPageDefault from './EditPageDefault';
 import EditPageWithTitle from './EditPageWithTitle';
 import Edit from '@/components/Edit';
 import { Link } from 'react-router-dom';
-import UploadFileWrapper from '@/components/UploadFileWrapper';
 import SpinnerWrapper from '@/components/Spinner';
 import { Button } from '@chakra-ui/react';
 import DeleteButton from '@/components/DeleteButton';
@@ -63,6 +62,7 @@ export default function EditPage() {
 		navigate('/pages');
 		dispatch(deletePage(pageData.id));
 	};
+
 	const handleUpdate = (values: PageDto) => {
 		dispatch(updatePage(values));
 		navigate(`/pages`);
@@ -113,14 +113,15 @@ export default function EditPage() {
 												Назад
 											</Button>
 										</Link>
-										<Button
-											type='submit'
-											disabled={!isValid}
-											colorScheme='green'
-											className='w-fit px-10 py-4'>
-											Оновити дані
-										</Button>
 										<div className=''>
+											<Button
+												type='submit'
+												disabled={!isValid}
+												colorScheme='green'
+												className='w-fit px-10 py-4'>
+												Оновити дані
+											</Button>
+
 											<DeleteButton
 												onClick={handleDelete}
 												className='mx-4'>

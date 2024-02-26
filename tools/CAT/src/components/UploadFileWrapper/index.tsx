@@ -46,7 +46,8 @@ export default function UploadFileWrapper({
 	};
 
 	useEffect(() => {
-		setFieldValue(`${name}`, url);
+		setFieldValue(name, url);
+		console.log(url);
 	}, [url]);
 
 	return (
