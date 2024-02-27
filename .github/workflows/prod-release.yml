@@ -1,28 +1,32 @@
 name: Deploy to PRODUCTION
 
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
 
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USERNAME }}
-        password: ${{ secrets.VPS_PASSWORD }}
-        port: 22
-        script: |
-          cd /projects/college-chnu
-          git pull
-          docker-compose down
-          docker-compose build
-          docker-compose up -d
+            - name: executing remote ssh commands using password
+              uses: appleboy/ssh-action@v1.0.0
+              with:
+                  host: ${{ secrets.VPS_HOST }}
+                  username: ${{ secrets.VPS_USERNAME }}
+                  password: ${{ secrets.VPS_PASSWORD }}
+                  port: 22
+                  env:
+                      API_URL: ${{ secrets.API_URL }}
+                      API_KEY: ${{ secrets.API_KEY }}
+                      USERNAME: ${{ secrets.USERNAME }}
+                      PASSWORD: ${{ secrets.PASSWORD }}
+                      FILES_URL: ${{ secrets.FILES_URL }}
+                  script: |
+                      cd /projects/college-chnu
+                      git restore .
+                      pwsh ./tools/scripts/prod-deploy.ps1 -apiUrl $API_URL -apiKey $API_KEY -username $USERNAME -password $PASSWORD -filesUrl $FILES_URL

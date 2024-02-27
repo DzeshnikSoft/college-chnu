@@ -10,9 +10,14 @@ services:
         build:
             context: ./services
         ports:
-            - '5005:80'
+            - '5001:5001'
         volumes:
             - /root/storage:/root/storage
+    cat:
+        build:
+            context: ./tools/CAT
+        ports:
+            - '4000:4000'
 
     nginx:
         build:
