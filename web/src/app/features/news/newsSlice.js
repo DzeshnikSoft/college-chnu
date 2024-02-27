@@ -19,6 +19,4 @@ export const getNewsDataSelector = (state) => state.news.data;
 
 export const getNewsLoadingSelector = (state) => state.news.loading;
 
-export const getNewsErrorSelector = (state) => state.news.error;
-
 export default newsSlice.reducer;

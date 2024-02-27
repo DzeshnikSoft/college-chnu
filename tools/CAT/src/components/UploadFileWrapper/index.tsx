@@ -3,7 +3,7 @@ import { InputGroup, InputLeftAddon } from '@chakra-ui/react';
 
 import { Button } from '@chakra-ui/react';
 import SpinnerWrapper from '../Spinner';
-import uploadFile from '@/store/apis/uploadFile';
+import uploadFile from '@/app/apis/uploadFile';
 import { useFormikContext } from 'formik';
 
 interface UploadFileWrapperProps {
