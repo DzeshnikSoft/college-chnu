@@ -1,9 +1,9 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { itemsEditor } from '../../utils/editorProps';
 import { Button } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
-import uploadFile from '@/store/apis/uploadFile';
+import uploadFile from '@/app/apis/uploadFile';
 
 interface EditorWrapperProps {
 	content: string;

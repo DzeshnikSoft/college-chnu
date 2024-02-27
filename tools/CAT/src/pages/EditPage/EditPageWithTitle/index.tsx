@@ -14,8 +14,13 @@ export default function EditPageWithTitle({
 }: EditPageDefaultProps) {
 	return (
 		<div className='w-full'>
-			<EditTitlePage label={title} url={img} />
-			{/* <EditorWrapper content={content} /> */}
+			<EditTitlePage
+				nameLabel='template.label'
+				nameUrl='template.image.url'
+				label={title}
+				url={img}
+			/>
+			<EditorWrapper name='content' content={content} />
 		</div>
 	);
 }
