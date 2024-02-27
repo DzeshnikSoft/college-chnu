@@ -47,7 +47,7 @@ public class CategoriesController(ILogger<CategoriesController> logger, IMediato
         }
         catch (UrlConflictException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
         }
     }
 
@@ -63,7 +63,7 @@ public class CategoriesController(ILogger<CategoriesController> logger, IMediato
         }
         catch (UrlConflictException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
         }
         catch (EntityNotFoundException ex)
         {

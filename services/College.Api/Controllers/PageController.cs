@@ -50,7 +50,7 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
         }
         catch (UrlConflictException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
         }
     }
 
