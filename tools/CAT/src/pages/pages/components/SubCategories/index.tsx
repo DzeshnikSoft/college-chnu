@@ -12,11 +12,18 @@ import List from '../List';
 import { Formik, ErrorMessage, Form } from 'formik';
 import { updateSubCategoriesSchema } from '@/validation/update.subCategory.schema';
 import { getСategoryDataSelector } from '@/app/features/categories/categorySlice';
+import ButtonArrow from '@/components/ButtonArrow';
+import { moveSubCategory } from '@/app/features/categories/categorySlice';
 
 interface SubCategoryState {
 	subCategoryId: string;
 	title: string;
 	url: string;
+}
+interface SubCategoryProps extends SubCategoryDto {
+	parentUrl: string;
+	index: number;
+	subCategoryLength: number;
 }
 
 export default function SubCategories({
@@ -26,7 +33,9 @@ export default function SubCategories({
 	id,
 	parentUrl,
 	categoryId,
-}: SubCategoryDto & { parentUrl: string } & { categoryId: string }) {
+	subCategoryLength,
+	index,
+}: SubCategoryProps) {
 	const categoriesData = useAppSelector(getСategoryDataSelector);
 	const dispatch = useAppDispatch();
 	const initialSubCategory: SubCategoryState = {
@@ -43,8 +52,34 @@ export default function SubCategories({
 		dispatch(deleteSubCategory(id));
 	};
 
+	const rightButtonClick = (currentIndex) => {
+		event.preventDefault();
+		event.stopPropagation();
+		const nextItemIndex = currentIndex + 1;
+		dispatch(
+			moveSubCategory({
+				currentIndex,
+				newIndex: nextItemIndex,
+				categoryId,
+			})
+		);
+	};
+
+	const leftButtonClick = (currentIndex) => {
+		event.preventDefault();
+		event.stopPropagation();
+		const prevItemIndex = currentIndex - 1;
+		dispatch(
+			moveSubCategory({
+				currentIndex,
+				newIndex: prevItemIndex,
+				categoryId,
+			})
+		);
+	};
+
 	return (
-		<Card className='h-full w-full p-3'>
+		<Card className='h-full w-full p-3 relative'>
 			<div className='w-full flex items-center justify-between mb-5'>
 				<Formik
 					initialValues={initialSubCategory}
@@ -105,6 +140,21 @@ export default function SubCategories({
 				subCategoryId={initialSubCategory.subCategoryId}
 				parentUrl={`${defaultUrl}${parentUrl}/${initialSubCategory.url}/`}
 			/>
+			{subCategoryLength !== 1 && index !== subCategoryLength - 1 && (
+				<ButtonArrow
+					type='right'
+					onClick={() => rightButtonClick(index)}
+					className='!absolute bottom-3 right-3 !text-sm !h-10 w-6'
+				/>
+			)}
+
+			{subCategoryLength !== 1 && index !== 0 && (
+				<ButtonArrow
+					className='!absolute bottom-3 left-3 !text-sm !h-10 w-6'
+					onClick={() => leftButtonClick(index)}
+					type='left'
+				/>
+			)}
 		</Card>
 	);
 }
