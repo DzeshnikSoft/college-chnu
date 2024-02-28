@@ -23,15 +23,18 @@ export default function List({
 	const handleOpen = () => {
 		setIsDialogCreatePage(true);
 	};
+
 	return (
 		<ul className='flex flex-col overflow-hidden'>
 			{pages?.map(({ title, id, subCategoryId, url }, index) => (
 				<ListItem
 					id={id}
 					parentUrl={parentUrl}
-					key={index}
+					key={id}
 					url={url}
-					subCategoryId={subCategoryId}>
+					subCategoryId={subCategoryId}
+					index={index}
+					pagesLength={pages?.length}>
 					{' '}
 					{title}{' '}
 				</ListItem>
