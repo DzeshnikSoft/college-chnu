@@ -6,7 +6,7 @@ const Footer = () => {
 	return (
 		<footer className='footer' id='footer'>
 			<div className='w-10/12 mx-auto flex gap-10 h-[250px]'>
-				<div class='w-full flex h-full'>
+				<div className='w-full flex h-full'>
 					<div className='h-4/6 w-2/12 my-auto'>
 						<img src='./logo.png' alt='' className='h-full' />
 					</div>

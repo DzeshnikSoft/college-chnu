@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './mainPage.css';
-
 import CarouselWelcome from './components/CarouselWelcome';
 import NewsMainPage from './components/NewsMainPage';
 import Director from './components/Director';
