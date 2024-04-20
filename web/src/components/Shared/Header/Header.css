@@ -12,7 +12,7 @@
 .menu .topmenu > li .active:after {
 	background: none repeat scroll 0 0 transparent;
 	bottom: 0;
-	content: "";
+	content: '';
 	display: block;
 	height: 5px;
 	position: absolute;
@@ -22,7 +22,7 @@
 .menu .topmenu > li a:after {
 	background: none repeat scroll 0 0 transparent;
 	bottom: 0;
-	content: "";
+	content: '';
 	display: block;
 	height: 5px;
 	position: absolute;
