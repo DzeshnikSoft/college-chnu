@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import NavBarStage from '../NavBarStage';
-
+import NavMenuItem from '../NavMenuItem';
 function LaptopNavBar({ handleClose, navMenuData }) {
 	const [stage, setStage] = useState({
 		index: 0,
@@ -31,22 +31,14 @@ function LaptopNavBar({ handleClose, navMenuData }) {
 							stage.items?.map(
 								(item) =>
 									item.subCategories?.length > 0 && (
-										<li className='mx-5 text-colorTextColor text-lg my-4 flex cursor-pointer font-medium w-11/12'>
-											<NavLink
-												onClick={(e) => {
-													e.preventDefault();
-													categoryStageClick(item);
-												}}
-												to={`/${item.url}`}
-												className={({ isActive }) =>
-													isActive
-														? 'font-black h-full items-center w-full flex justify-between'
-														: `h-full items-center w-full flex justify-between`
-												}>
-												{item.title}
-												<i className='fa-solid fa-angle-right'></i>
-											</NavLink>
-										</li>
+										<NavMenuItem
+											onClick={(e) => {
+												e.preventDefault();
+												categoryStageClick(item);
+											}}
+											to={`/${item.url}`}
+											item={item}
+										/>
 									)
 							)}
 					</NavBarStage>
@@ -68,22 +60,14 @@ function LaptopNavBar({ handleClose, navMenuData }) {
 							stage.items?.map(
 								(item) =>
 									item.pages?.length > 0 && (
-										<li className='mx-5 text-colorTextColor text-lg my-4 flex cursor-pointer font-medium w-11/12'>
-											<NavLink
-												to={`/${stage.paths[0]}/${item.url}`}
-												onClick={(e) => {
-													e.preventDefault();
-													subCategoryStageClick(item);
-												}}
-												className={({ isActive }) =>
-													isActive
-														? 'font-black h-full items-center w-full flex justify-between'
-														: `h-full items-center w-full flex justify-between`
-												}>
-												{item.title}
-												<i className='fa-solid fa-angle-right'></i>
-											</NavLink>
-										</li>
+										<NavMenuItem
+											onClick={(e) => {
+												e.preventDefault();
+												subCategoryStageClick(item);
+											}}
+											to={`/${stage.paths[0]}/${item.url}`}
+											item={item}
+										/>
 									)
 							)}
 					</NavBarStage>
@@ -107,19 +91,11 @@ function LaptopNavBar({ handleClose, navMenuData }) {
 						</div>
 						{stage.items &&
 							stage.items?.map((item) => (
-								<li className='mx-5 text-colorTextColor text-lg my-4 flex cursor-pointer font-medium w-11/12'>
-									<NavLink
-										to={`/${stage.paths[0]}/${stage.paths[1]}/${item.url}`}
-										onClick={handleClose}
-										className={({ isActive }) =>
-											isActive
-												? 'font-black h-full items-center w-full flex justify-between'
-												: `h-full items-center w-full flex justify-between`
-										}>
-										{item.title}
-										<i className='fa-solid fa-angle-right'></i>
-									</NavLink>
-								</li>
+								<NavMenuItem
+									onClick={handleClose}
+									to={`/${stage.paths[0]}/${stage.paths[1]}/${item.url}`}
+									item={item}
+								/>
 							))}
 					</NavBarStage>
 				);

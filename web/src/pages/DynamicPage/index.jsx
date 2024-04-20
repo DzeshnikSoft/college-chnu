@@ -12,7 +12,6 @@ function DynamicPage() {
 	const { category, subcategory, page } = useParams();
 	const [statusCode, setStatusCode] = useState(0);
 	const [pageData, setPageData] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
 	const dataNavMenu = useSelector(getNavMenuData);
 
 	useEffect(() => {
@@ -26,8 +25,6 @@ function DynamicPage() {
 					setPageData(data);
 				} catch (error) {
 					setStatusCode(error.response.status);
-				} finally {
-					setIsLoading(false);
 				}
 			})();
 		}
