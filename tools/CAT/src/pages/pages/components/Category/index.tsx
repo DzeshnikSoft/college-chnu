@@ -121,15 +121,17 @@ export default function Category({
 				</DeleteButton>
 			</div>
 			<div className='grid grid-cols-2 gap-10 w-11/12 mx-auto place-items-center'>
-				{subCategories?.map(({ title, pages, id, url }) => (
+				{subCategories?.map(({ title, pages, id, url }, index) => (
 					<SubCategories
 						url={url}
 						pages={pages}
+						index={index}
 						title={title}
 						id={id}
 						categoryId={initialCategory.categoryId}
 						parentUrl={urlForChild}
 						key={id}
+						subCategoryLength={subCategories?.length}
 					/>
 				))}
 				<AddButton
