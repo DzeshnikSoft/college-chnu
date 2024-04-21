@@ -188,6 +188,7 @@ function EditNews() {
 								/>
 								<EditorWrapper
 									name='content'
+									nameText='textContent'
 									content={values.content}
 								/>
 							</div>

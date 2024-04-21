@@ -8,18 +8,26 @@ import uploadFile from '@/app/apis/uploadFile';
 interface EditorWrapperProps {
 	content: string;
 	name: string;
+	nameText: string;
 }
 
-export default function EditorWrapper({ content, name }: EditorWrapperProps) {
+export default function EditorWrapper({
+	content,
+	name,
+	nameText,
+}: EditorWrapperProps) {
 	const { setFieldValue } = useFormikContext();
 	const editorRef = useRef(null);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
-	const [url, setUrl] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const handleClick = () => {
 		if (editorRef.current) {
 			setFieldValue(name, editorRef.current.getContent());
+			setFieldValue(
+				nameText,
+				editorRef.current.getContent({ format: 'text' })
+			);
 		}
 	};
 

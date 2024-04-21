@@ -4,6 +4,7 @@ import EditTitlePage from '@/components/EditTitlePage';
 interface EditPageDefaultProps {
 	content: string;
 	title: string;
+	nameText: string;
 	img: string;
 }
 
@@ -11,6 +12,7 @@ export default function EditPageWithTitle({
 	title,
 	content,
 	img,
+	nameText,
 }: EditPageDefaultProps) {
 	return (
 		<div className='w-full'>
@@ -20,7 +22,11 @@ export default function EditPageWithTitle({
 				label={title}
 				url={img}
 			/>
-			<EditorWrapper name='content' content={content} />
+			<EditorWrapper
+				nameText={nameText}
+				name='content'
+				content={content}
+			/>
 		</div>
 	);
 }
