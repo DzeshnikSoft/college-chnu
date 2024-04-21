@@ -22,7 +22,7 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
     private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     [HttpGet]
-    public async Task<ActionResult<PaginationModel<NewsDto>>> GetNews([FromQuery] QueryFilterModel queryFilter)
+    public async Task<ActionResult<Paginator<NewsDto>>> GetNewsAsync([FromQuery] QueryFilterModel queryFilter)
     {
         _logger.LogInformation("[NewsController] Received request to get all news");
         var news = await _mediator.Send(new GetNewsQuery(queryFilter));
@@ -30,8 +30,14 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
         return Ok(news);
     }
 
+    [HttpGet("search")]
+    public async Task<ActionResult<Paginator<NewsDto>>> SearchNewsAsync([FromQuery] QueryFilterModel queryFilter)
+    {
+        return Ok(await _mediator.Send(new SearchNewsQuery(queryFilter)));
+    }
+
     [HttpGet("{newsId:guid}")]
-    public async Task<ActionResult<NewsDto>> GetNewsById(Guid newsId)
+    public async Task<ActionResult<NewsDto>> GetNewsByIdAsync(Guid newsId)
     {
         _logger.LogInformation("[NewsController] Received request to get news by id = {NewsId}", newsId);
 
@@ -44,7 +50,7 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
     /// <param name="newsViewModel">News info</param>
     /// <returns>New news GUID</returns>
     [HttpPost]
-    public async Task<ActionResult<Guid>> CreateNews(NewsViewModel newsViewModel)
+    public async Task<ActionResult<Guid>> CreateNewsAsync(NewsViewModel newsViewModel)
     {
         try
         {

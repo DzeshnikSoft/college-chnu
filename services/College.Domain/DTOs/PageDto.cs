@@ -10,6 +10,8 @@ public class PageDto
 
     public string Content { get; set; }
 
+    public string TextContent { get; set; }
+
     public Guid SubCategoryId { get; set; }
 
     public TemplateDto Template { get; set; }

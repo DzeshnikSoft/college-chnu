@@ -24,6 +24,7 @@ public record UpdateSubCategoryViewModel(Guid SubCategoryId, string Title, strin
 public record PageViewModel(
     string Title,
     string Content,
+    string TextContent,
     string Url,
     Guid SubCategoryId,
     TemplateViewModel Template);

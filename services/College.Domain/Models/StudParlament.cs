@@ -9,4 +9,6 @@ public class StudParlament
     public string Posada { get; set; }
 
     public string Image { get; set; }
+
+    public DateTime CreateDateUtc { get; set; }
 }
