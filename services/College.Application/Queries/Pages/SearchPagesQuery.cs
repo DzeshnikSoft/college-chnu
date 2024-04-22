@@ -23,7 +23,8 @@ internal class SearchPagesQueryHandler(CollegeDbContext db, ITextProcessor textP
 
         var query = string.IsNullOrWhiteSpace(filter.SearchTerm)
             ? _db.Pages.OrderByDescending(p => p.CreateDateUtc)
-            : _db.Pages.Where(p => p.Title.ToLower().Contains(filter.SearchTerm.ToLower()) || p.Content.ToLower().Contains(filter.SearchTerm.ToLower()))
+            : _db.Pages
+            .Where(p => p.Title.ToLower().Contains(filter.SearchTerm.ToLower()) || (!string.IsNullOrEmpty(p.TextContent) && p.TextContent.ToLower().Contains(filter.SearchTerm.ToLower())))
             .Include(p => p.SubCategory)
             .ThenInclude(p => p.Category)
             .OrderByDescending(p => p.CreateDateUtc);

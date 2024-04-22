@@ -11,6 +11,9 @@ public class TextProcessor : ITextProcessor
 {
     public (string[] sentences, string[] highlightedSentences) FindSentences(string content, string searchTerm)
     {
+        if (string.IsNullOrEmpty(content) || string.IsNullOrEmpty(searchTerm))
+            return ([], []);
+
         var sentences = new List<string>();
         var highlightedSentences = new List<string>();
         var pattern = @"(?<=[.!?])\s*\n*\s*";

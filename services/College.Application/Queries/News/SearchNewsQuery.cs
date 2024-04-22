@@ -24,7 +24,7 @@ internal class SearchNewsQueryHandler(CollegeDbContext db, ITextProcessor textPr
         var query = string.IsNullOrWhiteSpace(filter.SearchTerm)
             ? _db.News.OrderByDescending(p => p.CreateDateUtc)
             : _db.News
-            .Where(p => p.Title.ToLower().Contains(filter.SearchTerm.ToLower()) || p.Content.ToLower().Contains(filter.SearchTerm.ToLower()))
+            .Where(p => p.Title.ToLower().Contains(filter.SearchTerm.ToLower()) || (!string.IsNullOrEmpty(p.TextContent) && p.TextContent.ToLower().Contains(filter.SearchTerm.ToLower())))
             .OrderByDescending(p => p.CreateDateUtc);
 
         var newsQuery = filter.PageNumber.HasValue && filter.PageSize.HasValue
