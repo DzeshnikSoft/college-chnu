@@ -1,5 +1,6 @@
 using College.API.Exceptions;
 using College.Application.Exceptions;
+using College.Domain.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -78,6 +79,19 @@ public class ApiExceptionFilter(ILogger<ApiExceptionFilter> logger) : IException
             };
 
             context.Result = new BadRequestObjectResult(validationError);
+            return;
+        }
+
+        if (context.Exception is EntityNotFoundException entityNotFoundException)
+        {
+            var notFoundError = new ApiError
+            {
+                ReasonCode = $"college_api_{entityNotFoundException.Entity.ToLower()}_not_found_error",
+                RequestId = context.HttpContext.TraceIdentifier,
+                Message = entityNotFoundException.Message
+            };
+
+            context.Result = new NotFoundObjectResult(notFoundError);
             return;
         }
 

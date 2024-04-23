@@ -6,6 +6,7 @@ using College.Application.Commands.News;
 using College.Application.Exceptions;
 using College.Application.Queries.News;
 using College.Domain.DTOs;
+using College.Domain.Models;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
@@ -42,6 +43,14 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
         _logger.LogInformation("[NewsController] Received request to get news by id = {NewsId}", newsId);
 
         return Ok(await _mediator.Send(new GetNewsByIdQuery(newsId)));
+    }
+
+    [HttpGet("by-path/{url}")]
+    public async Task<ActionResult<NewsDto>> GetNewsByPathAsync(string url)
+    {
+        _logger.LogInformation("[NewsController] Received request to get news by path = {NewsUrl}", url);
+
+        return Ok(await _mediator.Send(new GetNewsByPathQuery(url)));
     }
 
     /// <summary>
