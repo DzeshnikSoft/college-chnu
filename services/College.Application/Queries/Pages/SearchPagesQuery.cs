@@ -20,6 +20,7 @@ internal class SearchPagesQueryHandler(CollegeDbContext db, ITextProcessor textP
     public async Task<Paginator<SearchViewModel>> Handle(SearchPagesQuery request, CancellationToken cancellationToken)
     {
         var filter = request.Filter;
+        filter.SearchTerm = filter.SearchTerm.Trim();
 
         var query = string.IsNullOrWhiteSpace(filter.SearchTerm)
             ? _db.Pages.OrderByDescending(p => p.CreateDateUtc)

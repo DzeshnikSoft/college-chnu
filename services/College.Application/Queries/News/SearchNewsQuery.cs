@@ -20,11 +20,15 @@ internal class SearchNewsQueryHandler(CollegeDbContext db, ITextProcessor textPr
     public async Task<Paginator<SearchViewModel>> Handle(SearchNewsQuery request, CancellationToken cancellationToken)
     {
         var filter = request.Filter;
+        filter.SearchTerm = filter.SearchTerm.Trim();
 
         var query = string.IsNullOrWhiteSpace(filter.SearchTerm)
             ? _db.News.OrderByDescending(p => p.CreateDateUtc)
             : _db.News
-            .Where(p => p.Title.ToLower().Contains(filter.SearchTerm.ToLower()) || (!string.IsNullOrEmpty(p.TextContent) && p.TextContent.ToLower().Contains(filter.SearchTerm.ToLower())))
+            .Where(p =>
+                    p.Title.ToLower().Contains(filter.SearchTerm.ToLower())
+                    || p.Description.ToLower().Contains(filter.SearchTerm.ToLower())
+                    || (!string.IsNullOrEmpty(p.TextContent) && p.TextContent.ToLower().Contains(filter.SearchTerm.ToLower())))
             .OrderByDescending(p => p.CreateDateUtc);
 
         var newsQuery = filter.PageNumber.HasValue && filter.PageSize.HasValue
@@ -37,15 +41,15 @@ internal class SearchNewsQueryHandler(CollegeDbContext db, ITextProcessor textPr
             p =>
             {
                 var (sentences, highlightedSentences) = !string.IsNullOrWhiteSpace(filter.SearchTerm)
-                    ? _textProcessor.FindSentences(p.TextContent, filter.SearchTerm)
+                    ? _textProcessor.FindSentences(string.Join(" ", p.Description, p.TextContent), filter.SearchTerm)
                     : ([], []);
 
                 return new SearchViewModel(
                             p.Id,
                             p.Title,
                             p.Url,
-                            highlightedSentences,
-                            sentences);
+                            sentences,
+                            highlightedSentences);
             })
             .ToList();
 

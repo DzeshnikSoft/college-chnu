@@ -33,6 +33,7 @@ public record UpdatePageViewModel(
     Guid Id,
     string Title,
     string Content,
+    string TextContent,
     string Url,
     Guid SubCategoryId,
     TemplateViewModel Template);

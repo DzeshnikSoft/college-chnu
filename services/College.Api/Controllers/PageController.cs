@@ -65,6 +65,7 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
                 pageViewModel.Title,
                 pageViewModel.Url,
                 pageViewModel.Content,
+                pageViewModel.TextContent,
                 pageViewModel.SubCategoryId,
                 new TemplateDto
                 {
