@@ -11,4 +11,6 @@ public class Administrator
     public string Posada { get; set; }
 
     public string Status { get; set; }
+
+    public DateTime CreateDateUtc { get; set; }
 }
