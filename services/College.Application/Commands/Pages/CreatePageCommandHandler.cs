@@ -46,7 +46,8 @@ public class CreatePageCommandHandler(CollegeDbContext db, IMapper mapper, ITemp
         {
             Title = request.Title,
             Content = request.Content,
-            TextContent = request.TextContent.ToTextOnlyString(),
+            TextContent = string.IsNullOrEmpty(request.TextContent)
+                ? string.Empty : request.TextContent.ToTextOnlyString(),
             Url = request.Url,
             Template = _templateFactory.Create(request.Template)
         };
