@@ -20,6 +20,7 @@ public class Paginator<T>
     public Paginator(IList<T> data)
     {
         Data = data;
+        TotalItems = data.Count;
     }
 
     public IList<T> Data { get; set; }

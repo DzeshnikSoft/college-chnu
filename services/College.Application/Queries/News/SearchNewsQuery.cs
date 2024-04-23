@@ -49,6 +49,9 @@ internal class SearchNewsQueryHandler(CollegeDbContext db, ITextProcessor textPr
             })
             .ToList();
 
+        if (filter.PageNumber.HasValue && filter.PageSize.HasValue)
+            return new Paginator<SearchViewModel>(searchResult, filter.PageNumber.Value, filter.PageSize.Value, news.Count);
+
         return new Paginator<SearchViewModel>(searchResult);
     }
 }

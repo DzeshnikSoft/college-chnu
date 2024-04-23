@@ -51,6 +51,9 @@ internal class SearchPagesQueryHandler(CollegeDbContext db, ITextProcessor textP
             })
             .ToList();
 
+        if (filter.PageNumber.HasValue && filter.PageSize.HasValue)
+            return new Paginator<SearchViewModel>(searchResult, filter.PageNumber.Value, filter.PageSize.Value, pages.Count);
+
         return new Paginator<SearchViewModel>(searchResult);
     }
 }
