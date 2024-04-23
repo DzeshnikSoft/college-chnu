@@ -1,4 +1,5 @@
 using College.API.Exceptions;
+using College.Application.Exceptions;
 using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,11 @@ public class ApiExceptionFilter(ILogger<ApiExceptionFilter> logger) : IException
                         gatewayEx.ReasonCode);
                     result = new NotFoundObjectResult(gatewayError);
                     break;
+                case HttpStatusCode.Conflict:
+                    _logger.LogError(gatewayEx, "ApiException Conflict Thrown: ReasonCode: {ReasonCode}",
+                       gatewayEx.ReasonCode);
+                    result = new ConflictObjectResult(gatewayError);
+                    break;
                 case HttpStatusCode.InternalServerError:
                     _logger.LogError(gatewayEx, "ApiException InternalServerError Thrown: ReasonCode: {ReasonCode}",
                         gatewayEx.ReasonCode);
@@ -74,7 +80,6 @@ public class ApiExceptionFilter(ILogger<ApiExceptionFilter> logger) : IException
             context.Result = new BadRequestObjectResult(validationError);
             return;
         }
-
 
         var error = new ApiError
         {

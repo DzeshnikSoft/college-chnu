@@ -39,6 +39,8 @@ public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequest
                .Skip((pageNumber - 1) * pageSize)
                .Take(pageSize)
                .ToListAsync(cancellationToken);
+
+            totalCount = news.Count;
         }
         else
         {

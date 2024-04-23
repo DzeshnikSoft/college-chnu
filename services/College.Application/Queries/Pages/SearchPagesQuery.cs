@@ -46,8 +46,8 @@ internal class SearchPagesQueryHandler(CollegeDbContext db, ITextProcessor textP
                             p.Id,
                             p.Title,
                             $"/{p.SubCategory.Category.Url}/{p.SubCategory.Url}/{p.Url}",
-                            highlightedSentences,
-                            sentences);
+                            sentences,
+                            highlightedSentences);
             })
             .ToList();
 
