@@ -13,5 +13,6 @@ export const initialPageState: PageDto = {
 		},
 		label: '',
 	},
+	textContent: '',
 	content: '',
 };

@@ -29,6 +29,7 @@ function CreateNews() {
 		},
 		description: '',
 		content: '',
+		textContent: '',
 		pinned: false,
 		url: '',
 		titleBackgroundImage: {
@@ -190,6 +191,7 @@ function CreateNews() {
 							/>
 							<EditorWrapper
 								name='content'
+								textContent='textContent'
 								content={values.content}
 							/>
 							<ErrorMessage
