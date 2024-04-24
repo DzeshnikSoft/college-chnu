@@ -1,5 +1,5 @@
 import useMediaQuery from './useMediaQuery';
-const ResponsiveSettings = {
+const responsiveSettings = {
 	laptopXl: { min: 1500, max: 2570 },
 	laptop: { min: 1100, max: 1500 },
 	tablet: { min: 600, max: 1100 },
@@ -8,16 +8,16 @@ const ResponsiveSettings = {
 
 const useResponsive = () => {
 	const isLaptopXl = useMediaQuery(
-		`(min-width: ${ResponsiveSettings.laptopXl.min}px) and (max-width: ${ResponsiveSettings.laptopXl.max}px)`
+		`(min-width: ${responsiveSettings.laptopXl.min}px) and (max-width: ${responsiveSettings.laptopXl.max}px)`
 	);
 	const isLaptop = useMediaQuery(
-		`(min-width: ${ResponsiveSettings.laptop.min}px) and (max-width: ${ResponsiveSettings.laptop.max}px)`
+		`(min-width: ${responsiveSettings.laptop.min}px) and (max-width: ${responsiveSettings.laptop.max}px)`
 	);
 	const isTablet = useMediaQuery(
-		`(min-width: ${ResponsiveSettings.tablet.min}px) and (max-width: ${ResponsiveSettings.tablet.max}px)`
+		`(min-width: ${responsiveSettings.tablet.min}px) and (max-width: ${responsiveSettings.tablet.max}px)`
 	);
 	const isMobile = useMediaQuery(
-		`(max-width: ${ResponsiveSettings.mobile.max}px)`
+		`(max-width: ${responsiveSettings.mobile.max}px)`
 	);
 
 	return { isLaptopXl, isLaptop, isTablet, isMobile };
