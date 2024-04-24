@@ -61,8 +61,10 @@ function Header() {
 								</NavLink>
 							</li>
 							{navMenuData &&
-								navMenuData?.map((item) => (
-									<li className='mx-5 hover:text-accentTextColor flex cursor-pointer h-full font-medium'>
+								navMenuData?.map((item, index) => (
+									<li
+										key={index}
+										className='mx-5 hover:text-accentTextColor flex cursor-pointer h-full font-medium'>
 										{item.subCategories.length !== 0 && (
 											<SubMenu
 												subMenu={item.subCategories}

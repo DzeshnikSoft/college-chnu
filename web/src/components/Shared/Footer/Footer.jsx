@@ -7,11 +7,11 @@ const Footer = () => {
 		<footer className='footer' id='footer'>
 			<div className='w-10/12 mx-auto flex gap-10 lg:h-fit lg:flex-col xl:h-[200px] h-[250px] lg:pt-4'>
 				<div className='w-full flex lg:flex-col-reverse h-full'>
-					<div className='flex'>
+					<div className='flex w-full'>
 						<div className='h-40 xlg:h-32 xlg:w-32 lg:h-24 lg:w-24 w-40 mt-5 lg:my-auto mb-auto'>
 							<img src='./logo.png' alt='' className='h-full' />
 						</div>
-						<div className='w-4/12 lg:w-7/12 flex flex-col xl:ml-5 lg:mb-3 pl-3'>
+						<div className='w-4/12 lg:w-7/12 flex flex-col xl:w-7/12 xl:ml-5 lg:mb-3 pl-3'>
 							<h4 className='text-xl xlg:text-base mt-5'>
 								Контактна інформація
 							</h4>

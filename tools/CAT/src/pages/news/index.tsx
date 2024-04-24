@@ -15,7 +15,7 @@ import SpinnerWrapper from '@/components/Spinner';
 import { showErrorNotif } from '@/providers/notify';
 import ReactPaginate from 'react-paginate';
 import { PAGINATION_ITEM_STYLE } from '@/utils/base-styles';
-import { throttle } from 'lodash';
+import { debounce } from 'lodash';
 import { paginationSettings } from '@/utils/pagination';
 
 const News = () => {
@@ -27,15 +27,19 @@ const News = () => {
 	const [searchText, setSearchText] = useState<string>('');
 
 	const handleSearch = useCallback(({ target }) => {
-		handleThrottle(target.value);
+		handleDebounce(target.value);
 		setSearchText(target.value);
 	}, []);
 
-	const handleThrottle = throttle((value) => {
+	const handleDebounce = debounce((value) => {
 		dispatch(
-			fetchNewsData({ pageNumber: 1, pageSize: 4, searchTerm: value })
+			fetchNewsData({
+				pageNumber: 1,
+				pageSize: paginationSettings.pageSize,
+				searchTerm: value,
+			})
 		);
-	}, 1000);
+	}, 2000);
 
 	const handlePageChange = ({ selected }) => {
 		setSelectedPageIndex(selected);
@@ -49,7 +53,13 @@ const News = () => {
 	};
 
 	useEffect(() => {
-		dispatch(fetchNewsData({ pageNumber: 1, pageSize: 4, searchTerm: '' }));
+		dispatch(
+			fetchNewsData({
+				pageNumber: 1,
+				pageSize: paginationSettings.pageSize,
+				searchTerm: '',
+			})
+		);
 	}, []);
 
 	useEffect(() => {

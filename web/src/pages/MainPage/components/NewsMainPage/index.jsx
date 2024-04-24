@@ -37,7 +37,7 @@ export default function NewsMainPage() {
 						<div className='h-[2px] bg-backgroundBorder rounded-2xl w-full my-auto'></div>
 					</div>
 					<div className='w-full'>
-						<NavLink to='/all-data'>
+						<NavLink to='/news'>
 							<p className='text-accentTextColor text-xl md:text-base mt-3 underline'>
 								Всі новини
 							</p>
