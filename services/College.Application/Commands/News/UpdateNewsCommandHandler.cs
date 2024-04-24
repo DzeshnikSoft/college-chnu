@@ -35,6 +35,10 @@ public class UpdateNewsCommandHandler(CollegeDbContext db) : IRequestHandler<Upd
         {
             news.Content = request.News.Content;
         }
+        if (request.News.TextContent is not null)
+        {
+            news.TextContent = request.News.TextContent;
+        }
         if (request.News.Description is not null)
         {
             news.Description = request.News.Description;

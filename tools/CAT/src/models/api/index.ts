@@ -12,6 +12,7 @@ export interface NewsDto {
 	title: string;
 	image: ImageDto;
 	description: string;
+	textContent: string;
 	content: string;
 	pinned?: boolean;
 	url: string;
@@ -24,6 +25,7 @@ export interface PageDto {
 	id?: string;
 	url: string;
 	title: string;
+	textContent: string;
 	content: string;
 	subCategoryId: string;
 	template: TemplateDto;

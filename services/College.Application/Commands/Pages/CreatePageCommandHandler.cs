@@ -12,11 +12,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace College.Application.Commands.Pages;
 
-public class CreatePageCommand(string title, string content, string url, Guid? subCategoryId, TemplateDto template) : IRequest<PageDto>
+public class CreatePageCommand(string title, string content, string textContent, string url, Guid? subCategoryId, TemplateDto template) : IRequest<PageDto>
 {
     public string Title { get; set; } = title;
 
     public string Content { get; set; } = content;
+
+    public string TextContent { get; set; } = textContent;
 
     public string Url { get; set; } = url.ToLower();
 
@@ -44,6 +46,8 @@ public class CreatePageCommandHandler(CollegeDbContext db, IMapper mapper, ITemp
         {
             Title = request.Title,
             Content = request.Content,
+            TextContent = string.IsNullOrEmpty(request.TextContent)
+                ? string.Empty : request.TextContent.ToTextOnlyString(),
             Url = request.Url,
             Template = _templateFactory.Create(request.Template)
         };

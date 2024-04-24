@@ -72,11 +72,17 @@ export default function EditPage() {
 		if (data) {
 			switch (data.template.type) {
 				case 0:
-					return <EditPageDefault content={data.content} />;
+					return (
+						<EditPageDefault
+							textContent='textContent'
+							content={data.content}
+						/>
+					);
 				case 1:
 					return (
 						<EditPageWithTitle
 							content={data.content}
+							textContent='textContent'
 							img={data.template.image.url}
 							title={data.template.label}
 						/>

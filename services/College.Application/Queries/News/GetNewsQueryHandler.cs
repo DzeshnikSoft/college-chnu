@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace College.Application.Queries.News;
 
-public class GetNewsQuery(QueryFilterModel queryFilter) : IRequest<PaginationModel<NewsDto>>
+public class GetNewsQuery(QueryFilterModel queryFilter) : IRequest<Paginator<NewsDto>>
 {
     public QueryFilterModel QueryFilter { get; set; } = queryFilter;
 }
 
-public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequestHandler<GetNewsQuery, PaginationModel<NewsDto>>
+public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequestHandler<GetNewsQuery, Paginator<NewsDto>>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly IMapper _mapper = mapper.ThrowIfNull();
 
-    public async Task<PaginationModel<NewsDto>> Handle(GetNewsQuery request, CancellationToken cancellationToken)
+    public async Task<Paginator<NewsDto>> Handle(GetNewsQuery request, CancellationToken cancellationToken)
     {
         var query = _db.News
             .AsNoTracking()
@@ -28,17 +28,19 @@ public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequest
 
         var totalCount = await query.CountAsync(cancellationToken);
 
-        var pageSize = request.QueryFilter.PageSize > 0 ? request.QueryFilter.PageSize : totalCount;
-        var pageNumber = request.QueryFilter.PageNumber > 0 ? request.QueryFilter.PageNumber : 1;
+        var pageSize = request.QueryFilter.PageSize ?? totalCount;
+        var pageNumber = request.QueryFilter.PageNumber ?? 1;
 
         var news = new List<Domain.Models.News>();
 
-        if (!string.IsNullOrEmpty(request.QueryFilter.searchTerm))
+        if (!string.IsNullOrEmpty(request.QueryFilter.SearchTerm))
         {
-            news = await query.Where(n => n.Title.ToLower().Contains(request.QueryFilter.searchTerm.ToLower()) || n.Description.ToLower().Contains(request.QueryFilter.searchTerm.ToLower()))
+            news = await query.Where(n => n.Title.ToLower().Contains(request.QueryFilter.SearchTerm.ToLower()) || n.Description.ToLower().Contains(request.QueryFilter.SearchTerm.ToLower()))
                .Skip((pageNumber - 1) * pageSize)
                .Take(pageSize)
                .ToListAsync(cancellationToken);
+
+            totalCount = news.Count;
         }
         else
         {
@@ -47,6 +49,6 @@ public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequest
                .ToListAsync(cancellationToken);
         }
 
-        return new PaginationModel<NewsDto>(_mapper.Map<IList<NewsDto>>(news), pageNumber, pageSize, totalCount);
+        return new Paginator<NewsDto>(_mapper.Map<IList<NewsDto>>(news), pageNumber, pageSize, totalCount);
     }
 }

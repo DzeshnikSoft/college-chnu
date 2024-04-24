@@ -12,6 +12,8 @@ public class NewsViewModel
 
     public string Content { get; set; }
 
+    public string TextContent { get; set; }
+
     public DateTime Date { get; set; }
 
     public ImageDto TitleBackgroundImage { get; set; }

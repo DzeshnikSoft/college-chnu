@@ -6,14 +6,19 @@ module.exports = {
 		screens: {
 			laptopXl: { min: '2570px' },
 
-			xl: { min: '1000px' },
+			xl: { max: '1025px' },
+
+			xlg: { max: '930px' },
 
 			lg: { max: '769px' },
 
-			md: { max: '450px' },
+			md: { max: '600px' },
 
-			xs: { max: '376px' },
+			xs: { max: '400px' },
+
+			xss: { max: '320px' },
 		},
+
 		extend: {
 			colors: {
 				backgroundHeaderColor: '#ffffff',
@@ -24,6 +29,7 @@ module.exports = {
 				backgroundBorder: '#e6e6e6',
 				textFooter: '#8f979b',
 			},
+
 			fontFamily: {
 				subTitleTextCarousel: "'MedievalSharp', cursive",
 			},

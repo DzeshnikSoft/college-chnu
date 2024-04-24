@@ -26,11 +26,13 @@ export default function DialogCreatePage({
 	const categoriesData = useAppSelector(getСategoryDataSelector);
 
 	const handleAdd = (values: PageDto) => {
-		const { title, url, subCategoryId, template, content } = values;
+		const { title, url, subCategoryId, template, content, textContent } =
+			values;
 		let body = {
 			title: title,
 			url: url,
 			subCategoryId: subCategoryId,
+			textContent: textContent,
 			template: { ...template, type: template.type },
 			content: content,
 		};

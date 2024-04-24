@@ -1,4 +1,5 @@
 using AutoMapper;
+using College.API.ViewModels;
 using College.Domain.DTOs;
 using College.Domain.Models;
 

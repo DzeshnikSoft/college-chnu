@@ -10,4 +10,6 @@ public class Image
     /// Can be null. Be careful
     /// </summary>
     public string Alt { get; set; }
+
+    public DateTime CreateDateUtc { get; set; }
 }

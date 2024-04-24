@@ -13,4 +13,6 @@ public class SubCategory
     public Category Category { get; set; }
 
     public ICollection<Page> Pages { get; set; }
+
+    public DateTime CreateDateUtc { get; set; }
 }
