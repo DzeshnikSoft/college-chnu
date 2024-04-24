@@ -8,13 +8,13 @@ import uploadFile from '@/app/apis/uploadFile';
 interface EditorWrapperProps {
 	content: string;
 	name: string;
-	nameText: string;
+	textContent: string;
 }
 
 export default function EditorWrapper({
 	content,
 	name,
-	nameText,
+	textContent,
 }: EditorWrapperProps) {
 	const { setFieldValue } = useFormikContext();
 	const editorRef = useRef(null);
@@ -25,7 +25,7 @@ export default function EditorWrapper({
 		if (editorRef.current) {
 			setFieldValue(name, editorRef.current.getContent());
 			setFieldValue(
-				nameText,
+				textContent,
 				editorRef.current.getContent({ format: 'text' })
 			);
 		}

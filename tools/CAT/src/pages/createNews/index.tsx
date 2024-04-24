@@ -191,7 +191,7 @@ function CreateNews() {
 							/>
 							<EditorWrapper
 								name='content'
-								nameText='textContent'
+								textContent='textContent'
 								content={values.content}
 							/>
 							<ErrorMessage

@@ -74,7 +74,7 @@ export default function EditPage() {
 				case 0:
 					return (
 						<EditPageDefault
-							nameText='textContent'
+							textContent='textContent'
 							content={data.content}
 						/>
 					);
@@ -82,7 +82,7 @@ export default function EditPage() {
 					return (
 						<EditPageWithTitle
 							content={data.content}
-							nameText='textContent'
+							textContent='textContent'
 							img={data.template.image.url}
 							title={data.template.label}
 						/>
