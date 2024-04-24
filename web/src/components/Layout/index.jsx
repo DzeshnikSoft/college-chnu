@@ -15,4 +15,3 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
-//*h-[calc(100vh-9vh-330px)] max-h-fit

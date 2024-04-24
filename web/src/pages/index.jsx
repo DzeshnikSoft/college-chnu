@@ -2,9 +2,10 @@ import React from 'react';
 import Layout from '../components/Layout';
 import NotFoundPage from './NotFoundPage';
 import MainPage from './MainPage';
-import SpecialityPage from './SpecialityPage';
 import HistoryPage from './HistoryPage/HistoryPage';
 import DynamicPage from './DynamicPage';
+import AllNews from './AllNews';
+import SingleNewsPage from './SingleNewsPage';
 
 export const routes = [
 	{
@@ -24,10 +25,18 @@ export const routes = [
 		),
 	},
 	{
-		path: '/speciality/:name',
+		path: '/news',
 		element: (
 			<Layout>
-				<SpecialityPage />
+				<AllNews />
+			</Layout>
+		),
+	},
+	{
+		path: '/news/:name',
+		element: (
+			<Layout>
+				<SingleNewsPage />
 			</Layout>
 		),
 	},

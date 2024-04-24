@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Formik, ErrorMessage, Form } from 'formik';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import { NewsDto } from '@/models/api';
 import { updateNewsSchema } from '@/validation/update.news.schema';
-import { Link } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
 import DeleteButton from '@/components/DeleteButton';
 import Edit from '@/components/Edit';
-import { useParams } from 'react-router-dom';
 import { apiClient } from '@/app/apiClient';
 import { getErrorMessage } from '@/factories/errorMessage.factory';
 import { showErrorNotif } from '@/providers/notify';
@@ -17,12 +19,9 @@ import DatePicker from '@/components/DatePicker';
 import PinRadioToggle from '@/components/PinRadioToggle';
 import EditorWrapper from '@/components/EditorWrapper';
 import SpinnerWrapper from '@/components/Spinner';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useAppDispatch } from '@/app/hooks';
 import { updateNews } from '@/app/features/news/newsThunks';
-import { useNavigate } from 'react-router-dom';
 import EditTitlePage from '@/components/EditTitlePage';
-import { fetchNewsData } from '@/app/features/news/newsThunks';
-import { paginationSettings } from '@/utils/pagination';
 
 function EditNews() {
 	const dispatch = useAppDispatch();
@@ -47,14 +46,8 @@ function EditNews() {
 	}, []);
 
 	const handleSubmit = (values: NewsDto) => {
-		navigate('/news');
 		dispatch(updateNews(values)).then(() => {
-			dispatch(
-				fetchNewsData({
-					...paginationSettings,
-					searchTerm: '',
-				})
-			);
+			navigate('/news');
 		});
 	};
 

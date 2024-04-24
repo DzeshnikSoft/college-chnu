@@ -5,7 +5,9 @@ const SubMenu = ({ subMenu, parentUrl }) => {
 	return (
 		<div className='submenu w-fit max-w-[750px]'>
 			{subMenu.map((subSubMenu) => (
-				<div className='sub_submenu first:pl-5 w-[250px] chil '>
+				<div
+					key={subSubMenu?.id}
+					className='sub_submenu first:pl-5 w-[250px] chil '>
 					{subMenu?.length > 1 && (
 						<p className='text-xl text-colorTextColor mt-3'>
 							{subSubMenu.title}

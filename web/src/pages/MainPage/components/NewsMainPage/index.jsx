@@ -34,7 +34,7 @@ export default function NewsMainPage() {
 						<div className='h-[2px] bg-backgroundBorder rounded-2xl w-full my-auto'></div>
 					</div>
 					<div className='w-full'>
-						<NavLink to='/all-data'>
+						<NavLink to='/news'>
 							<p className='text-accentTextColor text-xl mt-3 underline'>
 								Всі новини
 							</p>
@@ -43,7 +43,7 @@ export default function NewsMainPage() {
 					<div className='w-full h-full flex mt-3'>
 						<div className='w-1/2 h-full flex justify-between'>
 							<div className='w-9/12 h-full'>
-								<div className='w-full h-3/6 rounded-2xl overflow-hidden border'>
+								<div className='w-full h-3/6 rounded-lg overflow-hidden border'>
 									<img
 										src={newsData.data[0].image.url}
 										alt=''
@@ -56,7 +56,8 @@ export default function NewsMainPage() {
 									</h3>
 									<p className='text-colorTextColor font-semibold text-justify mt-2 text-md'>
 										{truncate(newsData.data[0].description)}
-										<NavLink to='/'>
+										<NavLink
+											to={`/news/${newsData.data[0].url}`}>
 											<span className='ml-2 text-accentTextColor hover:underline'>
 												Детальніше
 											</span>
@@ -77,20 +78,21 @@ export default function NewsMainPage() {
 										<div
 											className='w-full h-[130px] flex gap-3'
 											key={item.id}>
-											<div className='w-4/12 h-full rounded-2xl overflow-hidden border'>
+											<div className='w-4/12 h-full rounded-lg overflow-hidden border'>
 												<img
-													src={item.image}
+													src={item.image.url}
 													alt=''
 													className='w-full h-full object-cover'
 												/>
 											</div>
 											<div className='w-8/12'>
-												<h3 className='tracking-widest text-colorTextColor italic font-black text-lg  truncate w-full'>
+												<h3 className='tracking-widest text-colorTextColor italic font-black text-lg truncate w-full'>
 													{item.title}
 												</h3>
 												<p className='text-colorTextColor w-full overflow-hidden font-medium text-justify mt-2 text-base'>
 													{truncate(item.description)}
-													<NavLink to='/'>
+													<NavLink
+														to={`/news/${item.url}`}>
 														<span className='ml-2 text-accentTextColor hover:underline'>
 															Детальніше
 														</span>

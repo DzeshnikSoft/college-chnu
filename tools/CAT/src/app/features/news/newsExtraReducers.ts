@@ -39,21 +39,6 @@ export const extraReducersConfigNews = (builder) => {
 		state.error = null;
 	});
 	builder.addCase(updateNews.fulfilled, (state, { payload }) => {
-		const indexToUpdate = state.data?.data.findIndex(
-			(news) => news.id === payload.id
-		);
-
-		if (indexToUpdate !== -1) {
-			state.data = {
-				...state.data,
-				data: state.data?.data.map((news, index) =>
-					index === indexToUpdate ? payload : news
-				),
-			};
-
-			state.news.data = sortNewsArrayByPinnedAndDate(state.news.data);
-		}
-
 		state.loading = false;
 	});
 

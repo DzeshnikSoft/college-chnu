@@ -7,14 +7,12 @@ import { extraReducersConfigNews } from './newsExtraReducers';
 interface NewsInitialState {
 	data: PaginationResponse<NewsDto>;
 	error: string;
-	news: NewsDto;
 	loading: boolean;
 }
 
 const initialState: NewsInitialState = {
 	data: null,
 	error: null,
-	news: null,
 	loading: true,
 };
 
@@ -32,7 +30,5 @@ export const getNewsDataSelector = (state: RootState) => state.news.data;
 export const getNewsLoadingSelector = (state: RootState) => state.news.loading;
 
 export const getNewsErrorSelector = (state: RootState) => state.news.error;
-
-export const getNewsSelector = (state: RootState) => state.news.news;
 
 export default newsSlice.reducer;
