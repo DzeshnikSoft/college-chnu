@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Formik, ErrorMessage, Form } from 'formik';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { NewsDto } from '@/models/api';
 import { updateNewsSchema } from '@/validation/update.news.schema';

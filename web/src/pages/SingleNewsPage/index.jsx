@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import PageWithTitleWrapper from '../DynamicPage/components/PageWithTitleWrapper';
 import { apiClient } from '../../app/apiClient';
 import NotFoundPage from '../NotFoundPage';

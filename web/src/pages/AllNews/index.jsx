@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 import ReactPaginate from 'react-paginate';
-import useMediaQuery from '../../hooks/useMediaQuery';
 
 import TitlePage from '../DynamicPage/components/PageWithTitleWrapper/TitlePage';
 import { fetchNewsData } from '../../app/features/news/newsThunks';
@@ -13,6 +12,7 @@ import {
 import SpinnerWrapper from '../../components/SpinnerWrapper';
 import Search from '../../components/Search';
 import News from '../../components/News';
+import useResponsive from '../../hooks/useResponce';
 
 const PAGINATION_ITEM_STYLE =
 	'h-10 w-10 rounded-md cursor-pointer duration-200 bg-accentTextColor hover:bg-[#196D4C] flex justify-center items-center';
@@ -23,16 +23,7 @@ function AllNews() {
 	const newsData = useSelector(getNewsDataSelector);
 	const [pageSize, setPageSize] = useState(0);
 	const [gridString, setGridString] = useState('');
-	const isLaptopXl = useMediaQuery(
-		'(min-width: 1500px) and (max-width: 2570px)'
-	);
-	const isLaptop = useMediaQuery(
-		'(min-width: 1100px) and (max-width: 1500px)'
-	);
-	const isTablet = useMediaQuery(
-		'(min-width: 600px) and (max-width: 1100px)'
-	);
-	const isPhone = useMediaQuery('(max-width: 600px)');
+	const { isLaptopXl, isLaptop, isTablet, isMobile } = useResponsive();
 	const [selectedPageIndex, setSelectedPageIndex] = useState(0);
 	const [searchText, setSearchText] = useState('');
 
@@ -42,7 +33,7 @@ function AllNews() {
 	}, []);
 
 	const handleDebounce = debounce((value) => {
-		if (value.trim() !== 0) {
+		if (value.trim().length !== 0) {
 			dispatch(
 				fetchNewsData({
 					pageNumber: 1,
@@ -77,11 +68,11 @@ function AllNews() {
 			setPageSize(6);
 			setGridString('grid-cols-2');
 		}
-		if (isPhone) {
+		if (isMobile) {
 			setPageSize(4);
 			setGridString('grid-cols-1');
 		}
-	}, [isLaptopXl, isLaptop, isTablet, isPhone]);
+	}, [isLaptopXl, isLaptop, isTablet, isMobile]);
 
 	useEffect(() => {
 		if (pageSize !== 0)

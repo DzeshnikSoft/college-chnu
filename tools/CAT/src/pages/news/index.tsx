@@ -39,7 +39,7 @@ const News = () => {
 				searchTerm: value,
 			})
 		);
-	}, 1000);
+	}, 2000);
 
 	const handlePageChange = ({ selected }) => {
 		setSelectedPageIndex(selected);
