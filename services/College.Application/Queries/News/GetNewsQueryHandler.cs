@@ -1,5 +1,6 @@
 using AutoMapper;
 using College.Data.Context;
+using College.Data.Extensions;
 using College.Domain.DTOs;
 using College.Shared.Extensions;
 using MediatR;
@@ -19,35 +20,17 @@ public class GetNewsQueryHandler(CollegeDbContext db, IMapper mapper) : IRequest
 
     public async Task<Paginator<NewsDto>> Handle(GetNewsQuery request, CancellationToken cancellationToken)
     {
-        var query = _db.News
-            .AsNoTracking()
-            .Include(n => n.Image)
-            .Include(n => n.TitleBackgroundImage)
-            .OrderByDescending(n => n.Pinned)
-            .ThenByDescending(n => n.Date);
+        var query = _db.News.ToOrderedNewsSearchQuery(request.QueryFilter.SearchTerm);
 
         var totalCount = await query.CountAsync(cancellationToken);
 
         var pageSize = request.QueryFilter.PageSize ?? totalCount;
         var pageNumber = request.QueryFilter.PageNumber ?? 1;
 
-        var news = new List<Domain.Models.News>();
-
-        if (!string.IsNullOrEmpty(request.QueryFilter.SearchTerm))
-        {
-            news = await query.Where(n => n.Title.ToLower().Contains(request.QueryFilter.SearchTerm.ToLower()) || n.Description.ToLower().Contains(request.QueryFilter.SearchTerm.ToLower()))
-               .Skip((pageNumber - 1) * pageSize)
-               .Take(pageSize)
-               .ToListAsync(cancellationToken);
-
-            totalCount = news.Count;
-        }
-        else
-        {
-            news = await query.Skip((pageNumber - 1) * pageSize)
-               .Take(pageSize)
-               .ToListAsync(cancellationToken);
-        }
+        var news = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
 
         return new Paginator<NewsDto>(_mapper.Map<IList<NewsDto>>(news), pageNumber, pageSize, totalCount);
     }

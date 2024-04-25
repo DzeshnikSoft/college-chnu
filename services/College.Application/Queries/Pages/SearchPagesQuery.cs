@@ -30,11 +30,14 @@ internal class SearchPagesQueryHandler(CollegeDbContext db, ITextProcessor textP
             .ThenInclude(p => p.Category)
             .OrderByDescending(p => p.CreateDateUtc);
 
-        var pagesQuery = filter.PageNumber.HasValue && filter.PageSize.HasValue
-            ? query.Skip((filter.PageNumber.Value - 1) * filter.PageSize.Value).Take(filter.PageSize.Value)
-            : query;
+        var totalCount = await query.CountAsync(cancellationToken);
+        var pageSize = request.Filter.PageSize ?? totalCount;
+        var pageNumber = request.Filter.PageNumber ?? 1;
 
-        var pages = await pagesQuery.ToListAsync(cancellationToken);
+        var pages = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
 
         var searchResult = pages.Select(
             p =>
@@ -53,7 +56,7 @@ internal class SearchPagesQueryHandler(CollegeDbContext db, ITextProcessor textP
             .ToList();
 
         if (filter.PageNumber.HasValue && filter.PageSize.HasValue)
-            return new Paginator<SearchViewModel>(searchResult, filter.PageNumber.Value, filter.PageSize.Value, pages.Count);
+            return new Paginator<SearchViewModel>(searchResult, pageNumber, pageNumber, totalCount);
 
         return new Paginator<SearchViewModel>(searchResult);
     }
