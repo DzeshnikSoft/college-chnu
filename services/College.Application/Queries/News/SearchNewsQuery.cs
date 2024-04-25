@@ -1,4 +1,5 @@
 ﻿using College.Data.Context;
+using College.Data.Extensions;
 using College.Domain.DTOs;
 using College.Domain.Services;
 using College.Shared.Extensions;
@@ -22,20 +23,16 @@ internal class SearchNewsQueryHandler(CollegeDbContext db, ITextProcessor textPr
         var filter = request.Filter;
         filter.SearchTerm = filter.SearchTerm.Trim();
 
-        var query = string.IsNullOrWhiteSpace(filter.SearchTerm)
-            ? _db.News.OrderByDescending(p => p.CreateDateUtc)
-            : _db.News
-            .Where(p =>
-                    p.Title.ToLower().Contains(filter.SearchTerm.ToLower())
-                    || p.Description.ToLower().Contains(filter.SearchTerm.ToLower())
-                    || (!string.IsNullOrEmpty(p.TextContent) && p.TextContent.ToLower().Contains(filter.SearchTerm.ToLower())))
-            .OrderByDescending(p => p.CreateDateUtc);
+        var query = _db.News.ToNewsSearchQuery(filter.SearchTerm);
 
-        var newsQuery = filter.PageNumber.HasValue && filter.PageSize.HasValue
-            ? query.Skip((filter.PageNumber.Value - 1) * filter.PageSize.Value).Take(filter.PageSize.Value)
-            : query;
+        var totalCount = await query.CountAsync(cancellationToken);
+        var pageSize = request.Filter.PageSize ?? totalCount;
+        var pageNumber = request.Filter.PageNumber ?? 1;
 
-        var news = await newsQuery.ToListAsync(cancellationToken);
+        var news = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
 
         var searchResult = news.Select(
             p =>
