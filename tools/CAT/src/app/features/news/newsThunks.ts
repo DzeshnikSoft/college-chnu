@@ -29,7 +29,6 @@ export const addNews = createAsyncThunk(
 	async (postData: NewsDto, thunkAPI) => {
 		try {
 			await apiClient.post(url, postData);
-			return postData;
 		} catch (error) {
 			const { data } = error.response;
 			return thunkAPI.rejectWithValue(getErrorMessage(data));

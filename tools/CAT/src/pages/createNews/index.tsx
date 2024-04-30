@@ -1,4 +1,5 @@
-import { Formik, Form, ErrorMessage, useFormikContext } from 'formik';
+import { useEffect } from 'react';
+import { Formik, Form, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
 import DeleteButton from '@/components/DeleteButton';
 import { Button } from '@chakra-ui/react';
@@ -15,11 +16,13 @@ import { formatUkrainianDateTime } from '@/helpers/date';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { addNews } from '@/app/features/news/newsThunks';
 import { useNavigate } from 'react-router-dom';
-import { fetchNewsData } from '@/app/features/news/newsThunks';
-import { paginationSettings } from '@/utils/pagination';
+import { getNewsErrorSelector } from '@/app/features/news/newsSlice';
+import { showErrorNotif } from '@/providers/notify';
 
 function CreateNews() {
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const newsError = useAppSelector(getNewsErrorSelector);
 	const initialNews: NewsDto = {
 		id: '',
 		title: '',
@@ -39,25 +42,26 @@ function CreateNews() {
 		date: '',
 	};
 
-	const navigate = useNavigate();
-	const handleSubmit = (values: NewsDto) => {
-		dispatch(addNews(values)).then(() => {
-			navigate('/news');
-			dispatch(
-				fetchNewsData({
-					...paginationSettings,
-					searchTerm: '',
-				})
-			);
+	const createNews = (values: NewsDto) => {
+		dispatch(addNews(values)).then((error) => {
+			const { payload } = error;
+			if (!payload) {
+				navigate('/news');
+			}
 		});
 	};
+	useEffect(() => {
+		if (newsError) {
+			showErrorNotif(newsError);
+		}
+	}, [newsError]);
 
 	return (
 		<div className='w-full h-full overflow-y-auto flex flex-col'>
 			<Formik
 				initialValues={initialNews}
 				validationSchema={createNewsSchema(null)}
-				onSubmit={handleSubmit}>
+				onSubmit={createNews}>
 				{({ values, isValid }) => (
 					<Form>
 						<div className='flex w-full flex-col pt-5'>
@@ -193,6 +197,8 @@ function CreateNews() {
 								name='content'
 								textContent='textContent'
 								content={values.content}
+								descriptionNews={values.description}
+								imageUrlNews={values.image.url}
 							/>
 							<ErrorMessage
 								className='text-red mb-2 text-xs ml-10'
