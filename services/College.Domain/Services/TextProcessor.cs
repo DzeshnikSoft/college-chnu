@@ -22,7 +22,7 @@ public class TextProcessor : ITextProcessor
         {
             if (sentence.Contains(searchTerm))
             {
-                var highlightedSentence = Regex.Replace(sentence, $@"\b{searchTerm}\b", $"<span style=\"color: yellow;\">{searchTerm}</span>", RegexOptions.IgnoreCase);
+                var highlightedSentence = Regex.Replace(sentence, $@"{searchTerm}", $"<span style=\"background-color: yellow;\">{searchTerm}</span>", RegexOptions.IgnoreCase);
                 highlightedSentences.Add(highlightedSentence.Trim());
                 sentences.Add(sentence.Trim());
             }
