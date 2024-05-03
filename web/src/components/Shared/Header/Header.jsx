@@ -79,6 +79,13 @@ function Header() {
 										</NavLink>
 									</li>
 								))}
+							<li className='mx-5 hover:text-accentTextColor flex cursor-pointer h-full font-medium'>
+								<NavLink
+									to='/search'
+									className='h-full flex items-center'>
+									<i className='fa-solid fa-magnifying-glass m-auto'></i>
+								</NavLink>
+							</li>
 						</ul>
 					</div>
 				</div>

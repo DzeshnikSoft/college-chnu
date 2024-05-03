@@ -6,6 +6,7 @@ import HistoryPage from './HistoryPage/HistoryPage';
 import DynamicPage from './DynamicPage';
 import AllNews from './AllNews';
 import SingleNewsPage from './SingleNewsPage';
+import SearchPage from './SearchPage';
 
 export const routes = [
 	{
@@ -45,6 +46,14 @@ export const routes = [
 		element: (
 			<Layout>
 				<DynamicPage />
+			</Layout>
+		),
+	},
+	{
+		path: '/search',
+		element: (
+			<Layout>
+				<SearchPage />
 			</Layout>
 		),
 	},

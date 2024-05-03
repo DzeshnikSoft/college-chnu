@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import NavBarStage from '../NavBarStage';
 import NavMenuItem from '../NavMenuItem';
+
 function LaptopNavBar({ handleClose, navMenuData }) {
 	const [stage, setStage] = useState({
 		index: 0,
@@ -15,14 +16,16 @@ function LaptopNavBar({ handleClose, navMenuData }) {
 		switch (stage.index) {
 			case 0:
 				return (
-					<NavBarStage>
-						<li className='mx-5 text-colorTextColor text-lg my-4 flex cursor-pointer h-full font-medium w-11/12'>
+					<NavBarStage handleClose={handleClose}>
+						<li
+							onClick={handleClose}
+							className='mx-5 text-colorTextColor text-lg my-4 flex cursor-pointer h-full font-medium w-11/12'>
 							<NavLink
 								to='/'
 								className={({ isActive }) =>
 									isActive
-										? 'text-colorTextColor font-black text-xl  h-full flex items-center'
-										: `hover:text-colorTextColor hover:font-black text-xl  h-full flex items-center`
+										? 'text-colorTextColor font-black text-xl h-full flex items-center'
+										: `hover:text-colorTextColor hover:font-black hover:text-xl h-full flex items-center`
 								}>
 								Головна
 							</NavLink>
@@ -41,11 +44,25 @@ function LaptopNavBar({ handleClose, navMenuData }) {
 										/>
 									)
 							)}
+						<li
+							onClick={handleClose}
+							className='mx-5 text-colorTextColor text-lg my-4 flex cursor-pointer h-full font-medium w-11/12'>
+							<NavLink
+								to='/search'
+								className={({ isActive }) =>
+									isActive
+										? 'text-colorTextColor font-black text-xl h-full flex items-center'
+										: `hover:text-colorTextColor hover:font-black hover:text-xl h-full flex items-center`
+								}>
+								<i className='fa-solid fa-magnifying-glass m-auto mr-2'></i>
+								Пошук
+							</NavLink>
+						</li>
 					</NavBarStage>
 				);
 			case 1:
 				return (
-					<NavBarStage>
+					<NavBarStage handleClose={handleClose}>
 						<div className='border-b-2 px-5 h-20 text-xl font-black flex'>
 							<button onClick={subCategoryPrevStageClick}>
 								<i className='fa-solid fa-angle-left'></i>
@@ -74,7 +91,7 @@ function LaptopNavBar({ handleClose, navMenuData }) {
 				);
 			case 2:
 				return (
-					<NavBarStage>
+					<NavBarStage handleClose={handleClose}>
 						<div className='border-b-2 px-5 h-20 text-xl font-black flex'>
 							<button onClick={subSubCategoryPrevStageClick}>
 								<i className='fa-solid fa-angle-left'></i>
@@ -169,7 +186,7 @@ function LaptopNavBar({ handleClose, navMenuData }) {
 	return (
 		<div
 			onClick={handleClose}
-			className='fixed z-10 w-screen top-0 left-0 h-screen flex bg-black/30'>
+			className='fixed z-30 w-full top-0 left-0 h-full overflow-hidden flex flex-col bg-black/30'>
 			{selectStage()}
 		</div>
 	);

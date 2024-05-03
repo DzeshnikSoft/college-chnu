@@ -13,7 +13,7 @@ import SpinnerWrapper from '../../components/SpinnerWrapper';
 import Search from '../../components/Search';
 import News from '../../components/News';
 import useResponsive from '../../hooks/useResponce';
-
+import NotFoundData from '../../components/NotFoundData';
 const PAGINATION_ITEM_STYLE =
 	'h-10 w-10 rounded-md cursor-pointer duration-200 bg-accentTextColor hover:bg-[#196D4C] flex justify-center items-center';
 
@@ -26,6 +26,7 @@ function AllNews() {
 	const { isLaptopXl, isLaptop, isTablet, isMobile } = useResponsive();
 	const [selectedPageIndex, setSelectedPageIndex] = useState(0);
 	const [searchText, setSearchText] = useState('');
+	const [textError, setTextError] = useState('');
 
 	const handleSearch = useCallback(({ target }) => {
 		handleDebounce(target.value);
@@ -33,7 +34,20 @@ function AllNews() {
 	}, []);
 
 	const handleDebounce = debounce((value) => {
-		if (value.trim().length !== 0) {
+		if (value.trim().length === 0) {
+			setTextError('');
+			dispatch(
+				fetchNewsData({
+					pageNumber: 1,
+					pageSize: pageSize,
+					searchTerm: '',
+				})
+			);
+		}
+		if (value.trim().length !== 0 && value.trim().length <= 3) {
+			setTextError('Введіть більше 3 символів');
+		}
+		if (value.trim().length !== 0 && value.trim().length > 3) {
 			dispatch(
 				fetchNewsData({
 					pageNumber: 1,
@@ -41,6 +55,7 @@ function AllNews() {
 					searchTerm: value,
 				})
 			);
+			setTextError('');
 		}
 	}, 2000);
 
@@ -80,32 +95,37 @@ function AllNews() {
 				fetchNewsData({
 					pageNumber: 1,
 					pageSize: pageSize,
-					searchTerm: '',
+					searchTerm: searchText,
 				})
 			);
 	}, [pageSize]);
 
 	return (
-		<div className='w-full h-full flex flex-col'>
+		<div className='w-full flex flex-col flex-1'>
 			<TitlePage url='images-news.jpeg'>Новини</TitlePage>
-			<div className='flex flex-col w-full'>
-				<div className='w-10/12 mx-auto flex flex-col'>
-					<Search
-						placeholder='Знайдіть новину'
-						onChange={handleSearch}
-						value={searchText}
-					/>
+			<div className='flex flex-col w-full flex-1 min-h-[300px]'>
+				<div className='w-10/12 mx-auto flex flex-col flex-1'>
+					<div className='flex flex-col mb-5'>
+						<Search
+							placeholder='Знайдіть новину'
+							onChange={handleSearch}
+							value={searchText}
+						/>
+						{textError && (
+							<p className='text-sm text-red-600 text-light'>
+								{textError}
+							</p>
+						)}
+					</div>
 					{isLoading ? (
-						<div className='min-h-[50vh]'>
+						<div className='h-full w-full m-auto'>
 							<SpinnerWrapper />
 						</div>
 					) : (
-						<div className='min-h-[50vh]'>
+						<div className='h-full w-full flex flex-1'>
 							{newsData.data.length === 0 ? (
-								<div className='w-full h-5/6 flex items-center justify-center'>
-									<p className='text-3xl text-colorTextColor lg:text-xl'>
-										Нічого не знайдено
-									</p>
+								<div className='w-full h-full flex items-center justify-center m-auto'>
+									<NotFoundData />
 								</div>
 							) : (
 								<div
