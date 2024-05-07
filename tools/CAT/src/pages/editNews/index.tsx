@@ -86,7 +86,7 @@ function EditNews() {
 									</div>
 									<div className='w-full flex'>
 										<div className='w-6/12 mt-5 flex flex-col gap-4'>
-											<div className=''>
+											<div>
 												<Edit
 													value=''
 													id='title'
@@ -99,6 +99,22 @@ function EditNews() {
 												<ErrorMessage
 													className='text-red mb-2 text-xs'
 													name='title'
+													component='span'
+												/>
+											</div>
+											<div>
+												<Edit
+													value=''
+													id='url'
+													name='url'
+													nameInput='Шлях'
+													type='text'
+													withoutButtonSave={true}
+													placeholder='Введіть шлях'
+												/>
+												<ErrorMessage
+													className='text-red mb-2 text-xs'
+													name='url'
 													component='span'
 												/>
 											</div>
