@@ -27,7 +27,6 @@ function SearchPage() {
 			);
 			const { data } = responce;
 			setPagesData(data);
-		} catch (error) {
 		} finally {
 			setIsLoading(false);
 		}
@@ -37,12 +36,10 @@ function SearchPage() {
 		if (value.trim().length === 0) {
 			setPagesData(null);
 			setTextError('');
-		}
-		if (value.trim().length !== 0 && value.trim().length <= 3) {
+		} else if (value.trim().length <= 3) {
 			setPagesData(null);
 			setTextError('Введіть більше 3 символів');
-		}
-		if (value.trim().length !== 0 && value.trim().length > 3) {
+		} else {
 			searchPages(value);
 			setTextError('');
 		}

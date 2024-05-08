@@ -43,11 +43,9 @@ function AllNews() {
 					searchTerm: '',
 				})
 			);
-		}
-		if (value.trim().length !== 0 && value.trim().length <= 3) {
+		} else if (value.trim().length <= 3) {
 			setTextError('Введіть більше 3 символів');
-		}
-		if (value.trim().length !== 0 && value.trim().length > 3) {
+		} else {
 			dispatch(
 				fetchNewsData({
 					pageNumber: 1,
