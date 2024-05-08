@@ -1,5 +1,5 @@
 export const convertCategoryDataToPositionNavMenuItemsModel = (inputData) => {
-	let outputData = [];
+	const outputData = [];
 
 	inputData.forEach((category) => {
 		let transformedCategory = {
