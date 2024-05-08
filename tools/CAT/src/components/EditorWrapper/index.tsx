@@ -22,6 +22,7 @@ export default function EditorWrapper({
 }: EditorWrapperProps) {
 	const { setFieldValue } = useFormikContext();
 	const editorRef = useRef(null);
+	const [currentChanges, setCurrentChanges] = useState('');
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [isSavedNewsInfo, setIsSavedNewsInfo] = useState(false);
@@ -91,7 +92,7 @@ export default function EditorWrapper({
 				}}
 			/>
 			<Button
-				className='!absolute !z-50 top-0 right-0 ml-auto mr-3 mt-2'
+				className='!absolute !z-50 top-0 right-0 ml-auto mr-3 mt-2 animate-pulse'
 				onClick={handleClick}>
 				Зберегти дані в редакторі
 			</Button>

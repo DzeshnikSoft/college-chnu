@@ -45,13 +45,13 @@ export default function NewsMainPage() {
 					</div>
 					{isTablet ? (
 						<div className='w-full h-fit flex flex-wrap gap-3 my-3'>
-							{newsData.data.map((item, index) => (
+							{newsData?.data.map((item) => (
 								<div
 									className='w-[calc(50%-6px)] h-[240px] flex flex-col justify-between'
 									key={item.id}>
 									<div className='w-full h-[60%] rounded-2xl overflow-hidden border'>
 										<img
-											src={item.image}
+											src={item.image.url}
 											alt=''
 											className='w-full h-full object-cover'
 										/>
@@ -117,7 +117,7 @@ export default function NewsMainPage() {
 												key={item.id}>
 												<div className='w-4/12 h-full rounded-2xl overflow-hidden border'>
 													<img
-														src={item.image}
+														src={item.image.url}
 														alt=''
 														className='w-full h-full object-cover'
 													/>

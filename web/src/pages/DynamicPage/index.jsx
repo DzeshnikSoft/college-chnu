@@ -50,10 +50,15 @@ function DynamicPage() {
 
 	if (statusCode === 404) return <NotFoundPage />;
 
-	if (!pageData) return <SpinnerWrapper />;
+	if (!pageData)
+		return (
+			<div className='m-auto'>
+				<SpinnerWrapper />
+			</div>
+		);
 
 	return (
-		<div className='w-full h-full flex'>
+		<div className='w-full h-full flex flex-1'>
 			{pageData && getPageByType(pageData?.template, pageData?.content)}
 		</div>
 	);
