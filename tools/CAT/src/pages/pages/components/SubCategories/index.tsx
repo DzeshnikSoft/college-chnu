@@ -14,7 +14,7 @@ import { updateSubCategoriesSchema } from '@/validation/update.subCategory.schem
 import { getСategoryDataSelector } from '@/app/features/categories/categorySlice';
 import ButtonArrow from '@/components/ButtonArrow';
 import { moveSubCategory } from '@/app/features/categories/categorySlice';
-
+import { deactivateIsUpdated } from '@/app/features/positionNavMenuItems/positionNavMenuItemsSlice';
 interface SubCategoryState {
 	subCategoryId: string;
 	title: string;
@@ -143,7 +143,10 @@ export default function SubCategories({
 			{subCategoryLength !== 1 && index !== subCategoryLength - 1 && (
 				<ButtonArrow
 					type='right'
-					onClick={() => rightButtonClick(index)}
+					onClick={() => {
+						rightButtonClick(index);
+						dispatch(deactivateIsUpdated());
+					}}
 					className='!absolute bottom-3 right-3 !text-sm !h-10 w-6'
 				/>
 			)}
@@ -151,7 +154,10 @@ export default function SubCategories({
 			{subCategoryLength !== 1 && index !== 0 && (
 				<ButtonArrow
 					className='!absolute bottom-3 left-3 !text-sm !h-10 w-6'
-					onClick={() => leftButtonClick(index)}
+					onClick={() => {
+						leftButtonClick(index);
+						dispatch(deactivateIsUpdated());
+					}}
 					type='left'
 				/>
 			)}

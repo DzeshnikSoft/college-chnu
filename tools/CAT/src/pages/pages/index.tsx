@@ -14,6 +14,7 @@ import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import Category from './components/Category';
 import ButtonArrow from '@/components/ButtonArrow';
+import { deactivateIsUpdated } from '@/app/features/positionNavMenuItems/positionNavMenuItemsSlice';
 
 const Pages = () => {
 	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
@@ -49,7 +50,7 @@ const Pages = () => {
 	};
 
 	return (
-		<div className='h-full w-full'>
+		<div className='h-relativelyHeaderFullScreen w-full'>
 			{!isLoading ? (
 				<Tabs isFitted>
 					<TabList>
@@ -62,9 +63,12 @@ const Pages = () => {
 										index !== categories?.length - 1 && (
 											<ButtonArrow
 												type='right'
-												onClick={(e) =>
-													rightButtonClick(e, index)
-												}
+												onClick={(e) => {
+													rightButtonClick(e, index);
+													dispatch(
+														deactivateIsUpdated()
+													);
+												}}
 												className='!absolute  right-3 !text-sm !h-5/6 w-6'
 											/>
 										)}
@@ -72,9 +76,10 @@ const Pages = () => {
 									{categories.length !== 1 && index !== 0 && (
 										<ButtonArrow
 											className='!absolute left-3 !text-sm !h-5/6 w-6'
-											onClick={(e) =>
-												leftButtonClick(e, index)
-											}
+											onClick={(e) => {
+												leftButtonClick(e, index);
+												dispatch(deactivateIsUpdated());
+											}}
 											type='left'
 										/>
 									)}

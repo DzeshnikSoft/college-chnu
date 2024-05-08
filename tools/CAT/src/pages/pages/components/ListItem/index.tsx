@@ -5,6 +5,7 @@ import { deletePage } from '@/app/features/pages/pageThunks';
 import { Link } from 'react-router-dom';
 import ButtonArrow from '@/components/ButtonArrow';
 import { movePage } from '@/app/features/categories/categorySlice';
+import { deactivateIsUpdated } from '@/app/features/positionNavMenuItems/positionNavMenuItemsSlice';
 
 interface ListItemProps {
 	children?: ReactNode;
@@ -59,6 +60,7 @@ export default function ListItem({
 				subCategoryId,
 			})
 		);
+		dispatch(deactivateIsUpdated());
 	};
 
 	const upButtonClick = (e) => {
@@ -74,6 +76,7 @@ export default function ListItem({
 				subCategoryId,
 			})
 		);
+		dispatch(deactivateIsUpdated());
 	};
 
 	return (

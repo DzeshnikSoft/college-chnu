@@ -1,6 +1,7 @@
 import { NewsDto } from '@/models/api';
 import { fetchNewsData, updateNews, addNews, deleteNews } from './newsThunks';
 import { sortNewsArrayByPinnedAndDate } from '@/helpers/sort';
+
 export const extraReducersConfigNews = (builder) => {
 	//get
 	builder.addCase(fetchNewsData.pending, (state) => {
