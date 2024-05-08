@@ -47,7 +47,7 @@ const News = () => {
 			fetchNewsData({
 				pageNumber: selected + 1,
 				pageSize: paginationSettings.pageSize,
-				searchTerm: '',
+				searchTerm: searchText,
 			})
 		);
 	};

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { itemsEditor } from '../../utils/editorProps';
 import { Button } from '@chakra-ui/react';
@@ -9,20 +9,26 @@ interface EditorWrapperProps {
 	content: string;
 	name: string;
 	textContent: string;
+	descriptionNews?: string;
+	imageUrlNews?: string;
 }
 
 export default function EditorWrapper({
 	content,
 	name,
 	textContent,
+	descriptionNews,
+	imageUrlNews,
 }: EditorWrapperProps) {
 	const { setFieldValue } = useFormikContext();
 	const editorRef = useRef(null);
 	const [currentChanges, setCurrentChanges] = useState('');
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
-
+	const [isSavedNewsInfo, setIsSavedNewsInfo] = useState(false);
+	const newsInfo = `<p>${descriptionNews}</p> <img src=${imageUrlNews} />`;
 	const handleClick = () => {
+		setIsSavedNewsInfo(true);
 		if (editorRef.current) {
 			setFieldValue(name, editorRef.current.getContent());
 			setFieldValue(
@@ -32,12 +38,16 @@ export default function EditorWrapper({
 		}
 	};
 
+	useEffect(() => {}, []);
+
 	return (
 		<div className='w-10/12 mx-auto flex flex-col relative'>
 			<Editor
 				apiKey={import.meta.env.VITE_KEY_TINY}
 				onInit={(evt, editor) => (editorRef.current = editor)}
-				initialValue={content}
+				initialValue={`${
+					!isSavedNewsInfo && descriptionNews ? newsInfo : ''
+				} ${content}`}
 				init={{
 					height: 500,
 					width: '100%',
@@ -78,7 +88,7 @@ export default function EditorWrapper({
 					fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
 					default_link_target: '_blank',
 					content_style:
-						'body { font-family:Roboto,sans-serif; font-size:14px;}',
+						'body { font-family:Roboto,sans-serif; font-size:16px;}',
 				}}
 			/>
 			<Button
