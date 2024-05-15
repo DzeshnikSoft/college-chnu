@@ -1,17 +1,18 @@
 import React from 'react';
 import './Footer.css';
 import SocialMediaIcon from '../../SocialMediaIcon';
+import Location from '../../../pages/MainPage/components/Location';
 
 const Footer = () => {
 	return (
 		<footer className='footer' id='footer'>
-			<div className='w-10/12 mx-auto flex gap-10 lg:h-fit lg:flex-col xl:h-[200px] h-[250px] lg:pt-4'>
+			<div className='w-full xl:w-full mx-auto flex gap-10 lg:h-fit lg:flex-col xl:h-[200px] h-[250px]'>
 				<div className='w-full flex lg:flex-col-reverse h-full'>
-					<div className='flex w-full'>
+					<div className='flex w-4/12 xlg:w-11/12 mx-auto xlg:justify-between'>
 						<div className='h-40 xlg:h-32 xlg:w-32 lg:h-24 lg:w-24 w-40 mt-5 lg:my-auto mb-auto'>
 							<img src='./logo.png' alt='' className='h-full' />
 						</div>
-						<div className='w-4/12 lg:w-7/12 flex flex-col xl:w-7/12 xl:ml-5 lg:mb-3 pl-3'>
+						<div className='w-6/12 lg:w-7/12 flex flex-col xl:w-7/12 xl:ml-5 xlg:ml-0 lg:mb-3 pl-3 xlg:text-right'>
 							<h4 className='text-xl xlg:text-base mt-5'>
 								Контактна інформація
 							</h4>
@@ -35,19 +36,17 @@ const Footer = () => {
 							</div>
 						</div>
 					</div>
-					<div className='w-6/12 lg:w-full ml-10 flex flex-col items-center'>
-						<h4 className='text-5xl lg:text-2xl font-normal w-full  m-auto font-subTitleTextCarousel text-mainTextColor'>
-							Primus inter pares
-						</h4>
+					<div className='w-6/12 lg:w-full ml-10 lg:ml-0 lg:h-full h-full flex justify-center items-center'>
+						<Location />
 					</div>
 				</div>
 			</div>
 			<div className='w-full h-20 bg-[#1f1f1f] flex'>
-				<div className='w-10/12 mx-auto flex items-center'>
-					<div className='w-6/12 flex justify-center'>
-						<span>© 2023 Фaховий Коледжу ЧНУ</span>
+				<div className='w-10/12 mx-auto flex items-center xlg:w-11/12 xlg:justify-between'>
+					<div className='w-6/12 flex justify-start xlg:text-sm xlg:w-8/12'>
+						<span>© 2024 Фaховий Коледжу ЧНУ</span>
 					</div>
-					<div className='w-6/12 flex justify-evenly'>
+					<div className='w-6/12 flex justify-evenly xlg:w-4/12'>
 						<SocialMediaIcon name={'instagram'} />
 						<SocialMediaIcon name={'facebook'} />
 						<SocialMediaIcon name={'tiktok'} />
