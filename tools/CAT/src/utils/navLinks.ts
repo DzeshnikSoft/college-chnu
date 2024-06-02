@@ -16,6 +16,11 @@ export const navLinks: NavLink[] = [
 		path: '/pages',
 	},
 	{
+		icon: 'fa-solid fa-image',
+		label: 'Галерея',
+		path: '/gallery',
+	},
+	{
 		icon: 'fa-solid fa-gear',
 		label: 'Налаштування',
 		path: '/settings',
