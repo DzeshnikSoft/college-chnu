@@ -1,5 +1,6 @@
-import { Button } from "@chakra-ui/react";
-import { ButtonProps } from "@/models/ui";
+import { Button } from '@chakra-ui/react';
+import { ButtonProps } from '@/models/ui';
+
 export default function DeleteButton({
 	children,
 	className,

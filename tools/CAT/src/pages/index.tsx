@@ -8,6 +8,7 @@ import News from './news';
 import Pages from './pages';
 import Settings from './settings';
 import CreateNews from './createNews';
+import Gallery from './gallery';
 
 export const routes: RouteObject[] = [
 	{
@@ -25,6 +26,10 @@ export const routes: RouteObject[] = [
 			{
 				path: 'settings',
 				element: <Settings />,
+			},
+			{
+				path: 'gallery',
+				element: <Gallery />,
 			},
 		],
 	},
