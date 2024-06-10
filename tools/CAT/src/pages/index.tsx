@@ -9,6 +9,7 @@ import Pages from './pages';
 import Settings from './settings';
 import CreateNews from './createNews';
 import Gallery from './gallery';
+import CollectiveCollege from './collectiveCollege';
 
 export const routes: RouteObject[] = [
 	{
@@ -30,6 +31,10 @@ export const routes: RouteObject[] = [
 			{
 				path: 'gallery',
 				element: <Gallery />,
+			},
+			{
+				path: 'collective',
+				element: <CollectiveCollege />,
 			},
 		],
 	},
