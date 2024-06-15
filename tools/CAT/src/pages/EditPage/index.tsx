@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import EditPageDefault from './EditPageDefault';
-import EditPageWithTitle from './EditPageWithTitle';
+import editPageDefault from './editPageDefault';
+import editPageWithTitle from './editPageWithTitle';
 import Edit from '@/components/Edit';
 import { Link } from 'react-router-dom';
 import SpinnerWrapper from '@/components/Spinner';
@@ -73,14 +73,14 @@ export default function EditPage() {
 			switch (data.template.type) {
 				case 0:
 					return (
-						<EditPageDefault
+						<editPageDefault
 							textContent='textContent'
 							content={data.content}
 						/>
 					);
 				case 1:
 					return (
-						<EditPageWithTitle
+						<editPageWithTitle
 							content={data.content}
 							textContent='textContent'
 							img={data.template.image.url}

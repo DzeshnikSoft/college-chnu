@@ -1,14 +1,14 @@
 import EditorWrapper from '@/components/EditorWrapper';
 
-interface EditPageDefaultProps {
+interface editPageDefaultProps {
 	content: string;
 	textContent: string;
 }
 
-export default function EditPageDefault({
+export default function editPageDefault({
 	content,
 	textContent,
-}: EditPageDefaultProps) {
+}: editPageDefaultProps) {
 	return (
 		<div className='w-full'>
 			<EditorWrapper

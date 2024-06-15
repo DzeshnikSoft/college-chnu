@@ -1,19 +1,19 @@
 import EditorWrapper from '@/components/EditorWrapper';
 import EditTitlePage from '@/components/EditTitlePage';
 
-interface EditPageDefaultProps {
+interface editPageDefaultProps {
 	content: string;
 	title: string;
 	textContent: string;
 	img: string;
 }
 
-export default function EditPageWithTitle({
+export default function editPageWithTitle({
 	title,
 	content,
 	img,
 	textContent,
-}: EditPageDefaultProps) {
+}: editPageDefaultProps) {
 	return (
 		<div className='w-full'>
 			<EditTitlePage
