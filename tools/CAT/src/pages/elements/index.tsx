@@ -1,5 +1,5 @@
-import Settings from '../Settings';
-import Gallery from '../Gallery';
+// // import Settings from '../Settings';
+// import Gallery from '../Gallery';
 import EditPage from '../EditPage';
 import EditNews from '../EditNews';
 import CreateNews from '../CreateNews';
@@ -13,8 +13,8 @@ export {
 	PageLayout,
 	News,
 	Pages,
-	Settings,
-	Gallery,
+	// Settings,
+	// Gallery,
 	EditPage,
 	EditNews,
 	CreateNews,

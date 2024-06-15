@@ -59,7 +59,7 @@ function Header() {
 									className='h-full flex items-center'>
 									Коледж
 								</NavLink>
-								<SubMenu
+								{/* <SubMenu
 									subMenu={[
 										{
 											id: '3fa85f64-5717-4562-b3fc-2c9gdggdgdgdf66afa6',
@@ -90,7 +90,7 @@ function Header() {
 									]}
 									parentUrl='news'
 									isCustomData={true}
-								/>
+								/> */}
 							</li>
 							{navMenuData &&
 								navMenuData?.map((item, index) => (
