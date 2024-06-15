@@ -1,9 +1,9 @@
 // // import Settings from '../Settings';
 // import Gallery from '../Gallery';
-import EditPage from '../EditPage';
-import EditNews from '../EditNews';
-import CreateNews from '../CreateNews';
-import Authenticate from '../Authenticate';
+import EditPage from '../editPage';
+import EditNews from '../editNews';
+import CreateNews from '../createNews';
+import Authenticate from '../authenticate';
 import PrivateRoute from '@/components/PrivateRoute';
 import PageLayout from '@/layout/page-layout';
 import News from '../news';
