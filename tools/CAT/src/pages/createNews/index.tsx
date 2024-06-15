@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
-import DeleteButton from '@/components/DeleteButton';
 import { Button } from '@chakra-ui/react';
 import { NewsDto } from '@/models/api';
 import { createNewsSchema } from '@/validation/create.news.schema';
@@ -50,6 +49,7 @@ function CreateNews() {
 			}
 		});
 	};
+
 	useEffect(() => {
 		if (newsError) {
 			showErrorNotif(newsError);
@@ -81,7 +81,6 @@ function CreateNews() {
 											className='w-fit px-10 py-4 mr-5'>
 											Створити
 										</Button>
-										<DeleteButton>Видалити</DeleteButton>
 									</div>
 								</div>
 								<div className='w-full flex'>
@@ -188,7 +187,7 @@ function CreateNews() {
 								</div>
 							</div>
 							<EditTitlePage
-								url={values.titleBackgroundImage.url ?? ''}
+								url='http://85.217.171.81/files/images/news.jpeg'
 								label={values.title ?? ''}
 								nameUrl={'titleBackgroundImage.url'}
 								nameLabel={'title'}

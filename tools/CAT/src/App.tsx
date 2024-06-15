@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useAppSelector } from './app/hooks';
 import { getPositionNavMenuItemsIsUpdatedSelector } from './app/features/positionNavMenuItems/positionNavMenuItemsSlice';
-import { routes } from './pages';
-
-const router = createBrowserRouter(routes);
+// import { routes } from './pages/routes';
+import AppRoutes from './pages/routes';
+// const router = createBrowserRouter(routes);
 
 function App() {
 	const isUpdatedPositionNavMenuItems = useAppSelector(
@@ -28,10 +29,10 @@ function App() {
 	}, [isUpdatedPositionNavMenuItems]);
 
 	return (
-		<>
-			<RouterProvider router={router} />
+		<Router>
+			<AppRoutes />
 			<ToastContainer />
-		</>
+		</Router>
 	);
 }
 

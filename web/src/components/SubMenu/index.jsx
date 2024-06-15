@@ -1,13 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const SubMenu = ({ subMenu, parentUrl }) => {
+const SubMenu = ({ subMenu, parentUrl, isCustomData = false }) => {
 	return (
 		<div className='submenu w-fit max-w-[500px]'>
 			{subMenu.map(
 				(subSubMenu) =>
 					subSubMenu.pages.length > 0 && (
-						<div className='sub_submenu first:pl-5 w-[250px]'>
+						<div
+							className='sub_submenu first:pl-5 w-[250px]'
+							key={subSubMenu.id}>
 							{subMenu?.length > 1 && (
 								<p className='text-xl text-colorTextColor mt-3'>
 									{subSubMenu.title}
@@ -19,7 +21,14 @@ const SubMenu = ({ subMenu, parentUrl }) => {
 										className='last:mb-3 first:mt-3'
 										key={el.id}>
 										<NavLink
-											to={`/${parentUrl}/${subSubMenu.url}/${el.url}`}
+											to={
+												isCustomData
+													? `/${parentUrl}`
+													: `/${parentUrl}/${subSubMenu.url}/${el.url}`
+											}
+											onClick={() =>
+												console.log(`/${parentUrl}`)
+											}
 											className={({ isActive }) =>
 												isActive
 													? 'text-colorTextColor font-bold'

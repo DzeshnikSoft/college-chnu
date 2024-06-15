@@ -9,7 +9,6 @@ export const createCategoriesSchema = (data) => {
 				'unique-title',
 				'Така назва для категорії вже існує',
 				function (value) {
-					// Check if the title already exists in the Redux state
 					const isTitleUnique = !data.some(
 						(item) => item.title === value
 					);

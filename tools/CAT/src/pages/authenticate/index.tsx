@@ -4,37 +4,21 @@ import { useEffect } from 'react';
 import { CollegeAdmin } from '@/models/college-admin';
 import { showErrorNotif, showSuccessNotif } from '@/providers/notify';
 import { apiKeyStorage } from '@/services/localStorageService';
-
 import { loginValidationSchema } from '@/validation/login.schema';
 import { Button, Input } from '@chakra-ui/react';
+import { login } from '@/app/apis/authenticate';
+import { useNavigate } from 'react-router-dom';
 
 const Authenticate = () => {
+	const navigate = useNavigate();
 	const handleLogin = async (values: CollegeAdmin) => {
-		// login(values);
+		login(values, navigate);
 	};
 
 	const initialValues: CollegeAdmin = {
 		login: '',
 		password: '',
 	};
-
-	// useEffect(() => {
-	// 	if (error) {
-	// 		if (error?.status === 400) {
-	// 			showErrorNotif('Неправильний логін або пароль :(');
-	// 		} else {
-	// 			showErrorNotif('Щось пішло не по плану :(');
-	// 		}
-	// 	}
-	// }, [error]);
-
-	// useEffect(() => {
-	// 	if (data) {
-	// 		showSuccessNotif('Ласкаво просимо назад');
-	// 		apiKeyStorage.set(data.apiKey);
-	// 		// TODO: Add navigation to dashboard
-	// 	}
-	// }, [data]);
 
 	return (
 		<div className='h-screen flex'>

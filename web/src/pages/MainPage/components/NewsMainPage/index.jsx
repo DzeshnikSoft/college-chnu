@@ -62,7 +62,7 @@ export default function NewsMainPage() {
 										</h3>
 										<p className='text-colorTextColor w-full overflow-hidden font-medium mt-2 lg:text-sm text-base'>
 											{truncate(item.description)}
-											<NavLink to='/'>
+											<NavLink to={`/news/${item.url}`}>
 												<span className='ml-2 text-accentTextColor md:text-xs hover:underline'>
 													Детальніше
 												</span>
@@ -94,7 +94,8 @@ export default function NewsMainPage() {
 											{truncate(
 												newsData.data[0].description
 											)}
-											<NavLink to='/'>
+											<NavLink
+												to={`/news/${newsData.data[0].url}`}>
 												<span className='ml-2 text-accentTextColor hover:underline'>
 													Детальніше
 												</span>
@@ -130,7 +131,8 @@ export default function NewsMainPage() {
 														{truncate(
 															item.description
 														)}
-														<NavLink to='/'>
+														<NavLink
+															to={`/news/${item.url}`}>
 															<span className='ml-2 text-accentTextColor hover:underline'>
 																Детальніше
 															</span>

@@ -86,9 +86,38 @@ export default function EditorWrapper({
 					plugins: itemsEditor.plugins,
 					toolbar: itemsEditor.toolbar,
 					fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+					style_formats: [
+						{
+							title: 'Bullet list',
+							items: [
+								{
+									title: 'Disc',
+									format: 'list',
+									icon: 'disc',
+									selector: 'ul',
+									styles: { 'list-style-type': 'disc' },
+								},
+								{
+									title: 'Circle',
+									format: 'list',
+									icon: 'circle',
+									selector: 'ul',
+									styles: { 'list-style-type': 'circle' },
+								},
+								{
+									title: 'Square',
+									format: 'list',
+									icon: 'square',
+									selector: 'ul',
+									styles: { 'list-style-type': 'square' },
+								},
+							],
+						},
+					],
 					default_link_target: '_blank',
-					content_style:
-						'body { font-family:Roboto,sans-serif; font-size:16px;}',
+					content_style: `body { font-family:Roboto,sans-serif; font-size:16px; color:#1A3853}  ul > li {
+							// color: #25b37c;
+						  }`,
 				}}
 			/>
 			<Button

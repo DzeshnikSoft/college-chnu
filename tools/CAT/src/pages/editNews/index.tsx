@@ -20,6 +20,7 @@ import SpinnerWrapper from '@/components/Spinner';
 import { useAppDispatch } from '@/app/hooks';
 import { updateNews } from '@/app/features/news/newsThunks';
 import EditTitlePage from '@/components/EditTitlePage';
+import { deleteNews } from '@/app/features/news/newsThunks';
 
 function EditNews() {
 	const dispatch = useAppDispatch();
@@ -45,6 +46,18 @@ function EditNews() {
 
 	const handleSubmit = (values: NewsDto) => {
 		dispatch(updateNews(values)).then(() => {
+			navigate('/news');
+		});
+	};
+
+	const handleDelete = () => {
+		dispatch(deleteNews(id)).then(() => {
+			// dispatch(
+			// 	fetchNewsData({
+			// 		...paginationSettings,
+			// 		searchTerm: '',
+			// 	})
+			// );
 			navigate('/news');
 		});
 	};
@@ -79,7 +92,8 @@ function EditNews() {
 												className='w-fit px-10 py-4 mr-5'>
 												Оновити
 											</Button>
-											<DeleteButton>
+											<DeleteButton
+												onClick={handleDelete}>
 												Видалити
 											</DeleteButton>
 										</div>
