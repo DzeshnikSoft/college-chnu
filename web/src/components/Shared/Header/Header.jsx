@@ -57,7 +57,7 @@ function Header() {
 								<NavLink
 									to='/'
 									className='h-full flex items-center'>
-									Коледж
+									Головна
 								</NavLink>
 								{/* <SubMenu
 									subMenu={[
