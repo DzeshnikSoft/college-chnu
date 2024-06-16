@@ -11,6 +11,7 @@ using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace College.API.Controllers;
 
