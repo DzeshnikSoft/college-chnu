@@ -24,13 +24,18 @@ function SingleNewsPage() {
 		})();
 	}, [name]);
 
+	useEffect(() => {
+		console.log(newsPageData);
+	}, [newsPageData]);
+
 	if (statusCode === 404) return <NotFoundPage />;
 
 	if (!newsPageData) return <SpinnerWrapper />;
 
 	return (
 		<PageWithTitleWrapper
-			url={newsPageData.titleBackgroundImage?.url}
+			url='
+			http://85.217.171.81/files/images/news.jpeg'
 			label={newsPageData.title}
 			content={newsPageData.content}
 		/>

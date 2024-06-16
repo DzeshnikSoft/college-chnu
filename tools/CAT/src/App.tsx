@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useAppSelector } from './app/hooks';
 import { getPositionNavMenuItemsIsUpdatedSelector } from './app/features/positionNavMenuItems/positionNavMenuItemsSlice';
-import { routes } from './pages';
-
-const router = createBrowserRouter(routes);
+import router from './pages/routes';
 
 function App() {
 	const isUpdatedPositionNavMenuItems = useAppSelector(

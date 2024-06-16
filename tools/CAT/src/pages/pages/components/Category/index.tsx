@@ -128,7 +128,7 @@ export default function Category({
 						</Form>
 					)}
 				</Formik>
-				<Button
+				{/* <Button
 					type='submit'
 					colorScheme='green'
 					onClick={updatedPositionItems}
@@ -136,8 +136,8 @@ export default function Category({
 						!isUpdatedPositionItems && 'animate-pulse'
 					}`}>
 					Оновити переміщення
-				</Button>
-				<DeleteButton onClick={handleDelete} className='mr-0'>
+				</Button> */}
+				<DeleteButton onClick={handleDelete} className='mr-0 ml-auto'>
 					Видалити
 				</DeleteButton>
 			</div>

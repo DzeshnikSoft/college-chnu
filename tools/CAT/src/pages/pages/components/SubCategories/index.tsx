@@ -140,7 +140,7 @@ export default function SubCategories({
 				subCategoryId={initialSubCategory.subCategoryId}
 				parentUrl={`${defaultUrl}${parentUrl}/${initialSubCategory.url}/`}
 			/>
-			{subCategoryLength !== 1 && index !== subCategoryLength - 1 && (
+			{/* {subCategoryLength !== 1 && index !== subCategoryLength - 1 && (
 				<ButtonArrow
 					type='right'
 					onClick={() => {
@@ -160,7 +160,7 @@ export default function SubCategories({
 					}}
 					type='left'
 				/>
-			)}
+			)} */}
 		</Card>
 	);
 }

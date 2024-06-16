@@ -12,7 +12,6 @@ const uploadFile = async (selectedFile, setLoading) => {
 			'http://85.217.171.81/files',
 			formData
 		);
-
 		return response.data;
 	} catch (error) {
 		const { data } = error.response;

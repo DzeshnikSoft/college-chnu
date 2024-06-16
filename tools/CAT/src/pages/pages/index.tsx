@@ -59,7 +59,7 @@ const Pages = () => {
 								<Tab className='relative' key={id}>
 									{title}
 
-									{categories.length !== 1 &&
+									{/* {categories.length !== 1 &&
 										index !== categories?.length - 1 && (
 											<ButtonArrow
 												type='right'
@@ -82,7 +82,7 @@ const Pages = () => {
 											}}
 											type='left'
 										/>
-									)}
+									)} */}
 								</Tab>
 							)
 						)}

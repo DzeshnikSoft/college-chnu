@@ -59,6 +59,38 @@ function Header() {
 									className='h-full flex items-center'>
 									Головна
 								</NavLink>
+								{/* <SubMenu
+									subMenu={[
+										{
+											id: '3fa85f64-5717-4562-b3fc-2c9gdggdgdgdf66afa6',
+											url: '',
+											title: 'Про коледж',
+											categoryId:
+												'3fa85f64-5717-4562-b3fc-2c963f66afa6',
+											pages: [
+												{
+													id: '3fa85f64-5717-4562-ffff-2c963f66afa6',
+													url: '',
+													title: 'Всі новини',
+													content: 'string',
+													textContent: 'string',
+													subCategoryId:
+														'3fa85f64-5717-4562-b3fc-2c963f66afa6',
+													template: {
+														type: 0,
+														image: {
+															url: 'string',
+															alt: 'string',
+														},
+														label: 'string',
+													},
+												},
+											],
+										},
+									]}
+									parentUrl='news'
+									isCustomData={true}
+								/> */}
 							</li>
 							{navMenuData &&
 								navMenuData?.map((item, index) => (

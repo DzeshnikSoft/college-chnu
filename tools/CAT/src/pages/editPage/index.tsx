@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import EditPageDefault from './EditPageDefault';
-import EditPageWithTitle from './EditPageWithTitle';
+import EditPageDefault from './editPageDefault';
+import EditPageWithTitle from './editPageWithTitle';
 import Edit from '@/components/Edit';
 import { Link } from 'react-router-dom';
 import SpinnerWrapper from '@/components/Spinner';
@@ -28,6 +28,7 @@ import {
 } from '@/app/features/categories/categorySlice';
 import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
 import { showErrorNotif } from '@/providers/notify';
+import { TemplateType } from '@/models/api';
 
 export default function EditPage() {
 	const { category, subcategory, page } = useParams();
@@ -71,14 +72,14 @@ export default function EditPage() {
 	const selectTemplate = (data) => {
 		if (data) {
 			switch (data.template.type) {
-				case 0:
+				case TemplateType.Default:
 					return (
 						<EditPageDefault
 							textContent='textContent'
 							content={data.content}
 						/>
 					);
-				case 1:
+				case TemplateType.HeaderWithImageAndTitle:
 					return (
 						<EditPageWithTitle
 							content={data.content}
