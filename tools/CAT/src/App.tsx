@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useAppSelector } from './app/hooks';
 import { getPositionNavMenuItemsIsUpdatedSelector } from './app/features/positionNavMenuItems/positionNavMenuItemsSlice';
 import router from './pages/routes';
+
 function App() {
 	const isUpdatedPositionNavMenuItems = useAppSelector(
 		getPositionNavMenuItemsIsUpdatedSelector
@@ -26,10 +26,10 @@ function App() {
 	}, [isUpdatedPositionNavMenuItems]);
 
 	return (
-		<Router>
+		<>
 			<RouterProvider router={router} />
 			<ToastContainer />
-		</Router>
+		</>
 	);
 }
 
