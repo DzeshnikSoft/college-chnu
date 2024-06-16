@@ -1,3 +1,4 @@
+using College.API.Authentication;
 using College.Application.Commands.Files;
 using College.Application.Exceptions;
 using College.Application.Queries.Files;
@@ -11,7 +12,7 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("files")]
-[Authorize(AuthenticationSchemes = "College Api Key Scheme")]
+[AllowAnonymous]
 public class FileController(IMediator mediator, ILogger<FileController> logger, FileStorageSettings fileStorageSettings) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
@@ -19,6 +20,7 @@ public class FileController(IMediator mediator, ILogger<FileController> logger, 
     private readonly FileStorageSettings _fileStorageSettings = fileStorageSettings;
 
     [HttpGet("images/{fileName}")]
+    [AllowAnonymous]
     public async Task<FileContentResult> GetImage(string fileName)
     {
         if (string.IsNullOrWhiteSpace(fileName))
@@ -29,6 +31,7 @@ public class FileController(IMediator mediator, ILogger<FileController> logger, 
         return await ReadAndGetFileAsync(Path.Combine("images", fileName), "image/jpeg");
     }
 
+    [AllowAnonymous]
     [HttpGet("{fileName}")]
     public async Task<FileContentResult> GetFile(string fileName)
     {
@@ -40,6 +43,7 @@ public class FileController(IMediator mediator, ILogger<FileController> logger, 
         return await ReadAndGetFileAsync(Path.Combine("others", fileName), "application/octet-stream");
     }
 
+    [AllowAnonymous]
     [HttpGet("documents/{fileName}")]
     public async Task<FileContentResult> GetPdf(string fileName)
     {
@@ -52,6 +56,7 @@ public class FileController(IMediator mediator, ILogger<FileController> logger, 
     }
 
     [HttpPost]
+    [Authorize(AuthenticationSchemes = ApiKeyAuthenticationExtensions.AuthenticationSchemeName)]
     public async Task<string> UploadFileAsync(string? fileName, IFormFile file)
     {
         if (file is null || file.Length == 0)

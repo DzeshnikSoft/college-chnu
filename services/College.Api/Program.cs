@@ -1,6 +1,8 @@
 using College.API.Authentication;
 using College.API.ExceptionsFilters;
 using College.API.Extensions;
+using College.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,5 +46,13 @@ app.UseHttpsRedirection();
 
 app.UseCors("CollegeApiPolicy");
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<CollegeDbContext>();
+    context.Database.Migrate();
+}
 
 app.Run();

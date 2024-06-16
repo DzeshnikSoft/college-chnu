@@ -17,7 +17,7 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-[Authorize(AuthenticationSchemes = ApiKeyAuthenticationExtensions.AuthenticationSchemeName)]
+[AllowAnonymous]
 public class CategoriesController(ILogger<CategoriesController> logger, IMediator mediator) : ControllerBase
 {
     private readonly ILogger<CategoriesController> _logger = logger.ThrowIfNull();

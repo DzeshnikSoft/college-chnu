@@ -11,11 +11,13 @@ using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace College.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[AllowAnonymous]
 public class NewsController(IMediator mediator, ILogger<NewsController> logger, IMapper mapper) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
