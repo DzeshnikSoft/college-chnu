@@ -12,6 +12,7 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("files")]
+[AllowAnonymous]
 public class FileController(IMediator mediator, ILogger<FileController> logger, FileStorageSettings fileStorageSettings) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();

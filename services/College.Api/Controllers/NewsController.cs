@@ -16,6 +16,7 @@ namespace College.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[AllowAnonymous]
 public class NewsController(IMediator mediator, ILogger<NewsController> logger, IMapper mapper) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
