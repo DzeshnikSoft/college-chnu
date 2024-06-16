@@ -28,11 +28,7 @@ import {
 } from '@/app/features/categories/categorySlice';
 import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
 import { showErrorNotif } from '@/providers/notify';
-
-enum TemplateType {
-	DEFAULT = 0,
-	WITH_TITLE = 1,
-}
+import { TemplateType } from '@/models/api';
 
 export default function EditPage() {
 	const { category, subcategory, page } = useParams();
@@ -76,14 +72,14 @@ export default function EditPage() {
 	const selectTemplate = (data) => {
 		if (data) {
 			switch (data.template.type) {
-				case TemplateType.DEFAULT:
+				case TemplateType.Default:
 					return (
 						<EditPageDefault
 							textContent='textContent'
 							content={data.content}
 						/>
 					);
-				case TemplateType.WITH_TITLE:
+				case TemplateType.HeaderWithImageAndTitle:
 					return (
 						<EditPageWithTitle
 							content={data.content}
