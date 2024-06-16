@@ -17,7 +17,7 @@ services:
         build:
             context: ./tools/CAT
         ports:
-            - '4000:80'
+            - '4000:4000'
 
     nginx:
         build:
