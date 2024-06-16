@@ -56,6 +56,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IFileStorage, FileStorage>();
         services.AddScoped<IFilePathFilter, FilePathFilter>();
         services.AddScoped<ITemplateFactory, TemplateFactory>();
+        services.AddScoped<ITextProcessor, TextProcessor>();
 
         // ****************************
         // Cache

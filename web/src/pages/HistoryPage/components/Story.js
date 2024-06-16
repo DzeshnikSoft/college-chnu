@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Story.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Story.css';
 
 const Story = () => {
 	return (
@@ -21,7 +21,7 @@ const Story = () => {
 							статусу юридичної особи.
 						</p>
 						<p>
-							{" "}
+							{' '}
 							Першим директором коледжу було призначено кандидата
 							філологічних наук Личук Марію Іванівну. Підготовка
 							фахівців спочатку здійснювалася за сімома
@@ -128,32 +128,32 @@ const Story = () => {
 					<div className='specialty'>
 						<ol>
 							<li>
-								<i class='fas fa-dot-circle'></i> <p>071</p>{" "}
+								<i className='fas fa-dot-circle'></i> <p>071</p>{' '}
 								“Облік і оподаткування”;
 							</li>
 							<li>
-								<i class='fas fa-dot-circle'></i> <p>072</p>{" "}
+								<i className='fas fa-dot-circle'></i> <p>072</p>{' '}
 								“Фінанси, банківська справа та страхування”;
 							</li>
 							<li>
-								<i class='fas fa-dot-circle'></i> <p>076</p>{" "}
+								<i className='fas fa-dot-circle'></i> <p>076</p>{' '}
 								“Підприємництво, торгівля та біржова
 								діяльність”;
 							</li>
 							<li>
-								<i class='fas fa-dot-circle'></i> <p>081</p>{" "}
+								<i className='fas fa-dot-circle'></i> <p>081</p>{' '}
 								“Право”;
 							</li>
 							<li>
-								<i class='fas fa-dot-circle'></i> <p>113</p>{" "}
+								<i className='fas fa-dot-circle'></i> <p>113</p>{' '}
 								“Прикладна математика”;
 							</li>
 							<li>
-								<i class='fas fa-dot-circle'></i> <p>122</p>{" "}
+								<i className='fas fa-dot-circle'></i> <p>122</p>{' '}
 								“Комп’ютерні науки ”;
 							</li>
 							<li>
-								<i class='fas fa-dot-circle'></i> <p>123</p>{" "}
+								<i className='fas fa-dot-circle'></i> <p>123</p>{' '}
 								“Комп’ютерна інженерія”.
 							</li>
 						</ol>

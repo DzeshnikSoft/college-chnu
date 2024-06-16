@@ -1,14 +1,12 @@
 import React from 'react';
 
 import './mainPage.css';
-
 import CarouselWelcome from './components/CarouselWelcome';
 import NewsMainPage from './components/NewsMainPage';
 import Director from './components/Director';
-// import AboutInfo from './components/aboutInfo'
+// import AboutInfo from './components/aboutInfo';
 // import Courses from './components/Courses'
-// import VideoPreview from './components/VideoPreview';
-// import Location from './components/Location';
+import VideoPreview from './components/VideoPreview';
 
 const MainPage = () => {
 	return (
@@ -16,10 +14,11 @@ const MainPage = () => {
 			<CarouselWelcome />
 			<Director />
 			<NewsMainPage />
-			{/* <AboutInfo/> */}
+			{/* <AboutInfo /> */}
 			{/* <Courses/> */}
-			{/* <VideoPreview/>
-      <Location/> */}
+			<div className='h-[50vh]'>
+				<VideoPreview />
+			</div>
 		</div>
 	);
 };

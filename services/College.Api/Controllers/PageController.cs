@@ -1,3 +1,4 @@
+using System.Net;
 using College.API.Authentication;
 using College.API.Exceptions;
 using College.API.ViewModels;
@@ -11,7 +12,6 @@ using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace College.API.Controllers;
 
@@ -39,18 +39,19 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
         try
         {
             var command = new CreatePageCommand(
-            pageViewModel.Title,
-            pageViewModel.Content,
-            pageViewModel.Url,
-            pageViewModel.SubCategoryId,
-            new TemplateDto { Type = pageViewModel.Template.Type, Image = pageViewModel.Template.Image, Label = pageViewModel.Template.Label });
+                pageViewModel.Title,
+                pageViewModel.Content,
+                pageViewModel.TextContent,
+                pageViewModel.Url,
+                pageViewModel.SubCategoryId,
+                new TemplateDto { Type = pageViewModel.Template.Type, Image = pageViewModel.Template.Image, Label = pageViewModel.Template.Label });
 
             return Ok(
                 await _mediator.Send(command));
         }
         catch (UrlConflictException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
         }
     }
 
@@ -64,6 +65,7 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
                 pageViewModel.Title,
                 pageViewModel.Url,
                 pageViewModel.Content,
+                pageViewModel.TextContent,
                 pageViewModel.SubCategoryId,
                 new TemplateDto
                 {
@@ -143,5 +145,11 @@ public class PageController(IMediator mediator, ILogger<PageController> logger) 
         {
             throw new ApiException(ex.Message, ApiReasonCodes.EntityNotFound, HttpStatusCode.NotFound);
         }
+    }
+
+    [HttpGet("search")]
+    public async Task<ActionResult<Paginator<SearchViewModel>>> SearchPageAsync([FromQuery] QueryFilterModel queryFilterModel)
+    {
+        return Ok(await _mediator.Send(new SearchPagesQuery(queryFilterModel)));
     }
 }

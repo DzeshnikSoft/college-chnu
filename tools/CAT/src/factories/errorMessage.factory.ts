@@ -1,6 +1,7 @@
 import { ApiError } from '@/models/api';
 import {
 	BadRequestReasonCode,
+	ConflictReasonCode,
 	ServerErrorReasonCode,
 } from '@/models/api/reasonCodes';
 
@@ -14,11 +15,15 @@ export const getErrorMessage = (
 			return 'Не знайдено';
 		case BadRequestReasonCode.IncorrectLoginOrPassword:
 			return 'Не правильний адмін логін або пароль!';
-		case BadRequestReasonCode.UrlAlreadyExist:
+
+		// 409
+		case ConflictReasonCode.UrlAlreadyExist:
 			return 'Така URL вже існує, спробуйте інший варіант!';
 
 		// 500...
 		case ServerErrorReasonCode.InternalServerError:
 			return 'На сервері щось пішло не так!';
+		default:
+			return 'Упс... Щось пішло не так!';
 	}
 };

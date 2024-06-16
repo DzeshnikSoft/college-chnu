@@ -10,6 +10,8 @@ public class NewsDto
 
     public string Content { get; set; }
 
+    public string TextContent{ get; set; }
+
     public bool? Pinned { get; set; }
 
     public ImageDto Image { get; set; }

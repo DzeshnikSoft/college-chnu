@@ -1,8 +1,13 @@
+using System.Net;
 using AutoMapper;
+using College.API.Exceptions;
 using College.API.ViewModels;
 using College.Application.Commands.News;
+using College.Application.Exceptions;
 using College.Application.Queries.News;
 using College.Domain.DTOs;
+using College.Domain.Models;
+using College.Shared.Exceptions;
 using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +23,7 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
     private readonly IMapper _mapper = mapper.ThrowIfNull();
 
     [HttpGet]
-    public async Task<ActionResult<PaginationModel<NewsDto>>> GetNews([FromQuery] QueryFilterModel queryFilter)
+    public async Task<ActionResult<Paginator<NewsDto>>> GetNewsAsync([FromQuery] QueryFilterModel queryFilter)
     {
         _logger.LogInformation("[NewsController] Received request to get all news");
         var news = await _mediator.Send(new GetNewsQuery(queryFilter));
@@ -26,12 +31,26 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
         return Ok(news);
     }
 
+    [HttpGet("search")]
+    public async Task<ActionResult<Paginator<NewsDto>>> SearchNewsAsync([FromQuery] QueryFilterModel queryFilter)
+    {
+        return Ok(await _mediator.Send(new SearchNewsQuery(queryFilter)));
+    }
+
     [HttpGet("{newsId:guid}")]
-    public async Task<ActionResult<NewsDto>> GetNewsById(Guid newsId)
+    public async Task<ActionResult<NewsDto>> GetNewsByIdAsync(Guid newsId)
     {
         _logger.LogInformation("[NewsController] Received request to get news by id = {NewsId}", newsId);
 
         return Ok(await _mediator.Send(new GetNewsByIdQuery(newsId)));
+    }
+
+    [HttpGet("by-path/{url}")]
+    public async Task<ActionResult<NewsDto>> GetNewsByPathAsync(string url)
+    {
+        _logger.LogInformation("[NewsController] Received request to get news by path = {NewsUrl}", url);
+
+        return Ok(await _mediator.Send(new GetNewsByPathQuery(url)));
     }
 
     /// <summary>
@@ -40,14 +59,21 @@ public class NewsController(IMediator mediator, ILogger<NewsController> logger, 
     /// <param name="newsViewModel">News info</param>
     /// <returns>New news GUID</returns>
     [HttpPost]
-    public async Task<ActionResult<Guid>> CreateNews(NewsViewModel newsViewModel)
+    public async Task<ActionResult<Guid>> CreateNewsAsync(NewsViewModel newsViewModel)
     {
-        _logger.LogInformation("[NewsController] Received request to create news");
-        var newsDto = _mapper.Map<NewsDto>(newsViewModel);
+        try
+        {
+            _logger.LogInformation("[NewsController] Received request to create news");
+            var newsDto = _mapper.Map<NewsDto>(newsViewModel);
 
-        var newsId = await _mediator.Send(new CreateNewsCommand(newsDto));
+            var newsId = await _mediator.Send(new CreateNewsCommand(newsDto));
 
-        return Ok(newsId);
+            return Ok(newsId);
+        }
+        catch (UrlConflictException ex)
+        {
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
+        }
     }
 
     /// <summary>

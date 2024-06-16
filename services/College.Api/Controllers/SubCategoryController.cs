@@ -1,3 +1,4 @@
+using System.Net;
 using College.API.Authentication;
 using College.API.Exceptions;
 using College.API.ViewModels;
@@ -10,7 +11,6 @@ using College.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace College.API.Controllers;
 
@@ -34,7 +34,7 @@ public class SubCategoryController(IMediator mediator, ILogger<SubCategoryContro
         }
         catch (UrlConflictException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
         }
         catch (EntityNotFoundException ex)
         {
@@ -54,7 +54,7 @@ public class SubCategoryController(IMediator mediator, ILogger<SubCategoryContro
         }
         catch (UrlConflictException ex)
         {
-            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.BadRequest);
+            throw new ApiException(ex.Message, ApiReasonCodes.UrlAlreadyExist, HttpStatusCode.Conflict);
         }
         catch (EntityNotFoundException ex)
         {

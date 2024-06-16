@@ -1,7 +1,23 @@
-// import React from 'react'
+import React from 'react';
+import YouTube from 'react-youtube';
 
-// const VideoPreview = () => {
-//     return <iframe style = {{height : "65vh", width : "100%", marginBottom : "-5px"}}src="https://www.youtube.com/embed/mrEUV2RebXo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-// }
+const VideoPreview = () => {
+	const onPlayerReady = (event) => {
+		event.target.pauseVideo();
+	};
 
-// export default VideoPreview
+	const opts = {
+		height: '100%',
+		width: '100%',
+	};
+	return (
+		<YouTube
+			className='h-full w-full'
+			videoId='mrEUV2RebXo'
+			opts={opts}
+			onReady={onPlayerReady}
+		/>
+	);
+};
+
+export default VideoPreview;

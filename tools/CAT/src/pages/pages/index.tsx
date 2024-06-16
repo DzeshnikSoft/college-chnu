@@ -8,11 +8,13 @@ import SpinnerWrapper from '@/components/Spinner';
 import {
 	getСategoryDataSelector,
 	getСategoryLoadingSelector,
-	getСategoryStatusCodeSelector,
+	moveCategory,
 } from '@/app/features/categories/categorySlice';
 import { fetchCategoriesData } from '@/app/features/categories/categoryThunks';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import Category from './components/Category';
+import ButtonArrow from '@/components/ButtonArrow';
+import { deactivateIsUpdated } from '@/app/features/positionNavMenuItems/positionNavMenuItemsSlice';
 
 const Pages = () => {
 	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
@@ -20,7 +22,6 @@ const Pages = () => {
 	const dispatch = useAppDispatch();
 	const categories = useAppSelector(getСategoryDataSelector);
 	const isLoading = useAppSelector(getСategoryLoadingSelector);
-	const statusCode = useAppSelector(getСategoryStatusCodeSelector);
 
 	useEffect(() => {
 		dispatch(fetchCategoriesData());
@@ -29,18 +30,60 @@ const Pages = () => {
 	const handleClickOnAddButton = () => {
 		setIsOpenPopupForCategoties(true);
 	};
+
 	const handleClosePopupCategoties = () => {
 		setIsOpenPopupForCategoties(false);
 	};
 
+	const rightButtonClick = (e, currentIndex) => {
+		e.preventDefault();
+		e.stopPropagation();
+		const nextItemIndex = currentIndex + 1;
+		dispatch(moveCategory({ currentIndex, newIndex: nextItemIndex }));
+	};
+
+	const leftButtonClick = (e, currentIndex) => {
+		e.preventDefault();
+		e.stopPropagation();
+		const prevItemIndex = currentIndex - 1;
+		dispatch(moveCategory({ currentIndex, newIndex: prevItemIndex }));
+	};
+
 	return (
-		<div className='h-full w-full'>
+		<div className='h-relativelyHeaderFullScreen w-full'>
 			{!isLoading ? (
 				<Tabs isFitted>
 					<TabList>
 						{(categories as CategoryDto[])?.map(
-							({ title, id }: CategoryDto) => (
-								<Tab key={id}>{title}</Tab>
+							({ title, id }: CategoryDto, index) => (
+								<Tab className='relative' key={id}>
+									{title}
+
+									{/* {categories.length !== 1 &&
+										index !== categories?.length - 1 && (
+											<ButtonArrow
+												type='right'
+												onClick={(e) => {
+													rightButtonClick(e, index);
+													dispatch(
+														deactivateIsUpdated()
+													);
+												}}
+												className='!absolute  right-3 !text-sm !h-5/6 w-6'
+											/>
+										)}
+
+									{categories.length !== 1 && index !== 0 && (
+										<ButtonArrow
+											className='!absolute left-3 !text-sm !h-5/6 w-6'
+											onClick={(e) => {
+												leftButtonClick(e, index);
+												dispatch(deactivateIsUpdated());
+											}}
+											type='left'
+										/>
+									)} */}
+								</Tab>
 							)
 						)}
 						<AddButton

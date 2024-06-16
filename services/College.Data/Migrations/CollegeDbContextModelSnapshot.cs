@@ -28,6 +28,11 @@ namespace College.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreateDateUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(2)")
+                        .HasDefaultValueSql("(sysutcdatetime())");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -48,6 +53,11 @@ namespace College.Data.Migrations
                     b.Property<string>("Alt")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreateDateUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(2)")
+                        .HasDefaultValueSql("(sysutcdatetime())");
+
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
@@ -65,6 +75,11 @@ namespace College.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreateDateUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(2)")
+                        .HasDefaultValueSql("(sysutcdatetime())");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -76,6 +91,9 @@ namespace College.Data.Migrations
 
                     b.Property<bool?>("Pinned")
                         .HasColumnType("bit");
+
+                    b.Property<string>("TextContent")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -102,18 +120,23 @@ namespace College.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDateUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(2)")
+                        .HasDefaultValueSql("(sysutcdatetime())");
 
                     b.Property<Guid>("SubCategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("TextContent")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -131,6 +154,11 @@ namespace College.Data.Migrations
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDateUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(2)")
+                        .HasDefaultValueSql("(sysutcdatetime())");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -150,6 +178,11 @@ namespace College.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDateUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2(2)")
+                        .HasDefaultValueSql("(sysutcdatetime())");
 
                     b.Property<Guid?>("ImageId")
                         .HasColumnType("uniqueidentifier");
@@ -232,8 +265,7 @@ namespace College.Data.Migrations
 
             modelBuilder.Entity("College.Domain.Models.Page", b =>
                 {
-                    b.Navigation("Template")
-                        .IsRequired();
+                    b.Navigation("Template");
                 });
 
             modelBuilder.Entity("College.Domain.Models.SubCategory", b =>

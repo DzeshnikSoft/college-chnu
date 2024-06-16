@@ -1,8 +1,10 @@
 using AutoMapper;
+using College.Application.Exceptions;
 using College.Data.Context;
 using College.Domain.DTOs;
 using College.Shared.Extensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.News;
@@ -25,6 +27,11 @@ public class CreateNewsCommandHandler(CollegeDbContext db, ILogger<CreateNewsCom
             var news = _mapper.Map<Domain.Models.News>(request.NewsDto);
 
             news.Url ??= Guid.NewGuid().ToString("N");
+
+            if ((await _db.News.AnyAsync(n => n.Url == news.Url, cancellationToken: cancellationToken)))
+            {
+                throw new UrlConflictException(nameof(News), news.Url);
+            }
 
             var newsEntityEntry = await _db.News.AddAsync(news, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);

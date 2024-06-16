@@ -4,9 +4,9 @@ import Footer from '../Shared/Footer/Footer';
 
 const Layout = ({ children }) => {
 	return (
-		<div className='flex h-fit flex-col justify-between w-full'>
+		<div className='flex min-h-screen h-fit flex-col w-full'>
 			<Header />
-			<div className='h-fit w-full flex flex-col items-center justify-center'>
+			<div className='w-full h-full flex flex-auto flex-col items-center '>
 				{children}
 			</div>
 			<Footer />
@@ -15,4 +15,3 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
-//*h-[calc(100vh-9vh-330px)] max-h-fit

@@ -4,11 +4,21 @@ module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
 		screens: {
-			sm: '480px',
-			md: '768px',
-			lg: '976px',
-			xl: '1440px',
+			laptopXl: { max: '2570px' },
+
+			xl: { max: '1025px' },
+
+			xlg: { max: '930px' },
+
+			lg: { max: '769px' },
+
+			md: { max: '600px' },
+
+			xs: { max: '400px' },
+
+			xss: { max: '320px' },
 		},
+
 		extend: {
 			colors: {
 				backgroundHeaderColor: '#ffffff',
@@ -19,6 +29,7 @@ module.exports = {
 				backgroundBorder: '#e6e6e6',
 				textFooter: '#8f979b',
 			},
+
 			fontFamily: {
 				subTitleTextCarousel: "'MedievalSharp', cursive",
 			},

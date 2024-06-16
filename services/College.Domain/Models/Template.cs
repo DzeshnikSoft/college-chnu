@@ -24,4 +24,6 @@ public class Template
     public string Title { get; set; }
 
     public Guid PageId { get; set; }
+
+    public DateTime CreateDateUtc { get; set; }
 }

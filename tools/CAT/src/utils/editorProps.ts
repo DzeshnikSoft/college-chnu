@@ -6,14 +6,19 @@ export interface Editor {
 export const itemsEditor: Editor = {
 	toolbar:
 		'undo redo | formatselect | ' +
-		'bold italic backcolor | alignleft aligncenter ' +
-		'alignright alignjustify | bullist numlist outdent indent | fontsizeselect forecolor' +
-		'removeformat | help | indent | fontsizeselect | image | link',
+		'bold fontsize italic forecolor backcolor | alignleft aligncenter ' +
+		'alignright alignjustify | bullist numlist outdent indent |' +
+		'removeformat | help | image | link |' +
+		'columnbutton',
+
 	plugins: [
 		'advlist autolink lists link image charmap print preview anchor',
+		'textcolor',
+		'lists',
 		'searchreplace visualblocks code fullscreen',
 		'link',
 		'insertdatetime media table paste code help wordcount',
 		'image',
+		'column',
 	],
 };

@@ -13,13 +13,14 @@ using Microsoft.Extensions.Logging;
 
 namespace College.Application.Commands.Pages;
 
-public class UpdatePageCommand(Guid pageId, string title, string url, string content, Guid? subCategoryId, TemplateDto? template)
+public class UpdatePageCommand(Guid pageId, string title, string url, string content, string textContent, Guid? subCategoryId, TemplateDto? template)
     : IRequest<PageDto>
 {
     public Guid PageId { get; set; } = pageId;
     public string? Title { get; set; } = title;
     public string? Url { get; set; } = url;
     public string? Content { get; set; } = content;
+    public string? TextContent { get; set; } = textContent;
     public Guid? SubCategoryId { get; set; } = subCategoryId;
     public TemplateDto? Template { get; set; } = template;
 }
@@ -60,6 +61,10 @@ public class UpdatePageCommandHandler(
         if (request.Content is not null)
         {
             page.Content = request.Content;
+        }
+        if (request.TextContent is not null)
+        {
+            page.TextContent = request.TextContent;
         }
         if (request.Url is not null)
         {

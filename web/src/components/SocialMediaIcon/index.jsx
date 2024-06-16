@@ -34,7 +34,7 @@ function SocialMediaIcon({ name }) {
 	return (
 		<a href={iconData.url} target='_blank' rel='noreferrer'>
 			<i
-				className={`text-accentTextColor cursor-pointer text-2xl duration-100 hover:text-mainTextColor hover:scale-105 ${iconData.className}`}></i>
+				className={`text-accentTextColor cursor-pointer text-2xl duration-100 hover:text-mainTextColor hover:scale-105 xlg:text-xl ${iconData.className}`}></i>
 		</a>
 	);
 }

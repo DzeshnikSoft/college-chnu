@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SpinnerWrapper from '../../components/SpinnerWrapper';
 import DefaultPage from './components/DefaultPage';
@@ -12,15 +12,15 @@ function DynamicPage() {
 	const { category, subcategory, page } = useParams();
 	const [statusCode, setStatusCode] = useState(0);
 	const [pageData, setPageData] = useState(null);
-
 	const dataNavMenu = useSelector(getNavMenuData);
 
 	useEffect(() => {
+		setPageData(null);
 		if (dataNavMenu.length > 0) {
 			(async () => {
 				try {
 					const { data } = await apiClient.get(
-						`/api/Page/by-path?path=${category}/${subcategory}${page}`
+						`/api/Page/by-path?path=${category}/${subcategory}/${page}`
 					);
 					setPageData(data);
 				} catch (error) {
@@ -50,10 +50,15 @@ function DynamicPage() {
 
 	if (statusCode === 404) return <NotFoundPage />;
 
-	if (!pageData) return <SpinnerWrapper />;
+	if (!pageData)
+		return (
+			<div className='m-auto'>
+				<SpinnerWrapper />
+			</div>
+		);
 
 	return (
-		<div className='w-full h-full flex'>
+		<div className='w-full h-full flex flex-1'>
 			{pageData && getPageByType(pageData?.template, pageData?.content)}
 		</div>
 	);

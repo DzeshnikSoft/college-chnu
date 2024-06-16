@@ -12,7 +12,7 @@
 .menu .topmenu > li .active:after {
 	background: none repeat scroll 0 0 transparent;
 	bottom: 0;
-	content: "";
+	content: '';
 	display: block;
 	height: 5px;
 	position: absolute;
@@ -22,7 +22,7 @@
 .menu .topmenu > li a:after {
 	background: none repeat scroll 0 0 transparent;
 	bottom: 0;
-	content: "";
+	content: '';
 	display: block;
 	height: 5px;
 	position: absolute;
@@ -62,7 +62,7 @@
 	overflow: hidden;
 	position: absolute;
 	width: fit-content;
-	max-width: 750px;
+	max-width: 500px;
 	height: fit-content;
 	transition: 0.5s;
 	color: rgb(125, 124, 124);
@@ -74,7 +74,9 @@
 	cursor: pointer;
 }
 .header .menu .topmenu > li:hover .submenu {
-	display: flex !important;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto auto;
 }
 .submenu .sub_submenu:nth-child(2) {
 	border-left: 1px rgb(185, 181, 181) solid;

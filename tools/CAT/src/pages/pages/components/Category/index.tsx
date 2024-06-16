@@ -18,6 +18,12 @@ import {
 import { Formik, ErrorMessage, Form } from 'formik';
 import { updateCategoriesSchema } from '@/validation/update.category.schema';
 import { showErrorNotif } from '@/providers/notify';
+import { Button } from '@chakra-ui/react';
+import { convertCategoryDataToPositionNavMenuItemsModel } from '@/helpers/categoryDataTransformer';
+import {
+	activateIsUpdated,
+	getPositionNavMenuItemsIsUpdatedSelector,
+} from '@/app/features/positionNavMenuItems/positionNavMenuItemsSlice';
 interface StatePage {
 	categoryId: string;
 	title: string;
@@ -33,6 +39,9 @@ export default function Category({
 	const dispatch = useAppDispatch();
 	const [urlForChild, setUrlForChild] = useState<string>(url);
 	const error = useAppSelector(getCategoryErrorSelector);
+	const isUpdatedPositionItems = useAppSelector(
+		getPositionNavMenuItemsIsUpdatedSelector
+	);
 	const initialCategory: StatePage = {
 		categoryId: id,
 		title: title,
@@ -64,9 +73,12 @@ export default function Category({
 	const handleDelete = () => {
 		dispatch(deleteCategory(id));
 	};
-
+	const updatedPositionItems = () => {
+		dispatch(activateIsUpdated());
+		convertCategoryDataToPositionNavMenuItemsModel(categoriesData);
+	};
 	return (
-		<div className='w-full flex flex-col h-relativelyHeaderFullScreen overflow-y-auto'>
+		<div className='w-full flex flex-col h-[82vh]'>
 			<div className='flex w-11/12 mx-auto mb-10'>
 				<Formik
 					initialValues={initialCategory}
@@ -116,20 +128,31 @@ export default function Category({
 						</Form>
 					)}
 				</Formik>
-				<DeleteButton onClick={handleDelete} className='ml-auto mr-0'>
+				{/* <Button
+					type='submit'
+					colorScheme='green'
+					onClick={updatedPositionItems}
+					className={`w-fit px-10 py-4 mr-5 ml-auto ${
+						!isUpdatedPositionItems && 'animate-pulse'
+					}`}>
+					Оновити переміщення
+				</Button> */}
+				<DeleteButton onClick={handleDelete} className='mr-0 ml-auto'>
 					Видалити
 				</DeleteButton>
 			</div>
-			<div className='grid grid-cols-2 gap-10 w-11/12 mx-auto place-items-center'>
-				{subCategories?.map(({ title, pages, id, url }) => (
+			<div className='grid grid-cols-2 gap-10 w-11/12 h-5/6 mx-auto overflow-y-auto overflow-hidden place-items-center py-3 px-2'>
+				{subCategories?.map(({ title, pages, id, url }, index) => (
 					<SubCategories
 						url={url}
 						pages={pages}
+						index={index}
 						title={title}
 						id={id}
 						categoryId={initialCategory.categoryId}
 						parentUrl={urlForChild}
 						key={id}
+						subCategoryLength={subCategories?.length}
 					/>
 				))}
 				<AddButton
