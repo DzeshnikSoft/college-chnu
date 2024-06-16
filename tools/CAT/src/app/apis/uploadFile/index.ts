@@ -12,7 +12,6 @@ const uploadFile = async (selectedFile, setLoading) => {
 			'http://85.217.171.81/files',
 			formData
 		);
-		// apiKeyStorage.set(data.apiKey);
 		return response.data;
 	} catch (error) {
 		const { data } = error.response;

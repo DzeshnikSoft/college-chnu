@@ -1,10 +1,10 @@
-import { RouteObject, useRoutes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
 	PageLayout,
 	News,
 	Pages,
-	// Settings,
-	// Gallery,
+	//   Settings,
+	//   Gallery,
 	EditPage,
 	EditNews,
 	CreateNews,
@@ -12,34 +12,35 @@ import {
 	PrivateRoute,
 } from './elements';
 
-const createRoute = (path, element, children = []) => ({
-	path,
-	element,
-	children,
-});
-
-const publicRoutes = [createRoute('/authenticate', <Authenticate />)];
-
-const privateRoutes = [
-	createRoute('news', <News />),
-	createRoute('pages', <Pages />),
-	// createRoute('settings', <Settings />),
-	// createRoute('gallery', <Gallery />),
-	createRoute('edit-page/:category/:subcategory/:page', <EditPage />),
-	createRoute('edit-news/:id', <EditNews />),
-	createRoute('create-news', <CreateNews />),
+const routes = [
+	{
+		path: '/',
+		element: <PrivateRoute />,
+		children: [
+			{
+				path: '/',
+				element: <PageLayout />,
+				children: [
+					{ path: 'news', element: <News /> },
+					{ path: 'pages', element: <Pages /> },
+					//   { path: 'settings', element: <Settings /> },
+					//   { path: 'gallery', element: <Gallery /> },
+					{
+						path: 'edit-page/:category/:subcategory/:page',
+						element: <EditPage />,
+					},
+					{ path: 'edit-news/:id', element: <EditNews /> },
+					{ path: 'create-news', element: <CreateNews /> },
+				],
+			},
+		],
+	},
+	{
+		path: '/authenticate',
+		element: <Authenticate />,
+	},
 ];
 
-export const routes: RouteObject[] = [
-	createRoute('/', <PrivateRoute />, [
-		createRoute('/', <PageLayout />, privateRoutes),
-	]),
-	...publicRoutes,
-];
+const router = createBrowserRouter(routes);
 
-const AppRoutes = () => {
-	const element = useRoutes(routes);
-	return element;
-};
-
-export default AppRoutes;
+export default router;
