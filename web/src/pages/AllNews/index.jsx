@@ -28,14 +28,18 @@ function AllNews() {
 	const [searchText, setSearchText] = useState('');
 	const [textError, setTextError] = useState('');
 
-	const handleSearch = useCallback(({ target }) => {
-		handleDebounce(target.value);
-		setSearchText(target.value);
-	}, []);
+	const handleSearch = useCallback(
+		({ target }) => {
+			handleDebounce(target.value);
+			setSearchText(target.value);
+		},
+		[pageSize]
+	);
 
 	const handleDebounce = debounce((value) => {
 		if (value.trim().length === 0) {
 			setTextError('');
+			console.log(pageSize);
 			dispatch(
 				fetchNewsData({
 					pageNumber: 1,
@@ -46,6 +50,7 @@ function AllNews() {
 		} else if (value.trim().length <= 3) {
 			setTextError('Введіть більше 3 символів');
 		} else {
+			console.log(pageSize);
 			dispatch(
 				fetchNewsData({
 					pageNumber: 1,
@@ -72,18 +77,26 @@ function AllNews() {
 		if (isLaptopXl) {
 			setPageSize(12);
 			setGridString('grid-cols-4');
+			setSearchText('');
+			// console.log('laptopXL');
 		}
 		if (isLaptop) {
+			// console.log('laptop');
 			setPageSize(9);
 			setGridString('grid-cols-3');
+			setSearchText('');
 		}
 		if (isTablet) {
+			// console.log('tablet');
 			setPageSize(6);
 			setGridString('grid-cols-2');
+			setSearchText('');
 		}
 		if (isMobile) {
+			// console.log('mobile');
 			setPageSize(4);
 			setGridString('grid-cols-1');
+			setSearchText('');
 		}
 	}, [isLaptopXl, isLaptop, isTablet, isMobile]);
 
@@ -96,6 +109,7 @@ function AllNews() {
 					searchTerm: searchText,
 				})
 			);
+		console.log(pageSize);
 	}, [pageSize]);
 
 	return (
