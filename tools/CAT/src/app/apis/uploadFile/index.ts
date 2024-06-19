@@ -9,7 +9,7 @@ const uploadFile = async (selectedFile, setLoading) => {
 	formData.append('fileName', selectedFile.name);
 	try {
 		const response = await apiClient.post(
-			'http://85.217.171.81/files',
+			`${import.meta.env.VITE_UPLOAD_FILE_URL}`,
 			formData
 		);
 		return response.data;

@@ -187,7 +187,7 @@ function CreateNews() {
 								</div>
 							</div>
 							<EditTitlePage
-								url='http://85.217.171.81/files/images/news.jpeg'
+								url={`${import.meta.env}/images/news.jpeg`}
 								label={values.title ?? ''}
 								nameUrl={'titleBackgroundImage.url'}
 								nameLabel={'title'}
