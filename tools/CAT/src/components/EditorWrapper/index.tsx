@@ -85,7 +85,7 @@ export default function EditorWrapper({
 
 					plugins: itemsEditor.plugins,
 					toolbar: itemsEditor.toolbar,
-					fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+					fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt',
 					style_formats: [
 						{
 							title: 'Bullet list',

@@ -6,9 +6,9 @@ export interface Editor {
 export const itemsEditor: Editor = {
 	toolbar:
 		'undo redo | formatselect | ' +
-		'bold fontsize italic forecolor backcolor | alignleft aligncenter ' +
+		'bold underline italic fontsize forecolor backcolor | alignleft aligncenter ' +
 		'alignright alignjustify | bullist numlist outdent indent |' +
-		'removeformat | help | image | link |' +
+		'removeformat | help | image | link | table |' +
 		'columnbutton',
 
 	plugins: [
@@ -20,5 +20,6 @@ export const itemsEditor: Editor = {
 		'insertdatetime media table paste code help wordcount',
 		'image',
 		'column',
+		'table',
 	],
 };
