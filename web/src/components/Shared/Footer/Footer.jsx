@@ -10,7 +10,11 @@ const Footer = () => {
 				<div className='w-full flex lg:flex-col-reverse h-full'>
 					<div className='flex w-4/12 xlg:w-11/12 mx-auto xlg:justify-between'>
 						<div className='h-40 xlg:h-32 xlg:w-32 lg:h-24 lg:w-24 w-40 mt-5 lg:my-auto mb-auto'>
-							<img src='./logo.png' alt='' className='h-full' />
+							<img
+								src='http://85.217.171.81/files/images/logo.png'
+								alt=''
+								className='h-full'
+							/>
 						</div>
 						<div className='w-6/12 lg:w-7/12 flex flex-col xl:w-7/12 xl:ml-5 xlg:ml-0 lg:mb-3 pl-3 xlg:text-right'>
 							<h4 className='text-xl xlg:text-base mt-5'>

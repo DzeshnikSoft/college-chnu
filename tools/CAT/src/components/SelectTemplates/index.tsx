@@ -24,12 +24,12 @@ export default function SelectTemplates({ selectedType }) {
 				</PartItemText>
 				<PartItemText>Редактор</PartItemText>
 			</ItemWrapper>
-			<ItemWrapper
+			{/* <ItemWrapper
 				selectedTypeState={selectedTypeState}
 				handleChangeType={handleChangeType}
 				type={0}>
 				<PartItemText>Редактор</PartItemText>
-			</ItemWrapper>
+			</ItemWrapper> */}
 		</div>
 	);
 }

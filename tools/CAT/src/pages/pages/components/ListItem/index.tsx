@@ -44,7 +44,10 @@ export default function ListItem({
 	};
 
 	useEffect(() => {
-		const relativePath = parentUrl.replace('https://college-chnu', '');
+		const relativePath = parentUrl.replace(
+			import.meta.env.VITE_API_VIEW_URL,
+			''
+		);
 		setRelativeUrl(relativePath);
 	}, [parentUrl]);
 

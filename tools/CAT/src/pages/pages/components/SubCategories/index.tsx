@@ -15,6 +15,7 @@ import { getСategoryDataSelector } from '@/app/features/categories/categorySlic
 import ButtonArrow from '@/components/ButtonArrow';
 import { moveSubCategory } from '@/app/features/categories/categorySlice';
 import { deactivateIsUpdated } from '@/app/features/positionNavMenuItems/positionNavMenuItemsSlice';
+
 interface SubCategoryState {
 	subCategoryId: string;
 	title: string;

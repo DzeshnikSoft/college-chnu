@@ -22,7 +22,7 @@ function Header() {
 				<div className='w-11/12 mx-auto flex justify-between items-center'>
 					<div className='h-5/6 relative'>
 						<img
-							src='logo-header.png'
+							src='http://85.217.171.81/files/images/logo-header.png'
 							alt='Логотип'
 							className='h-full relative'
 							loading='lazy'
@@ -46,7 +46,7 @@ function Header() {
 				<div className='w-4/5 flex items-center mx-auto justify-between'>
 					<div className='w-2/5 h-full'>
 						<img
-							src='./logo-header.png'
+							src='http://85.217.171.81/files/images/logo-header.png'
 							alt='Логотип'
 							className='h-full'
 						/>
