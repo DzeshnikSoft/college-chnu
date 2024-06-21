@@ -52,12 +52,6 @@ function EditNews() {
 
 	const handleDelete = () => {
 		dispatch(deleteNews(id)).then(() => {
-			// dispatch(
-			// 	fetchNewsData({
-			// 		...paginationSettings,
-			// 		searchTerm: '',
-			// 	})
-			// );
 			navigate('/news');
 		});
 	};

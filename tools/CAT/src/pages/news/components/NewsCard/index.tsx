@@ -6,7 +6,8 @@ import { deleteNews } from '@/app/features/news/newsThunks';
 import { Link } from 'react-router-dom';
 import { fetchNewsData } from '@/app/features/news/newsThunks';
 import { paginationSettings } from '@/utils/pagination';
-
+import { updateNews } from '@/app/features/news/newsThunks';
+import { NewsDto } from '@/models/api';
 interface NewsCardProps {
 	id: string;
 	image: string;
@@ -14,6 +15,7 @@ interface NewsCardProps {
 	description: string;
 	date: string;
 	pinned: boolean;
+	item: NewsDto;
 }
 
 function NewsCard({
@@ -23,11 +25,34 @@ function NewsCard({
 	date,
 	id,
 	pinned,
+	item,
 }: NewsCardProps) {
 	const dispatch = useAppDispatch();
 
 	const handleDelete = () => {
 		dispatch(deleteNews(id)).then(() => {
+			dispatch(
+				fetchNewsData({
+					...paginationSettings,
+					searchTerm: '',
+				})
+			);
+		});
+	};
+
+	const pinnedNews = () => {
+		dispatch(updateNews({ ...item, pinned: true })).then(() => {
+			dispatch(
+				fetchNewsData({
+					...paginationSettings,
+					searchTerm: '',
+				})
+			);
+		});
+	};
+
+	const unPinnedNews = () => {
+		dispatch(updateNews({ ...item, pinned: false })).then(() => {
 			dispatch(
 				fetchNewsData({
 					...paginationSettings,
@@ -51,7 +76,7 @@ function NewsCard({
 					<h3 className='tracking-widest text-colorTextColor italic font-black text-lg  truncate w-full'>
 						{title}
 					</h3>
-					<p className='text-colorTextColor w-full overflow-hidden font-medium text-justify mt-2 text-base'>
+					<p className='text-colorTextColor w-full overflow-hidden font-medium text-justify mt-2 text-base h-4/6 overflow-hidden'>
 						{description}
 					</p>
 					<p className='text-sm mt-2 text-[#999999]'>
@@ -64,12 +89,14 @@ function NewsCard({
 				{pinned ? (
 					<IconPanel
 						classNameIcon='fa-solid fa-bookmark-slash'
+						onClick={unPinnedNews}
 						className='hover:bg-[#390972]'>
 						Відкріпити
 					</IconPanel>
 				) : (
 					<IconPanel
 						classNameIcon='fa-solid fa-bookmark'
+						onClick={pinnedNews}
 						className='hover:bg-[#390972]'>
 						Закріпити
 					</IconPanel>

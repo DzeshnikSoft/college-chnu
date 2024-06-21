@@ -111,6 +111,7 @@ const News = () => {
 											description={item.description}
 											date={item.date}
 											pinned={item.pinned}
+											item={item}
 										/>
 									))}
 								</div>
