@@ -73,10 +73,12 @@ export default function Category({
 	const handleDelete = () => {
 		dispatch(deleteCategory(id));
 	};
+
 	const updatedPositionItems = () => {
 		dispatch(activateIsUpdated());
 		convertCategoryDataToPositionNavMenuItemsModel(categoriesData);
 	};
+
 	return (
 		<div className='w-full flex flex-col h-[82vh]'>
 			<div className='flex w-11/12 mx-auto mb-10'>
@@ -128,7 +130,7 @@ export default function Category({
 						</Form>
 					)}
 				</Formik>
-				{/* <Button
+				<Button
 					type='submit'
 					colorScheme='green'
 					onClick={updatedPositionItems}
@@ -136,7 +138,7 @@ export default function Category({
 						!isUpdatedPositionItems && 'animate-pulse'
 					}`}>
 					Оновити переміщення
-				</Button> */}
+				</Button>
 				<DeleteButton onClick={handleDelete} className='mr-0 ml-auto'>
 					Видалити
 				</DeleteButton>

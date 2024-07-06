@@ -24,6 +24,7 @@ export const convertCategoryDataToPositionNavMenuItemsModel = (inputData) => {
 
 		outputData.push(transformedCategory);
 	});
+	console.log(JSON.stringify(outputData));
 
 	return outputData;
 };
