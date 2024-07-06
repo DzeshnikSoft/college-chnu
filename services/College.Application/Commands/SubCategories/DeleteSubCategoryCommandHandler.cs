@@ -13,11 +13,11 @@ public class DeleteSubCategoryCommand(Guid subCategoryId) : IRequest<Unit>
     public Guid SubCategoryId { get; set; } = subCategoryId;
 }
 
-public class DeleteSubCategoryCommandHandler(CollegeDbContext db, IMediator mediator, ICategoryCacheService categoryCacheService) : IRequestHandler<DeleteSubCategoryCommand, Unit>
+public class DeleteSubCategoryCommandHandler(CollegeDbContext db, IMediator mediator, ICategoryService categoryCacheService) : IRequestHandler<DeleteSubCategoryCommand, Unit>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly IMediator _mediator = mediator.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
+    private readonly ICategoryService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<Unit> Handle(DeleteSubCategoryCommand request, CancellationToken cancellationToken)
     {

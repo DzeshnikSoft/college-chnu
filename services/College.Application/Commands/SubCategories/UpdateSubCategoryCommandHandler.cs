@@ -19,11 +19,11 @@ public class UpdateSubCategoryCommand(Guid subCategoryId, string title, string u
     public string? Url { get; set; } = url;
 }
 
-public class UpdateSubCategoryCommandHandler(CollegeDbContext db, IMapper mapper, ICategoryCacheService categoryCacheService) : IRequestHandler<UpdateSubCategoryCommand, SubCategoryDto>
+public class UpdateSubCategoryCommandHandler(CollegeDbContext db, IMapper mapper, ICategoryService categoryCacheService) : IRequestHandler<UpdateSubCategoryCommand, SubCategoryDto>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly IMapper _mapper = mapper.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
+    private readonly ICategoryService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<SubCategoryDto> Handle(UpdateSubCategoryCommand request, CancellationToken cancellationToken)
     {

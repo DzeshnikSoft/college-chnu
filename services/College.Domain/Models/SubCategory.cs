@@ -1,6 +1,6 @@
 namespace College.Domain.Models;
 
-public class SubCategory
+public class SubCategory : IndexedEntity
 {
     public Guid Id { get; set; }
 

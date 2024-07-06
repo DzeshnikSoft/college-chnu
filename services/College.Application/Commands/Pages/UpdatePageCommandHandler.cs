@@ -30,13 +30,13 @@ public class UpdatePageCommandHandler(
     ILogger<UpdatePageCommandHandler> logger,
     IMapper mapper,
     ITemplateFactory templateFactory,
-    ICategoryCacheService categoryCacheService) : IRequestHandler<UpdatePageCommand, PageDto>
+    ICategoryService categoryCacheService) : IRequestHandler<UpdatePageCommand, PageDto>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly ILogger<UpdatePageCommandHandler> _logger = logger.ThrowIfNull();
     private readonly IMapper _mapper = mapper.ThrowIfNull();
     private readonly ITemplateFactory _templateFactory = templateFactory.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
+    private readonly ICategoryService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<PageDto> Handle(UpdatePageCommand request, CancellationToken cancellationToken)
     {

@@ -24,26 +24,25 @@ public class CategoriesController(ILogger<CategoriesController> logger, IMediato
     private readonly IMediator _mediator = mediator.ThrowIfNull();
 
     [HttpGet]
-    public async Task<ActionResult<IList<CategoryDto>>> GetCategories()
+    public async Task<ActionResult<IList<CategoryDto>>> GetCategoriesAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Received request to get all categories");
 
-        return Ok(await _mediator.Send(new GetCategoriesQuery()));
+        return Ok(await _mediator.Send(new GetCategoriesQuery(), cancellationToken));
     }
 
     [HttpPost]
-    public async Task<ActionResult<CategoryDto>> CreateCategory(CategoryViewModel categoryViewModel)
+    public async Task<ActionResult<CategoryDto>> CreateCategoryAsync(CategoryViewModel categoryViewModel, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Received request to create new category = {Title}", categoryViewModel.Title);
 
         if (string.IsNullOrEmpty(categoryViewModel.Title))
         {
-            throw new ValidationException(nameof(CreateCategory), nameof(categoryViewModel.Title), $"Invalid Title. Please input valid value!");
+            throw new ValidationException(nameof(CreateCategoryAsync), nameof(categoryViewModel.Title), $"Invalid Title. Please input valid value!");
         }
         try
         {
-            return Ok(await _mediator.Send(
-                new CreateCategoryCommand(categoryViewModel.Title, categoryViewModel.Url)));
+            return Ok(await _mediator.Send(new CreateCategoryCommand(categoryViewModel.Title, categoryViewModel.Url), cancellationToken));
         }
         catch (UrlConflictException ex)
         {
@@ -52,14 +51,14 @@ public class CategoriesController(ILogger<CategoriesController> logger, IMediato
     }
 
     [HttpPut]
-    public async Task<ActionResult<CategoryDto>> UpdateCategory(UpdateCategoryViewModel categoryViewModel)
+    public async Task<ActionResult<CategoryDto>> UpdateCategoryAsync(UpdateCategoryViewModel categoryViewModel, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Received request to update category = {CategoryId}", categoryViewModel.CategoryId);
 
         try
         {
             return Ok(
-                await _mediator.Send(new UpdateCategoryCommand(categoryViewModel.CategoryId, categoryViewModel.Url, categoryViewModel.Title)));
+                await _mediator.Send(new UpdateCategoryCommand(categoryViewModel.CategoryId, categoryViewModel.Url, categoryViewModel.Title), cancellationToken));
         }
         catch (UrlConflictException ex)
         {
@@ -72,16 +71,24 @@ public class CategoriesController(ILogger<CategoriesController> logger, IMediato
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult> DeleteCategory(Guid id)
+    public async Task<ActionResult> DeleteCategoryAsync(Guid id, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Received request to delete category = {CategoryId}", id);
 
         if (id == default)
         {
-            throw new ValidationException(nameof(DeleteCategory), nameof(id), $"Invalid Id. Please input valid value!");
+            throw new ValidationException(nameof(DeleteCategoryAsync), nameof(id), $"Invalid Id. Please input valid value!");
         }
 
-        await _mediator.Send(new DeleteCategoryCommand(id));
+        await _mediator.Send(new DeleteCategoryCommand(id), cancellationToken);
+
+        return Ok();
+    }
+
+    [HttpPut("ordering")]
+    public async Task<ActionResult> UpdateCategoriesOrderingAsync(List<UpdateCategoryOrderingDto> categoryOrderings, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(new UpdateCategoryOrderingCommand(categoryOrderings), cancellationToken);
 
         return Ok();
     }

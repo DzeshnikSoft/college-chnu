@@ -13,10 +13,10 @@ public class DeletePageCommand(Guid pageId) : IRequest<Unit>
     public Guid PageId { get; set; } = pageId;
 }
 
-public class DeletePageCommandHandler(CollegeDbContext db, ICategoryCacheService categoryCacheService) : IRequestHandler<DeletePageCommand, Unit>
+public class DeletePageCommandHandler(CollegeDbContext db, ICategoryService categoryCacheService) : IRequestHandler<DeletePageCommand, Unit>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
+    private readonly ICategoryService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<Unit> Handle(DeletePageCommand request, CancellationToken cancellationToken)
     {

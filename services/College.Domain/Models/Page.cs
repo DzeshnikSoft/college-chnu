@@ -1,6 +1,6 @@
 ﻿namespace College.Domain.Models;
 
-public class Page
+public class Page : IndexedEntity
 {
     public Guid Id { get; set; }
 

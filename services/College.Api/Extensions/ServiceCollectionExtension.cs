@@ -63,7 +63,7 @@ public static class ServiceCollectionExtension
         // ****************************
         services.AddMemoryCache();
         services.AddScoped(typeof(ICacheService<>), typeof(MemoryCacheService<>));
-        services.AddScoped<ICategoryCacheService, CategoriesCacheService>();
+        services.AddScoped<ICategoryService, CategoriesCacheService>();
     }
 
     public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)

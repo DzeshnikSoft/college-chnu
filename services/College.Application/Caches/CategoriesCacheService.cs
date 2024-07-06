@@ -7,7 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace College.Application.Caches;
 
-public interface ICategoryCacheService
+public interface ICategoryService
 {
     Task<IList<Category>> GetCategoriesAsync(CancellationToken cancellationToken = default);
 
@@ -15,7 +15,7 @@ public interface ICategoryCacheService
 }
 
 public class CategoriesCacheService(IMemoryCache memoryCache, CollegeDbContext db)
-    : MemoryCacheService<Category>(memoryCache), ICategoryCacheService
+    : MemoryCacheService<Category>(memoryCache), ICategoryService
 {
     private const string CategoriesCacheKey = "categories";
     private readonly CollegeDbContext _db = db.ThrowIfNull();
@@ -47,30 +47,43 @@ public class CategoriesCacheService(IMemoryCache memoryCache, CollegeDbContext d
 
     private async Task<IList<Category>> GetCategoriesFromDBAsync(CancellationToken cancellationToken)
     {
-        return await _db.Categories
-            .AsSplitQuery()
+        var categories = await _db.Categories
+            .AsNoTracking()
             .Include(c => c.SubCategories)
-                .ThenInclude(x => x.Pages)
-            .Select(c => new Category
+            .ThenInclude(sc => sc.Pages)
+            .OrderBy(c => c.Index)
+            .ToListAsync(cancellationToken);
+
+        var subCategoryIds = categories.SelectMany(c => c.SubCategories.Select(sc => sc.Id)).ToList();
+        var pageIds = categories.SelectMany(c => c.SubCategories.SelectMany(sc => sc.Pages.Select(p => p.Id))).ToList();
+
+        var subCategories = await _db.SubCategories
+            .AsNoTracking()
+            .Where(sc => categories.Select(c => c.Id).Contains(sc.CategoryId))
+            .OrderBy(sc => sc.Index)
+            .ToListAsync(cancellationToken);
+
+        var pages = await _db.Pages
+            .AsNoTracking()
+            .Where(p => subCategories.Select(sc => sc.Id).Contains(p.SubCategoryId))
+            .OrderBy(p => p.Index)
+            .ToListAsync(cancellationToken);
+
+        // Assign subcategories and pages to categories
+        foreach (var category in categories)
+        {
+            category.SubCategories = [.. subCategories
+                .Where(sc => sc.CategoryId == category.Id)
+                .OrderBy(sc => sc.Index)];
+
+            foreach (var subCategory in category.SubCategories)
             {
-                Id = c.Id,
-                Title = c.Title,
-                Url = c.Url,
-                SubCategories = c.SubCategories.Select(sc => new SubCategory
-                {
-                    Id = sc.Id,
-                    Title = sc.Title,
-                    Url = sc.Url,
-                    CategoryId = c.Id,
-                    Pages = sc.Pages.Select(p => new Page
-                    {
-                        Id = p.Id,
-                        Url = p.Url,
-                        Title = p.Title,
-                        SubCategoryId = sc.Id,
-                    }).ToList()
-                }).ToList()
-            })
-            .ToListAsync(cancellationToken: cancellationToken);
+                subCategory.Pages = [.. pages
+                    .Where(p => p.SubCategoryId == subCategory.Id)
+                    .OrderBy(p => p.Index)];
+            }
+        }
+
+        return categories;
     }
 }

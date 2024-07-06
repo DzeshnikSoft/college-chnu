@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="12.0.1" />
-      <PackageReference Include="MediatR" Version="12.1.1" />
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="MediatR" Version="12.3.0" />
       <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
     </ItemGroup>
 
@@ -16,11 +16,6 @@
       <ProjectReference Include="..\College.Data\College.Data.csproj" />
       <ProjectReference Include="..\College.Domain\College.Domain.csproj" />
       <ProjectReference Include="..\College.Shared\College.Shared.csproj" />
-
-
     </ItemGroup>
-
-
-
 
 </Project>

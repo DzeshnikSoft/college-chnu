@@ -20,11 +20,11 @@ public class CreateCategoryCommand(string title, string url) : IRequest<Category
 public class CreateCategoryCommandHandler(
     CollegeDbContext db,
     ILogger<CreateCategoryCommandHandler> logger,
-    ICategoryCacheService categoryCacheService)
+    ICategoryService categoryCacheService)
     : IRequestHandler<CreateCategoryCommand, CategoryDto>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
+    private readonly ICategoryService _categoryCacheService = categoryCacheService.ThrowIfNull();
     private readonly ILogger<CreateCategoryCommandHandler> _logger = logger.ThrowIfNull();
 
     public async Task<CategoryDto> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)

@@ -1,6 +1,6 @@
 ﻿namespace College.Domain.Models;
 
-public class Category
+public class Category : IndexedEntity
 {
     public Guid Id { get; set; }
 
