@@ -21,13 +21,13 @@ public class UpdateCategoryCommand(Guid categoryId, string? url, string? title) 
 }
 
 
-public class UpdateCategoryCommandHandler(ILogger<UpdateCategoryCommandHandler> logger, CollegeDbContext db, IMapper mapper, ICategoryCacheService categoryCacheService)
+public class UpdateCategoryCommandHandler(ILogger<UpdateCategoryCommandHandler> logger, CollegeDbContext db, IMapper mapper, ICategoryService categoryCacheService)
     : IRequestHandler<UpdateCategoryCommand, CategoryDto>
 {
     private readonly ILogger<UpdateCategoryCommandHandler> _logger = logger.ThrowIfNull();
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly IMapper _mapper = mapper.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
+    private readonly ICategoryService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<CategoryDto> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {

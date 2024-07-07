@@ -20,11 +20,11 @@ public class CreateSubCategoryCommand(string title, string url, Guid categoryId)
     public Guid CategoryId { get; } = categoryId;
 }
 
-public class CreateSubCategoryCommandHandler(CollegeDbContext db, ILogger<CreateSubCategoryCommandHandler> logger, ICategoryCacheService categoryCacheService) : IRequestHandler<CreateSubCategoryCommand, SubCategoryDto>
+public class CreateSubCategoryCommandHandler(CollegeDbContext db, ILogger<CreateSubCategoryCommandHandler> logger, ICategoryService categoryCacheService) : IRequestHandler<CreateSubCategoryCommand, SubCategoryDto>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly ILogger<CreateSubCategoryCommandHandler> _logger = logger.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
+    private readonly ICategoryService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<SubCategoryDto> Handle(CreateSubCategoryCommand request, CancellationToken cancellationToken)
     {

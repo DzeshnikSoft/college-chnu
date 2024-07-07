@@ -19,11 +19,11 @@ public class DeleteCategoryCommand : IRequest<Unit>
     public Guid CategoryId { get; set; }
 }
 
-public class DeleteCategoryCommandHandler(CollegeDbContext db, ILogger<DeleteCategoryCommandHandler> logger, ICategoryCacheService categoryCacheService) : IRequestHandler<DeleteCategoryCommand, Unit>
+public class DeleteCategoryCommandHandler(CollegeDbContext db, ILogger<DeleteCategoryCommandHandler> logger, ICategoryService categoryCacheService) : IRequestHandler<DeleteCategoryCommand, Unit>
 {
     private readonly CollegeDbContext _db = db.ThrowIfNull();
     private readonly ILogger<DeleteCategoryCommandHandler> _logger = logger.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCacheService = categoryCacheService.ThrowIfNull();
+    private readonly ICategoryService _categoryCacheService = categoryCacheService.ThrowIfNull();
 
     public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
     {

@@ -10,10 +10,10 @@ public class GetCategoriesQuery : IRequest<IList<CategoryDto>>
 {
 }
 
-public class GetCategoriesQueryHandler(IMapper mapper, ICategoryCacheService categoryCachedService) : IRequestHandler<GetCategoriesQuery, IList<CategoryDto>>
+public class GetCategoriesQueryHandler(IMapper mapper, ICategoryService categoryCachedService) : IRequestHandler<GetCategoriesQuery, IList<CategoryDto>>
 {
     private readonly IMapper _mapper = mapper.ThrowIfNull();
-    private readonly ICategoryCacheService _categoryCachedService = categoryCachedService.ThrowIfNull();
+    private readonly ICategoryService _categoryCachedService = categoryCachedService.ThrowIfNull();
 
     public async Task<IList<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
     {
