@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/app/apiClient';
 import { CategoriesStateApi } from '@/models/categories';
 import { getErrorMessage } from '@/factories/errorMessage.factory';
+import { CategoryOrdering } from '@/models/categories';
 
 const url = 'api/Categories';
 
@@ -54,6 +55,20 @@ export const deleteCategory = createAsyncThunk(
 			await apiClient.delete(`${url}/${categoryId}`);
 
 			return categoryId;
+		} catch (error) {
+			const { data } = error.response;
+			return thunkAPI.rejectWithValue(getErrorMessage(data));
+		}
+	}
+);
+
+export const orderingCategory = createAsyncThunk(
+	'categories/ordering',
+	async (postData: CategoryOrdering[], thunkAPI) => {
+		try {
+			const response = await apiClient.put(`${url}/ordering`, postData);
+			const { data } = response;
+			return { data };
 		} catch (error) {
 			const { data } = error.response;
 			return thunkAPI.rejectWithValue(getErrorMessage(data));

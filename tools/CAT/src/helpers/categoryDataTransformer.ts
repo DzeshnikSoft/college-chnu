@@ -1,5 +1,7 @@
+import { CategoryOrdering } from '@/models/categories';
+
 export const convertCategoryDataToPositionNavMenuItemsModel = (inputData) => {
-	const outputData = [];
+	const outputData: CategoryOrdering[] = [];
 
 	inputData.forEach((category) => {
 		let transformedCategory = {
@@ -14,9 +16,7 @@ export const convertCategoryDataToPositionNavMenuItemsModel = (inputData) => {
 			};
 
 			subCategory.pages.forEach((page) => {
-				transformedSubCategory.pages.push({
-					pageId: page.id,
-				});
+				transformedSubCategory.pages.push(page.id);
 			});
 
 			transformedCategory.subCategories.push(transformedSubCategory);
@@ -24,7 +24,6 @@ export const convertCategoryDataToPositionNavMenuItemsModel = (inputData) => {
 
 		outputData.push(transformedCategory);
 	});
-	console.log(JSON.stringify(outputData));
 
 	return outputData;
 };
