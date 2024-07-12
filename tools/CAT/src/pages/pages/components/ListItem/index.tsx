@@ -91,7 +91,7 @@ export default function ListItem({
 				{children}
 				{isHovering === true && (
 					<div className='top-1/2 right-0 w-fit !absolute transform flex -translate-y-1/2 gap-3 items-center'>
-						{/* {pagesLength !== 1 && index !== pagesLength - 1 && (
+						{pagesLength !== 1 && index !== pagesLength - 1 && (
 							<ButtonArrow
 								type='bottom'
 								onClick={downButtonClick}
@@ -107,7 +107,7 @@ export default function ListItem({
 								}}
 								className='!h-7 !w-5'
 							/>
-						)} */}
+						)}
 						<DeleteButton
 							onClick={handleDelete}
 							className='!w-5 !h-7 !text-sm !pl-0 !pr-0 !mr-1'

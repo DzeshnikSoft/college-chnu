@@ -3,6 +3,7 @@ import {
 	addCategory,
 	updateCategory,
 	deleteCategory,
+	orderingCategory,
 } from './categoryThunks';
 
 import { CategoryDto } from '@/models/api';
@@ -79,6 +80,20 @@ const extraReducersConfigCategories = (builder) => {
 	});
 
 	builder.addCase(deleteCategory.rejected, (state, { payload }) => {
+		state.loading = false;
+		state.error = (payload as string) || 'Something went wrong';
+	});
+	//ordering
+	builder.addCase(orderingCategory.pending, (state) => {
+		state.loading = true;
+		state.error = null;
+	});
+
+	builder.addCase(orderingCategory.fulfilled, (state, { payload }) => {
+		state.loading = false;
+	});
+
+	builder.addCase(orderingCategory.rejected, (state, { payload }) => {
 		state.loading = false;
 		state.error = (payload as string) || 'Something went wrong';
 	});

@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import {
 	deleteCategory,
 	updateCategory,
+	orderingCategory,
 } from '@/app/features/categories/categoryThunks';
 import {
 	getСategoryDataSelector,
@@ -73,10 +74,16 @@ export default function Category({
 	const handleDelete = () => {
 		dispatch(deleteCategory(id));
 	};
+
 	const updatedPositionItems = () => {
 		dispatch(activateIsUpdated());
-		convertCategoryDataToPositionNavMenuItemsModel(categoriesData);
+		dispatch(
+			orderingCategory(
+				convertCategoryDataToPositionNavMenuItemsModel(categoriesData)
+			)
+		);
 	};
+
 	return (
 		<div className='w-full flex flex-col h-[82vh]'>
 			<div className='flex w-11/12 mx-auto mb-10'>
@@ -128,18 +135,22 @@ export default function Category({
 						</Form>
 					)}
 				</Formik>
-				{/* <Button
-					type='submit'
-					colorScheme='green'
-					onClick={updatedPositionItems}
-					className={`w-fit px-10 py-4 mr-5 ml-auto ${
-						!isUpdatedPositionItems && 'animate-pulse'
-					}`}>
-					Оновити переміщення
-				</Button> */}
-				<DeleteButton onClick={handleDelete} className='mr-0 ml-auto'>
-					Видалити
-				</DeleteButton>
+				<div className='flex ml-auto mr-0'>
+					<Button
+						type='submit'
+						colorScheme='green'
+						onClick={updatedPositionItems}
+						className={`w-fit px-10 py-4 mr-5 ml-auto ${
+							!isUpdatedPositionItems && 'animate-pulse'
+						}`}>
+						Оновити переміщення
+					</Button>
+					<DeleteButton
+						onClick={handleDelete}
+						className='mr-0 ml-auto'>
+						Видалити
+					</DeleteButton>
+				</div>
 			</div>
 			<div className='grid grid-cols-2 gap-10 w-11/12 h-5/6 mx-auto overflow-y-auto overflow-hidden place-items-center py-3 px-2'>
 				{subCategories?.map(({ title, pages, id, url }, index) => (
