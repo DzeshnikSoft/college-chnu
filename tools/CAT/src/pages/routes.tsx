@@ -3,8 +3,8 @@ import {
 	PageLayout,
 	News,
 	Pages,
-	//   Settings,
-	//   Gallery,
+	Settings,
+	Gallery,
 	EditPage,
 	EditNews,
 	CreateNews,
@@ -23,8 +23,8 @@ const routes = [
 				children: [
 					{ path: 'news', element: <News /> },
 					{ path: 'pages', element: <Pages /> },
-					//   { path: 'settings', element: <Settings /> },
-					//   { path: 'gallery', element: <Gallery /> },
+					{ path: 'settings', element: <Settings /> },
+					{ path: 'gallery', element: <Gallery /> },
 					{
 						path: 'edit-page/:category/:subcategory/:page',
 						element: <EditPage />,
