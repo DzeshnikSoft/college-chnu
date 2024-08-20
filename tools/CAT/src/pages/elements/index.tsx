@@ -7,17 +7,23 @@ import Authenticate from '../authenticate';
 import PrivateRoute from '@/components/PrivateRoute';
 import PageLayout from '@/layout/page-layout';
 import News from '../news';
-import Pages from '../pages';
+import NavMenu from '../navmenu';
+import CollectiveCollege from '../collectiveCollege';
+import SeparatePages from '../separatePages';
+import EditSeparatePage from '../separatePages/editSeparatePage';
 
 export {
 	PageLayout,
 	News,
-	Pages,
+	NavMenu,
 	Settings,
 	Gallery,
+	SeparatePages,
 	EditPage,
 	EditNews,
 	CreateNews,
 	Authenticate,
 	PrivateRoute,
+	CollectiveCollege,
+	EditSeparatePage,
 };

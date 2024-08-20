@@ -13,7 +13,12 @@ export const navLinks: NavLink[] = [
 	{
 		icon: 'fas fa-pager',
 		label: 'Сторінки',
-		path: '/pages',
+		path: '/separate-pages',
+	},
+	{
+		icon: 'fa-solid fa-bars',
+		label: 'Меню',
+		path: '/nav-menu',
 	},
 	{
 		icon: 'fa-solid fa-image',

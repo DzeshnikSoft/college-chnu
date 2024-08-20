@@ -67,7 +67,7 @@ export default function UploadFileWrapper({
 							<SpinnerWrapper />
 						) : (
 							<span
-								className='border whitespace-nowrap bg-white overflow-x-auto rounded-md relative w-72 overflow-hidden rounded-l-none flex justify-center items-center px-3 pl-5 my-auto h-10'
+								className='border whitespace-nowrap w-fit bg-white overflow-x-auto rounded-md relative max-w-72 overflow-hidden rounded-l-none flex justify-center items-center px-3 pl-5 my-auto h-10'
 								ref={urlRef}>
 								{url ? url : 'Виберіть файл'}
 							</span>

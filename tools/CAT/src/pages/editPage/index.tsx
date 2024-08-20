@@ -72,7 +72,7 @@ export default function EditPage() {
 	const selectTemplate = (data) => {
 		if (data) {
 			switch (data.template.type) {
-				case TemplateType.Default:
+				case TemplateType.DefaultHTML:
 					return (
 						<EditPageDefault
 							textContent='textContent'

@@ -6,6 +6,7 @@ import { SearchIcon } from '@chakra-ui/icons';
 import SpinnerWrapper from '@/components/Spinner';
 import PersonalCard from './components/PersonalCard';
 import AddNewPerson from './components/addNewPerson';
+import { MemberCollectiveCollegeDto } from '@/models/api';
 
 function CollectiveCollege() {
 	const [isOpenAddNewPersonDialog, setIsOpenAddNewPersonDialog] =
@@ -28,7 +29,7 @@ function CollectiveCollege() {
 				<div className='w-full h-1/6 flex items-center justify-between'>
 					<AddButton
 						onClick={openAddNewPersonDialog}
-						className='mx-0'>
+						className='!mx-0'>
 						Додати співробітника
 					</AddButton>
 
