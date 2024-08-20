@@ -1,5 +1,5 @@
-import Settings from '../Settings';
-import Gallery from '../Gallery';
+import Settings from '../settings';
+import Gallery from '../gallery';
 import EditPage from '../editPage';
 import EditNews from '../editNews';
 import CreateNews from '../createNews';
