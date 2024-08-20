@@ -1,4 +1,4 @@
-import EditorWrapper from '@/components/EditorWrapper';
+import EditHTMLWrapper from '@/components/EditHTMLWrapper';
 
 interface EditPageDefaultProps {
 	content: string;
@@ -10,12 +10,8 @@ export default function EditPageDefault({
 	textContent,
 }: EditPageDefaultProps) {
 	return (
-		<div className='w-full'>
-			<EditorWrapper
-				textContent={textContent}
-				name='content'
-				content={content}
-			/>
+		<div className='w-full flex flex-col'>
+			<EditHTMLWrapper html={content} />
 		</div>
 	);
 }

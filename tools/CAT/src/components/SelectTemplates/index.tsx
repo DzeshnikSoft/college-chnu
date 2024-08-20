@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ItemWrapper from './ItemWrapper';
 import PartItemText from './PartItemText';
+
 interface SelectTemplates {
 	selectedType: number;
 }
@@ -24,12 +25,21 @@ export default function SelectTemplates({ selectedType }) {
 				</PartItemText>
 				<PartItemText>Редактор</PartItemText>
 			</ItemWrapper>
-			{/* <ItemWrapper
+			<ItemWrapper
+				selectedTypeState={selectedTypeState}
+				handleChangeType={handleChangeType}
+				type={2}>
+				<PartItemText className='!h-2/6 w-full text-white bg-hoverActiveItems'>
+					Заголовок
+				</PartItemText>
+				<PartItemText>HTML</PartItemText>
+			</ItemWrapper>
+			<ItemWrapper
 				selectedTypeState={selectedTypeState}
 				handleChangeType={handleChangeType}
 				type={0}>
-				<PartItemText>Редактор</PartItemText>
-			</ItemWrapper> */}
+				<PartItemText>HTML</PartItemText>
+			</ItemWrapper>
 		</div>
 	);
 }

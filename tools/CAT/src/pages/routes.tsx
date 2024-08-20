@@ -2,14 +2,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
 	PageLayout,
 	News,
-	Pages,
-	//   Settings,
-	//   Gallery,
+	NavMenu,
+	Settings,
+	Gallery,
 	EditPage,
 	EditNews,
 	CreateNews,
 	Authenticate,
 	PrivateRoute,
+	CollectiveCollege,
+	SeparatePages,
+	EditSeparatePage,
 } from './elements';
 
 const routes = [
@@ -22,9 +25,15 @@ const routes = [
 				element: <PageLayout />,
 				children: [
 					{ path: 'news', element: <News /> },
-					{ path: 'pages', element: <Pages /> },
-					//   { path: 'settings', element: <Settings /> },
-					//   { path: 'gallery', element: <Gallery /> },
+					{ path: 'nav-menu', element: <NavMenu /> },
+					{ path: 'settings', element: <Settings /> },
+					{ path: 'gallery', element: <Gallery /> },
+					{ path: 'separate-pages', element: <SeparatePages /> },
+					{ path: 'collective', element: <CollectiveCollege /> },
+					{
+						path: 'edit-separate-page/:category/:subcategory/:page',
+						element: <EditSeparatePage />,
+					},
 					{
 						path: 'edit-page/:category/:subcategory/:page',
 						element: <EditPage />,

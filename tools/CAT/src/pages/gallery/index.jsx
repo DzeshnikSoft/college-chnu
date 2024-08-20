@@ -91,9 +91,9 @@ function Gallery() {
 						</div>
 					</div>
 				</div>
-				<div className='w-full flex'>
+				<div className='w-full flex h-full'>
 					<div className='h-4/6 w-9/12 flex'>
-						<Carousel className='h-full' showArrows={true}>
+						<Carousel showArrows={true}>
 							<div className='relative'>
 								<img
 									className='h-full w-full object-contain'
@@ -114,11 +114,28 @@ function Gallery() {
 									</IconPanel>
 								</div>
 							</div>
-							<div>
-								<img src='https://picsum.photos/id/1018/1000/600/' />
+							{/* <div className='flex relative'>
+								<img
+									className='h-full object-contain'
+									src='unknown_people.jpeg'
+								/>
 								<p className='legend'>Legend 2</p>
-							</div>
-							<div>
+								<div className='absolute top-7 right-5'>
+									<IconPanel
+										classNameIcon='fa-solid fa-trash'
+										className='hover:bg-[#e53e3e] rounded-md cursor-pointer p-1 bg-[#e53e3e]'>
+										Видалити
+									</IconPanel>
+								</div>
+								<div className='absolute rounded-md top-7 left-5'>
+									<IconPanel
+										classNameIcon='fa-solid fa-pencil'
+										className='hover:bg-[#38a169] rounded-md cursor-pointer p-1 bg-[#38a169]'>
+										Замінити
+									</IconPanel>
+								</div>
+							</div> */}
+							{/* <div>
 								<img src='https://picsum.photos/id/1018/1000/600/' />
 								<p className='legend'>Legend 3</p>
 							</div>
@@ -133,7 +150,7 @@ function Gallery() {
 							<div>
 								<img src='https://picsum.photos/id/1018/1000/600/' />
 								<p className='legend'>Legend 6</p>
-							</div>
+							</div> */}
 						</Carousel>
 					</div>
 				</div>

@@ -16,7 +16,7 @@ import Category from './components/Category';
 import ButtonArrow from '@/components/ButtonArrow';
 import { deactivateIsUpdated } from '@/app/features/positionNavMenuItems/positionNavMenuItemsSlice';
 
-const Pages = () => {
+const NavMenu = () => {
 	const [isOpenPopupForCategoties, setIsOpenPopupForCategoties] =
 		useState<boolean>(false);
 	const dispatch = useAppDispatch();
@@ -126,4 +126,4 @@ const Pages = () => {
 	);
 };
 
-export default Pages;
+export default NavMenu;

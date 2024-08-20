@@ -13,16 +13,26 @@ export const navLinks: NavLink[] = [
 	{
 		icon: 'fas fa-pager',
 		label: 'Сторінки',
-		path: '/pages',
+		path: '/separate-pages',
 	},
-	// {
-	// 	icon: 'fa-solid fa-image',
-	// 	label: 'Галерея',
-	// 	path: '/gallery',
-	// },
-	// {
-	// 	icon: 'fa-solid fa-gear',
-	// 	label: 'Налаштування',
-	// 	path: '/settings',
-	// },
+	{
+		icon: 'fa-solid fa-bars',
+		label: 'Меню',
+		path: '/nav-menu',
+	},
+	{
+		icon: 'fa-solid fa-image',
+		label: 'Галерея',
+		path: '/gallery',
+	},
+	{
+		icon: 'fa-solid fa-people-group',
+		label: 'Колектив',
+		path: '/collective',
+	},
+	{
+		icon: 'fa-solid fa-gear',
+		label: 'Налаштування',
+		path: '/settings',
+	},
 ];

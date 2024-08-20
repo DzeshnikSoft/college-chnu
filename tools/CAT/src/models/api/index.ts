@@ -31,6 +31,14 @@ export interface PageDto {
 	template: TemplateDto;
 }
 
+export interface MemberCollectiveCollegeDto {
+	id?: string;
+	title: string;
+	description: string;
+	image: ImageDto;
+	index: number;
+}
+
 // ..\..\services\College.Domain\DTOs\SubCategoryDto.cs
 export interface SubCategoryDto {
 	id: string;
@@ -47,8 +55,9 @@ export interface TemplateDto {
 }
 
 export enum TemplateType {
-	Default = 0,
+	DefaultHTML = 0,
 	HeaderWithImageAndTitle = 1,
+	HeaderWithImageAndTitleHTML = 2,
 }
 
 export interface ImageDto {
